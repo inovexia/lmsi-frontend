@@ -9,7 +9,7 @@ const InviteUser = () => {
   useEffect(() => {
     const getUser = async () => {
       const usersFromServer = await fetchUsers();
-      setUser(usersFromServer);
+      usersFromServer && setUser(usersFromServer);
     };
 
     getUser();
@@ -18,14 +18,18 @@ const InviteUser = () => {
   const fetchUsers = async () => {
     // const res = await fetch('https://jsonplaceholder.typicode.com/users');
     const res = await fetch(
-      'http://localhost:6600/lmsi/teacher/members/list/11/7/1'
+      'https://lmsi-api.herokuapp.com/lmsi/teacher/members/list/11/7/1'
     );
-
-    console.log(res);
-    const data = await res.json();
-    console.log(data.response);
-
-    return data.response;
+    try {
+      const data = await res.json();
+      if (data.success) {
+        return data.response;
+      } else {
+        console.error(data.message);
+      }
+    } catch (err) {
+      console.error(err.message);
+    }
   };
   return (
     <div className={'invite-user'}>
