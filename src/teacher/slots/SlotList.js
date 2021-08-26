@@ -1,29 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 const SlotList = () => {
   const [Slots, setSlots] = useState([]);
-
-  useEffect(() => {
-    const getUser = async () => {
-      const usersFromServer = await fetchUsers();
-      setSlots(usersFromServer);
-    };
-
-    getUser();
-  }, []);
 
   const memberId = 22;
   const coachingId = 20;
   const limit = 10;
   const page = 1;
 
-  const slotData = {
-    startDate: '2021/08/24',
-    endDate: '2021/08/25',
-  };
-
-  const fetchUsers = async () => {
+  const fetchUsers = useCallback(async () => {
+    const slotData = {
+      startDate: '2021/08/24',
+      endDate: '2021/08/25',
+    };
     const response = await fetch(
       `http://localhost:6600/lmsi/teacher/slots/upcoming/get/${memberId}/${coachingId}/${limit}/${page}`,
       {
@@ -46,7 +36,16 @@ const SlotList = () => {
     console.log(data.res);
 
     return data.res;
-  };
+  }, []);
+
+  useEffect(() => {
+    const getUser = async () => {
+      const usersFromServer = await fetchUsers();
+      setSlots(usersFromServer);
+    };
+
+    getUser();
+  }, [fetchUsers]);
 
   return (
     <div className={'user-main'}>
