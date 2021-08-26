@@ -16,7 +16,14 @@ const Users = () => {
 
   const fetchUsers = async () => {
     const res = await fetch(
-      'https://lmsi-api.herokuapp.com/lmsi/teacher/members/list/11/7/1'
+      'https://lmsi-api.herokuapp.com/lmsi/teacher/members/list/11/7/1',
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Language: 'en',
+        },
+      }
     );
     try {
       const data = await res.json();
