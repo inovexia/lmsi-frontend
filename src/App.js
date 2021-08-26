@@ -5,6 +5,7 @@ import Dashboard from './teacher/Dashboard';
 import Users from './teacher/Users';
 import SlotList from './teacher/slots/SlotList';
 import MyAppointment from './teacher/slots/MyAppointment';
+import CreateSlot from './teacher/slots/CreateSlot';
 import Settings from './teacher/Settings';
 import InviteUser from './teacher/InviteUser';
 import EditUser from './teacher/EditUser';
@@ -21,6 +22,11 @@ function App() {
         <Route exact path='/teacher-dashboard' component={Dashboard} />
         <Route exact path='/teacher-dashboard/users' component={Users} />
         <Route exact path='/teacher-dashboard/slots' component={SlotList} />
+        <Route
+          exact
+          path='/teacher-dashboard/slots/create-slot'
+          component={CreateSlot}
+        />
         <Route
           exact
           path='/teacher-dashboard/slots/my-appointments'

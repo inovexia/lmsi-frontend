@@ -11,7 +11,7 @@ const SlotList = () => {
     };
 
     getUser();
-  }, []);
+  });
 
   const memberId = 22;
   const coachingId = 20;
@@ -55,9 +55,14 @@ const SlotList = () => {
           <div className={'col-12'}>
             <div className={'mb-2 d-flex justify-content-between'}>
               <h3>Slots List</h3>
-              <NavLink exact to='/teacher-dashboard/slots/my-appointments'>
-                <button className={'invite-btn'}>My Appointments</button>
-              </NavLink>
+              <div>
+                <NavLink exact to='/teacher-dashboard/slots/create-slot'>
+                  <button className={'invite-btn mr-2'}>Create Slot</button>
+                </NavLink>
+                <NavLink exact to='/teacher-dashboard/slots/my-appointments'>
+                  <button className={'invite-btn'}>My Appointments</button>
+                </NavLink>
+              </div>
             </div>
             <div className={'separator mb-5'}></div>
           </div>
