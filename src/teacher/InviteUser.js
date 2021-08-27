@@ -1,55 +1,53 @@
-import React, { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
-import KeyboardBackspaceSharpIcon from '@material-ui/icons/KeyboardBackspaceSharp';
-import './InviteUser.css';
+import React, { useCallback, useEffect, useState } from 'react'
+import { NavLink } from 'react-router-dom'
+import KeyboardBackspaceSharpIcon from '@material-ui/icons/KeyboardBackspaceSharp'
+import './InviteUser.css'
 
 const InviteUser = () => {
-  const [users, setUser] = useState([]);
+  const [users, setUser] = useState([]),
+    fetchUsers = async () => {
+      const res = await fetch(
+        'https://lmsi-api.herokuapp.com/lmsi/teacher/members/list/11/7/1',
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            language: 'en',
+          },
+        }
+      )
+      try {
+        const data = await res.json()
+        if (data.success) {
+          return data.response
+        } else {
+          console.error(data.message)
+        }
+      } catch (err) {
+        console.error(err.message)
+      }
+    },
+    getUser = useCallback(async () => {
+      const usersFromServer = await fetchUsers()
+      usersFromServer && setUser(usersFromServer)
+    }, [])
 
   useEffect(() => {
-    const getUser = async () => {
-      const usersFromServer = await fetchUsers();
-      usersFromServer && setUser(usersFromServer);
-    };
+    getUser()
+  }, [getUser])
 
-    getUser();
-  }, []);
-
-  const fetchUsers = async () => {
-    // const res = await fetch('https://jsonplaceholder.typicode.com/users');
-    const res = await fetch(
-      'https://lmsi-api.herokuapp.com/lmsi/teacher/members/list/11/7/1',
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Language: 'en',
-        },
-      }
-    );
-    try {
-      const data = await res.json();
-      if (data.success) {
-        return data.response;
-      } else {
-        console.error(data.message);
-      }
-    } catch (err) {
-      console.error(err.message);
-    }
-  };
   return (
     <div className={'invite-user'}>
       <div className={'row'}>
         <div className={'col-12'}>
           <div className={'mb-2 d-flex justify-content-between'}>
             <h3>
-              <NavLink exact to='/teacher-dashboard/users'>
+              <NavLink exact to="/teacher-dashboard/users">
                 <KeyboardBackspaceSharpIcon className={'icon'} />
               </NavLink>
               <span>Invite Users</span>
             </h3>
-            <NavLink exact to='/teacher-dashboard/users/invite'>
+            <NavLink exact to="/teacher-dashboard/users/invite">
               <button className={'invite-btn'}>Invite User</button>
             </NavLink>
           </div>
@@ -58,18 +56,18 @@ const InviteUser = () => {
             <div className={'col-sm-6 mb-2'}>
               <div className={'card'}>
                 <div className={'card-body'}>
-                  <form action='#' method='post'>
+                  <form action="#" method="post">
                     <h4 className={'card-title'}>Send Invite By Email</h4>
                     <div className={'input-group'}>
                       <input
-                        type='email'
-                        name='email'
-                        id='1'
-                        placeholder='Enter user email-id'
+                        type="email"
+                        name="email"
+                        id="1"
+                        placeholder="Enter user email-id"
                       />
                       <div className={'input-group-append'}>
                         <button
-                          type='submit'
+                          type="submit"
                           className={'btn btn-primary default'}
                         >
                           Invite
@@ -83,18 +81,18 @@ const InviteUser = () => {
             <div className={'col-sm-6'}>
               <div className={'card'}>
                 <div className={'card-body'}>
-                  <form action='#' method='post'>
+                  <form action="#" method="post">
                     <h4 className={'card-title'}>Send Invite By Mobile</h4>
                     <div className={'input-group'}>
                       <input
-                        type='tel'
-                        name='phone'
-                        id='2'
-                        placeholder='Enter mobile number'
+                        type="tel"
+                        name="phone"
+                        id="2"
+                        placeholder="Enter mobile number"
                       />
                       <div className={'input-group-append'}>
                         <button
-                          type='submit'
+                          type="submit"
                           className={'btn btn-primary default'}
                         >
                           Invite
@@ -117,7 +115,7 @@ const InviteUser = () => {
                           'card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center'
                         }
                       >
-                        <a href='##' className={'w-100 w-md-30'}>
+                        <a href="##" className={'w-100 w-md-30'}>
                           <p className={'list-item-heading mb-0 truncate'}>
                             {user.serial_id}
                           </p>
@@ -134,13 +132,13 @@ const InviteUser = () => {
                         >
                           <button
                             className={'btn btn-sm btn-outline-primary mr-2'}
-                            type='button'
+                            type="button"
                           >
                             Resend
                           </button>
                           <button
                             className={'btn btn-sm btn-outline-danger'}
-                            type='button'
+                            type="button"
                           >
                             Remove
                           </button>
@@ -150,12 +148,12 @@ const InviteUser = () => {
                   </div>
                 </div>
               </div>
-            );
+            )
           })}
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default InviteUser;
+export default InviteUser

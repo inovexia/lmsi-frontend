@@ -1,19 +1,19 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useCallback, useEffect, useState } from 'react'
+import { NavLink } from 'react-router-dom'
 
 const SlotList = () => {
-  const [Slots, setSlots] = useState([]);
+  const [Slots, setSlots] = useState([])
 
-  const memberId = 22;
-  const coachingId = 20;
-  const limit = 10;
-  const page = 1;
+  const memberId = 22
+  const coachingId = 20
+  const limit = 10
+  const page = 1
 
   const fetchUsers = useCallback(async () => {
     const slotData = {
       startDate: '2021/08/24',
       endDate: '2021/08/25',
-    };
+    }
     const response = await fetch(
       `https://lmsi-api.herokuapp.com/lmsi/teacher/slots/upcoming/get/${memberId}/${coachingId}/${limit}/${page}`,
       {
@@ -23,29 +23,29 @@ const SlotList = () => {
         credentials: 'same-origin',
         headers: {
           'Content-Type': 'application/json',
-          Language: 'en',
+          language: 'en',
         },
         body: JSON.stringify(slotData),
       }
-    );
+    )
 
-    console.log(response);
+    console.log(response)
 
-    const data = await response.json();
-    console.log(data);
-    console.log(data.res);
+    const data = await response.json()
+    console.log(data)
+    console.log(data.res)
 
-    return data.res;
-  }, []);
+    return data.res
+  }, [])
 
   useEffect(() => {
     const getUser = async () => {
-      const usersFromServer = await fetchUsers();
-      setSlots(usersFromServer);
-    };
+      const usersFromServer = await fetchUsers()
+      setSlots(usersFromServer)
+    }
 
-    getUser();
-  }, [fetchUsers]);
+    getUser()
+  }, [fetchUsers])
 
   return (
     <div className={'user-main'}>
@@ -55,10 +55,10 @@ const SlotList = () => {
             <div className={'mb-2 d-flex justify-content-between'}>
               <h3>Slots List</h3>
               <div>
-                <NavLink exact to='/teacher-dashboard/slots/create-slot'>
+                <NavLink exact to="/teacher-dashboard/slots/create-slot">
                   <button className={'invite-btn mr-2'}>Create Slot</button>
                 </NavLink>
-                <NavLink exact to='/teacher-dashboard/slots/my-appointments'>
+                <NavLink exact to="/teacher-dashboard/slots/my-appointments">
                   <button className={'invite-btn'}>My Appointments</button>
                 </NavLink>
               </div>
@@ -130,12 +130,12 @@ const SlotList = () => {
                     </div>
                   </div>
                   <div className={'card-footer'}>
-                    <NavLink exact to='/teacher-dashboard/slots/create'>
+                    <NavLink exact to="/teacher-dashboard/slots/create">
                       <button className={'btn btn-sm btn-primary mr-3'}>
                         Create Common Slots
                       </button>
                     </NavLink>
-                    <NavLink exact to='/teacher-dashboard/slots/create-course'>
+                    <NavLink exact to="/teacher-dashboard/slots/create-course">
                       <button className={'btn btn-sm btn-primary mr-1'}>
                         Create Course Slot
                       </button>
@@ -144,11 +144,11 @@ const SlotList = () => {
                 </div>
               </div>
             </div>
-          );
+          )
         })}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default SlotList;
+export default SlotList

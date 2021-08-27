@@ -11,7 +11,7 @@ body {
 }
 
 .mb-2 {
-  margin-bottom: .5rem !important;
+  margin-bottom: 0.5rem !important;
 }
 
 .separator {
@@ -36,11 +36,10 @@ body {
 }
 
 .card {
-  border-radius: .75rem;
+  border-radius: 0.75rem;
   border: initial;
   background: #fff;
-  box-shadow: 0 1px 15px rgb(0 0 0 / 4%),
-  0 1px 6px rgb(0 0 0 / 4%);
+  box-shadow: 0 1px 15px rgb(0 0 0 / 4%), 0 1px 6px rgb(0 0 0 / 4%);
   position: relative;
   display: flex;
   flex-direction: column;
@@ -69,4 +68,3 @@ body {
   flex: 1 1 auto;
   /* width: 1%; */
 }
-

@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import SettingsIcon from '@material-ui/icons/Settings';
-import HelpIcon from '@material-ui/icons/Help';
-import './Navbar.css';
-import Sidebar from './Sidebar';
-import MenuIcon from '../svg/MenuIcon';
-import MobileMenuIcon from '../svg/MobileMenuIcon';
+import React, { useState } from 'react'
+import { NavLink } from 'react-router-dom'
+import NotificationsIcon from '@material-ui/icons/Notifications'
+import AccountCircleIcon from '@material-ui/icons/AccountCircle'
+import SettingsIcon from '@material-ui/icons/Settings'
+import HelpIcon from '@material-ui/icons/Help'
+import './Navbar.css'
+import Sidebar from './Sidebar'
+import MenuIcon from '../svg/MenuIcon'
+import MobileMenuIcon from '../svg/MobileMenuIcon'
 
 const Navbar = () => {
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(false)
 
   const handleClick = () => {
-    setShow(!show);
-  };
+    setShow(!show)
+  }
   return (
     <>
       <nav className={'navbar fixed-top'}>
@@ -29,45 +29,45 @@ const Navbar = () => {
             <MobileMenuIcon />
           </div>
 
-          <NavLink exact to='/' className={'logo'}>
+          <NavLink exact to="/" className={'logo'}>
             <p>LMSI APP</p>
           </NavLink>
 
-          <div className='search'>
-            <input type='text' placeholder='Search' />
+          <div className="search">
+            <input type="text" placeholder="Search" />
           </div>
-          <NavLink exact to='/teacher-dashboard' className={'nav-item'}>
+          <NavLink exact to="/teacher-dashboard" className={'nav-item'}>
             <p>Dashboard</p>
           </NavLink>
-          <NavLink exact to='/teacher-dashboard/users' className={'logo'}>
+          <NavLink exact to="/teacher-dashboard/users" className={'logo'}>
             <p>Users</p>
           </NavLink>
-          <NavLink exact to='/teacher-dashboard/slots' className={'logo'}>
+          <NavLink exact to="/teacher-dashboard/slots" className={'logo'}>
             <p>Slots</p>
           </NavLink>
-          <NavLink exact to='/teacher-dashboard/filters' className={'logo'}>
+          <NavLink exact to="/teacher-dashboard/filters" className={'logo'}>
             <p>Filters</p>
           </NavLink>
         </div>
 
         <div className={'d-flex align-items-center navbar-right'}>
-          <NavLink exact to='#'>
-            <NotificationsIcon fontSize='medium' className={'icon'} />
+          <NavLink exact to="#">
+            <NotificationsIcon fontSize="medium" className={'icon'} />
           </NavLink>
-          <NavLink exact to='#'>
-            <HelpIcon fontSize='medium' className={'icon'} />
+          <NavLink exact to="#">
+            <HelpIcon fontSize="medium" className={'icon'} />
           </NavLink>
-          <NavLink exact to='/teacher-dashboard/settings'>
-            <SettingsIcon fontSize='medium' className={'icon'} />
+          <NavLink exact to="/teacher-dashboard/settings">
+            <SettingsIcon fontSize="medium" className={'icon'} />
           </NavLink>
-          <NavLink exact to='#'>
-            <AccountCircleIcon fontSize='medium' className={'icon'} />
+          <NavLink exact to="#">
+            <AccountCircleIcon fontSize="medium" className={'icon'} />
           </NavLink>
         </div>
       </nav>
       {show ? <Sidebar /> : ''}AccountCircleIcon
     </>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar

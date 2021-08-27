@@ -1,7 +1,7 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import KeyboardBackspaceSharpIcon from '@material-ui/icons/KeyboardBackspaceSharp';
-import UserCard from './UserCard';
+import React from 'react'
+import { NavLink } from 'react-router-dom'
+import KeyboardBackspaceSharpIcon from '@material-ui/icons/KeyboardBackspaceSharp'
+import UserCard from './UserCard'
 
 const ChangePassword = () => {
   return (
@@ -10,12 +10,12 @@ const ChangePassword = () => {
         <div className={'col-12'}>
           <div className={'mb-2 d-flex justify-content-between'}>
             <h3>
-              <NavLink exact to='/teacher-dashboard/users'>
+              <NavLink exact to="/teacher-dashboard/users">
                 <KeyboardBackspaceSharpIcon className={'icon'} />
               </NavLink>
               <span>Change Password</span>
             </h3>
-            <NavLink exact to='/teacher-dashboard/users/invite'>
+            <NavLink exact to="/teacher-dashboard/users/invite">
               <button className={'invite-btn'}>Invite User</button>
             </NavLink>
           </div>
@@ -31,7 +31,7 @@ const ChangePassword = () => {
                 Send create password link on user's email and primary contact
                 number. User can create their own password using that link
               </p>
-              <NavLink exact to='#'>
+              <NavLink exact to="#">
                 <button className={'btn btn-primary'}>Send Link</button>
               </NavLink>
             </div>
@@ -43,7 +43,7 @@ const ChangePassword = () => {
                 Reset and send a system generated password on user's email and
                 primary contact number. User can login with the new password
               </p>
-              <NavLink exact to='#'>
+              <NavLink exact to="#">
                 <button className={'btn btn-primary'}>Send Link</button>
               </NavLink>
             </div>
@@ -52,7 +52,7 @@ const ChangePassword = () => {
         <UserCard />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ChangePassword;
+export default ChangePassword

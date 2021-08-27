@@ -1,5 +1,5 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React from 'react'
+import { NavLink } from 'react-router-dom'
 
 const UserCard = () => {
   return (
@@ -20,7 +20,7 @@ const UserCard = () => {
             >
               Roshan
             </h4>
-            <button type='button' className={'btn btn-sm btn-outline-info'}>
+            <button type="button" className={'btn btn-sm btn-outline-info'}>
               Edit
             </button>
           </div>
@@ -31,7 +31,7 @@ const UserCard = () => {
               'list-group-item border-left-0 border-right-0 user-menu-list bg-primary'
             }
           >
-            <NavLink exact to='edit' className={'d-block text-white'}>
+            <NavLink exact to="edit" className={'d-block text-white'}>
               Basic Details
             </NavLink>
           </li>
@@ -43,7 +43,7 @@ const UserCard = () => {
             <NavLink
               style={{ color: '#3a3a3a' }}
               exact
-              to='change-password'
+              to="change-password"
               className={'d-block'}
             >
               Change Password
@@ -57,7 +57,7 @@ const UserCard = () => {
             <NavLink
               style={{ color: '#3a3a3a' }}
               exact
-              to='enrolled-course'
+              to="enrolled-course"
               className={'d-block'}
             >
               Enrolled Courses
@@ -71,7 +71,7 @@ const UserCard = () => {
             <NavLink
               style={{ color: '#3a3a3a' }}
               exact
-              to='test-taken'
+              to="test-taken"
               className={'d-block'}
             >
               Tests Taken
@@ -85,7 +85,7 @@ const UserCard = () => {
             <NavLink
               style={{ color: '#3a3a3a' }}
               exact
-              to='#'
+              to="#"
               className={'d-block'}
             >
               Delete Account
@@ -94,7 +94,7 @@ const UserCard = () => {
         </ul>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default UserCard;
+export default UserCard

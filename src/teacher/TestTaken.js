@@ -1,7 +1,7 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import KeyboardBackspaceSharpIcon from '@material-ui/icons/KeyboardBackspaceSharp';
-import UserCard from './UserCard';
+import React from 'react'
+import { NavLink } from 'react-router-dom'
+import KeyboardBackspaceSharpIcon from '@material-ui/icons/KeyboardBackspaceSharp'
+import UserCard from './UserCard'
 
 const TestTaken = () => {
   return (
@@ -10,12 +10,12 @@ const TestTaken = () => {
         <div className={'col-12'}>
           <div className={'mb-2 d-flex justify-content-between'}>
             <h3>
-              <NavLink exact to='/teacher-dashboard/users'>
+              <NavLink exact to="/teacher-dashboard/users">
                 <KeyboardBackspaceSharpIcon className={'icon'} />
               </NavLink>
               <span>Tests Taken</span>
             </h3>
-            <NavLink exact to='/teacher-dashboard/users/invite'>
+            <NavLink exact to="/teacher-dashboard/users/invite">
               <button className={'invite-btn'}>Invite User</button>
             </NavLink>
           </div>
@@ -33,7 +33,7 @@ const TestTaken = () => {
         <UserCard />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default TestTaken;
+export default TestTaken

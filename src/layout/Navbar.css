@@ -8,8 +8,7 @@
   height: 90px;
   background-color: #ffffff;
   padding: 1.5rem 0;
-  box-shadow: 0 1px 15px rgb(0 0 0 / 4%),
-  0 1px 6px rgb(0 0 0 / 4%);
+  box-shadow: 0 1px 15px rgb(0 0 0 / 4%), 0 1px 6px rgb(0 0 0 / 4%);
 }
 
 .navbar .navbar-left {
@@ -22,14 +21,13 @@
   color: #8f8f8f;
   text-align: center;
   cursor: pointer;
-} 
+}
 
 .navbar .menu-button .main {
   fill: #3a3a3a;
   transition: fill 300ms;
   width: 10px;
 }
-
 
 .navbar .menu-button svg {
   height: 12px;
@@ -93,4 +91,3 @@
   color: #007bff;
   margin-right: 20px;
 }
-
