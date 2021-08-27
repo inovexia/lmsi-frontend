@@ -18,7 +18,7 @@ const InviteUser = () => {
       )
       try {
         const data = await res.json()
-        if (data.success) {
+        if (data.API_STATUS) {
           return data.response
         } else {
           console.error(data.message)
