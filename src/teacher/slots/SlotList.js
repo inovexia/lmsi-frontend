@@ -14,13 +14,10 @@ const SlotList = () => {
       startDate: '2021/08/24',
       endDate: '2021/08/25',
     }
-    const response = await fetch(
+    const res = await fetch(
       `https://lmsi-api.herokuapp.com/lmsi/teacher/slots/upcoming/get/${memberId}/${coachingId}/${limit}/${page}`,
       {
         method: 'POST',
-        mode: 'cors',
-        cache: 'no-cache',
-        credentials: 'same-origin',
         headers: {
           'Content-Type': 'application/json',
           language: 'en',
@@ -28,14 +25,16 @@ const SlotList = () => {
         body: JSON.stringify(slotData),
       }
     )
-
-    console.log(response)
-
-    const data = await response.json()
-    console.log(data)
-    console.log(data.res)
-
-    return data.res
+    try {
+      const data = await res.json()
+      if (data.API_STATUS) {
+        return data.res
+      } else {
+        console.error(data.message)
+      }
+    } catch (err) {
+      console.error(err.message)
+    }
   }, [])
 
   useEffect(() => {
