@@ -1,6 +1,6 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import './Sidebar.css';
+import React from 'react'
+import { NavLink } from 'react-router-dom'
+import './Sidebar.css'
 
 const Sidebar = () => {
   return (
@@ -12,8 +12,8 @@ const Sidebar = () => {
               <li className={'nav-item'}>
                 <NavLink
                   exact
-                  activeClassName='active_class'
-                  to='/teacher-dashboard'
+                  activeClassName="active_class"
+                  to="/teacher-dashboard"
                 >
                   Dashboard
                 </NavLink>
@@ -21,8 +21,8 @@ const Sidebar = () => {
               <li>
                 <NavLink
                   exact
-                  activeClassName='active_class'
-                  to='/teacher-dashboard/users'
+                  activeClassName="active_class"
+                  to="/teacher-dashboard/users"
                 >
                   Users
                 </NavLink>
@@ -30,8 +30,8 @@ const Sidebar = () => {
               <li>
                 <NavLink
                   exact
-                  activeClassName='active_class'
-                  to='/teacher-dashboard/slots'
+                  activeClassName="active_class"
+                  to="/teacher-dashboard/slots"
                 >
                   Slots
                 </NavLink>
@@ -39,8 +39,8 @@ const Sidebar = () => {
               <li>
                 <NavLink
                   exact
-                  activeClassName='active_class'
-                  to='/teacher-dashboard/settings'
+                  activeClassName="active_class"
+                  to="/teacher-dashboard/settings"
                 >
                   Settings
                 </NavLink>
@@ -50,7 +50,7 @@ const Sidebar = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Sidebar;
+export default Sidebar

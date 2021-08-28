@@ -1,28 +1,41 @@
-import React, { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
-import './Users.css';
+import React, { useState, useEffect } from 'react'
+import { NavLink } from 'react-router-dom'
+import './Users.css'
 
 const Users = () => {
-  const [users, setUser] = useState([]);
+  const [users, setUser] = useState([])
 
   useEffect(() => {
     const getUser = async () => {
-      const usersFromServer = await fetchUsers();
-      setUser(usersFromServer);
-    };
+      const usersFromServer = await fetchUsers()
+      usersFromServer && setUser(usersFromServer)
+    }
 
-    getUser();
-  }, []);
+    getUser()
+  }, [])
 
   const fetchUsers = async () => {
     const res = await fetch(
-      'http://localhost:6600/lmsi/teacher/members/list/11/7/1'
-    );
-    const data = await res.json();
-    console.log(data.response);
-
-    return data.response;
-  };
+      'https://lmsi-api.herokuapp.com/lmsi/teacher/members/list/11/7/1',
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          language: 'en',
+        },
+      }
+    )
+    try {
+      const data = await res.json()
+      if (data.API_STATUS) {
+        return data.response
+      } else {
+        console.error(data.message)
+      }
+    } catch (err) {
+      console.error(err.message)
+    }
+  }
 
   return (
     <div className={'user-main'}>
@@ -32,7 +45,7 @@ const Users = () => {
             <div className={'col-12'}>
               <div className={'mb-2 d-flex justify-content-between'}>
                 <h3>Users List</h3>
-                <NavLink exact to='/teacher-dashboard/users/invite'>
+                <NavLink exact to="/teacher-dashboard/users/invite">
                   <button className={'invite-btn'}>Invite User</button>
                 </NavLink>
               </div>
@@ -53,7 +66,7 @@ const Users = () => {
                       >
                         <NavLink
                           exact
-                          to='/teacher-dashboard/users/edit'
+                          to="/teacher-dashboard/users/edit"
                           className={'w-100 w-md-30'}
                         >
                           <p className={'list-item-heading mb-0 truncate'}>
@@ -74,13 +87,13 @@ const Users = () => {
                         >
                           <button
                             className={'btn btn-sm btn-outline-primary mr-2'}
-                            type='button'
+                            type="button"
                           >
                             Enable
                           </button>
                           <button
                             className={'btn btn-sm btn-outline-danger'}
-                            type='button'
+                            type="button"
                           >
                             Disable
                           </button>
@@ -90,12 +103,12 @@ const Users = () => {
                   </div>
                 </div>
               </div>
-            );
+            )
           })}
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Users;
+export default Users

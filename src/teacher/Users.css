@@ -1,5 +1,5 @@
 body {
-background-color: #f8f8f8;
+  background-color: #f8f8f8;
 }
 
 .user-main {
@@ -32,11 +32,10 @@ background-color: #f8f8f8;
 }
 
 .card {
-  border-radius: .75rem;
+  border-radius: 0.75rem;
   border: initial;
   background: #fff;
-  box-shadow: 0 1px 15px rgb(0 0 0 / 4%),
-    0 1px 6px rgb(0 0 0 / 4%);
+  box-shadow: 0 1px 15px rgb(0 0 0 / 4%), 0 1px 6px rgb(0 0 0 / 4%);
   position: relative;
   display: flex;
   flex-direction: column;

@@ -21,58 +21,51 @@
   background: white;
   z-index: 3;
   position: fixed;
-  transition: transform 300ms,
-  -webkit-transform 300ms;
+  transition: transform 300ms, -webkit-transform 300ms;
   padding-top: 10px;
   padding-bottom: 10px;
   left: 0;
-  box-shadow: 0 3px 30px rgb(0 0 0 / 10%),
-  0 3px 20px rgb(0 0 0 / 10%);
-  }
+  box-shadow: 0 3px 30px rgb(0 0 0 / 10%), 0 3px 20px rgb(0 0 0 / 10%);
+}
 
-  .sidebar .main-menu .scroll {
-    padding-right: unset;
-    margin-right: unset;
-    height: 100%;
-  }
+.sidebar .main-menu .scroll {
+  padding-right: unset;
+  margin-right: unset;
+  height: 100%;
+}
 
-  .sidebar .scrollbar-container {
-    margin-right: 0;
-    padding-right: 0;
-    position: relative;
-    height: 100%;
-  }
+.sidebar .scrollbar-container {
+  margin-right: 0;
+  padding-right: 0;
+  position: relative;
+  height: 100%;
+}
 
-  .sidebar .scrollbar-container .ps {
-    overflow: hidden !important;
-    overflow-anchor: none;
-    touch-action: auto;
-  }
+.sidebar .scrollbar-container .ps {
+  overflow: hidden !important;
+  overflow-anchor: none;
+  touch-action: auto;
+}
 
-  .sidebar .main-menu ul li {
-    position: relative;
-  }
+.sidebar .main-menu ul li {
+  position: relative;
+}
 
-  .sidebar .main-menu ul li a {
-    height: 110px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    border-bottom: 1px solid #d7d7d7;
-    color: #3a3a3a;
-    transition: background 300ms;
-    text-decoration: none;
-  }
+.sidebar .main-menu ul li a {
+  height: 110px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  border-bottom: 1px solid #d7d7d7;
+  color: #3a3a3a;
+  transition: background 300ms;
+  text-decoration: none;
+}
 
-  /* .sidebar .main-menu ul li a:hover {
-    background-color: #535353;
-    color: white;
-  } */
-
-  .sidebar .main-menu ul li .active_class {
-    color: #922c88;
-  }
+.sidebar .main-menu ul li .active_class {
+  color: #922c88;
+}
