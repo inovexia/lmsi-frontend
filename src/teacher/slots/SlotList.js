@@ -15,7 +15,7 @@ const SlotList = () => {
       endDate: '2021/08/25',
     }
     const res = await fetch(
-      `https://lmsi-api.herokuapp.com/lmsi/teacher/slots/upcoming/get/${memberId}/${coachingId}/${limit}/${page}`,
+      `https://lmsi-api.herokuapp.com/api/teacher/slots/upcoming/get/${memberId}/${coachingId}/${limit}/${page}`,
       {
         method: 'POST',
         headers: {

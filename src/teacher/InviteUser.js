@@ -7,7 +7,7 @@ const InviteUser = () => {
   const [users, setUser] = useState([]),
     fetchUsers = async () => {
       const res = await fetch(
-        'https://lmsi-api.herokuapp.com/lmsi/teacher/members/list/11/7/1',
+        'https://lmsi-api.herokuapp.com/api/teacher/members/list/11/7/1',
         {
           method: 'GET',
           headers: {
