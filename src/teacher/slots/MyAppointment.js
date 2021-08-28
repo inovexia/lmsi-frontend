@@ -20,6 +20,7 @@ const MyAppointment = () => {
               </NavLink>
             </div>
             <div className={'separator mb-5'}></div>
+            <div className={'card-mb-2'}></div>
           </div>
         </div>
       </div>
