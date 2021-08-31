@@ -75,7 +75,7 @@ const SlotList = () => {
                     <h4 className={'pb-1 border-bottom mb-3'}>
                       {slot.slot_title}
                     </h4>
-                    <div className={'mx-n2 my-n1 text-center text-md-left'}>
+                    <div className={'mx-n2 my-n1 text-center text-md-start'}>
                       <div className={'alert alert-danger mb-0'}>
                         <ol>
                           <li className={'ml-2'}>
