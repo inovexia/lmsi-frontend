@@ -76,56 +76,20 @@ const SlotList = () => {
                       {slot.slot_title}
                     </h4>
                     <div className={'mx-n2 my-n1 text-center text-md-left'}>
-                      <div className={'alert alert-danger mb-0'}>
-                        <ol>
-                          <li className={'ml-2'}>
-                            <span
-                              style={{
-                                fontWeight: 'bold',
-                              }}
-                            >
-                              Type :{' '}
-                            </span>
-                            {slot.slot_type}
-                          </li>
-                          <li className={'ml-2 mt-3'}>
-                            <span style={{ fontWeight: 'bold' }}>
-                              Learning Mode :{' '}
-                            </span>
-                            {slot.learning_mode}
-                          </li>
-                          <li className={'ml-2 mt-3'}>
-                            <span style={{ fontWeight: 'bold' }}>Limit : </span>
-                            {slot.slot_limit}
-                          </li>
-                          <li className={'ml-2 mt-3'}>
-                            <span style={{ fontWeight: 'bold' }}>Price : </span>
-                            {slot.slot_price}
-                          </li>
-                          <li className={'ml-2 mt-3'}>
-                            <span style={{ fontWeight: 'bold' }}>Day : </span>
-                            {slot.slot_day}
-                          </li>
-                          <li className={'ml-2 mt-3'}>
-                            <span style={{ fontWeight: 'bold' }}>
-                              Start Time :{' '}
-                            </span>
-                            {slot.start_time}
-                          </li>
-                          <li className={'ml-2 mt-3'}>
-                            <span style={{ fontWeight: 'bold' }}>
-                              End Time :{' '}
-                            </span>
-                            {slot.end_time}
-                          </li>
-                          <li className={'ml-2 mt-3'}>
-                            <span style={{ fontWeight: 'bold' }}>
-                              Duration :{' '}
-                            </span>
-                            {slot.slot_duration}
-                          </li>
-                        </ol>
-                      </div>
+                      <button
+                        className={
+                          'btn btn-outline-primary default book-slot m-1 px-md-5'
+                        }
+                        type="button"
+                      >
+                        <span className={'d-block ml-n4 mr-4'}>
+                          {slot.start_time}
+                        </span>
+                        To
+                        <span className={'d-block mr-n4 ml-4'}>
+                          {slot.end_time}
+                        </span>
+                      </button>
                     </div>
                   </div>
                   <div className={'card-footer'}>
