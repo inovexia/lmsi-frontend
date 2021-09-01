@@ -38,8 +38,8 @@ const CreateSlot = () => {
                         Create Slot
                       </h1>
                       <div>
-                        <div className={'form-row'}>
-                          <div className={'form-group col-md-12 mt-3'}>
+                        <div className={'form-row mt-3'}>
+                          <div className={'form-group col-md-12 '}>
                             <label
                               className={
                                 'form-label text-primary font-weight-bold'
@@ -54,7 +54,7 @@ const CreateSlot = () => {
                             />
                           </div>
                         </div>
-                        <div className={'form-row'}>
+                        <div className={'form-row mt-3'}>
                           <div className={'form-group col-md-12'}>
                             <label
                               className={
@@ -71,7 +71,7 @@ const CreateSlot = () => {
                           </div>
                         </div>
 
-                        <div className={'form-row'}>
+                        <div className={'form-row mt-3'}>
                           <div className={'form-group col-md-12'}>
                             <label
                               className={
@@ -87,7 +87,7 @@ const CreateSlot = () => {
                             />
                           </div>
                         </div>
-                        <div className={'form-row'}>
+                        <div className={'form-row mt-3'}>
                           <div className={'form-group col-md-12'}>
                             <label
                               className={
@@ -104,9 +104,10 @@ const CreateSlot = () => {
                           </div>
                         </div>
 
-                        <div className={'form-row'}>
-                          <div className={'form-group col-md-12'}>
+                        <div className={'form-row row mt-3'}>
+                          <div className={'form-group col-md-6'}>
                             <label
+                              htmlFor="start_time"
                               className={
                                 'form-label text-primary font-weight-bold'
                               }
@@ -114,15 +115,17 @@ const CreateSlot = () => {
                               Start Time
                             </label>
                             <input
-                              type="text"
                               className={'form-control'}
+                              type="time"
+                              name="start_time"
+                              id="start_time"
+                              defaultValue="14:06"
                               required
                             />
                           </div>
-                        </div>
-                        <div className={'form-row'}>
-                          <div className={'form-group col-md-12'}>
+                          <div className={'form-group col-md-6'}>
                             <label
+                              htmlFor="end_time"
                               className={
                                 'form-label text-primary font-weight-bold'
                               }
@@ -130,17 +133,44 @@ const CreateSlot = () => {
                               End Time
                             </label>
                             <input
-                              type="text"
                               className={'form-control'}
+                              type="time"
+                              name="end_time"
+                              id="end_time"
+                              defaultValue="15:06"
                               required
                             />
                           </div>
                         </div>
+
+                        <div className={'form-row mt-3'}>
+                          <div className={'form-group col-md-12'}>
+                            <label
+                              className={
+                                'form-label text-primary font-weight-bold'
+                              }
+                              htmlFor="slot_date"
+                            >
+                              Start Date
+                            </label>
+                            <input
+                              className={'form-control'}
+                              type="date"
+                              name="slot_date"
+                              id="slot_date"
+                              min="2021-09-01"
+                              max="2021-11-30"
+                              defaultValue="2021-09-01"
+                              required
+                            />
+                          </div>
+                        </div>
+
                         <div className={'mt-3'}>
                           <div className={'mb-3'}>
                             <div className={''}>
                               <input
-                                className={'mr-2'}
+                                className={'me-2'}
                                 style={{ width: '15px', height: '15px' }}
                                 type="checkbox"
                                 checked={isChecked}
@@ -154,16 +184,17 @@ const CreateSlot = () => {
                             </div>
                           </div>
                           {isChecked ? (
+                            <>
                             <div className={'mb-3'}>
                               <div
                                 className={
-                                  'custom-control custom-checkbox mr-4 d-inline-block'
+                                  'custom-control custom-checkbox me-4 d-inline-block'
                                 }
                               >
                                 <input
                                   type="checkbox"
                                   id="day1"
-                                  className={'custom-control-input'}
+                                  className={'custom-control-input me-2'}
                                 />
                                 <label
                                   htmlFor="day1"
@@ -174,13 +205,13 @@ const CreateSlot = () => {
                               </div>
                               <div
                                 className={
-                                  'custom-control custom-checkbox mr-4 d-inline-block'
+                                  'custom-control custom-checkbox me-4 d-inline-block'
                                 }
                               >
                                 <input
                                   type="checkbox"
                                   id="day2"
-                                  className={'custom-control-input'}
+                                  className={'custom-control-input me-2'}
                                 />
                                 <label
                                   htmlFor="day2"
@@ -191,13 +222,13 @@ const CreateSlot = () => {
                               </div>
                               <div
                                 className={
-                                  'custom-control custom-checkbox mr-4 d-inline-block'
+                                  'custom-control custom-checkbox me-4 d-inline-block'
                                 }
                               >
                                 <input
                                   type="checkbox"
                                   id="day3"
-                                  className={'custom-control-input'}
+                                  className={'custom-control-input me-2'}
                                 />
                                 <label
                                   htmlFor="day3"
@@ -208,13 +239,13 @@ const CreateSlot = () => {
                               </div>
                               <div
                                 className={
-                                  'custom-control custom-checkbox mr-4 d-inline-block'
+                                  'custom-control custom-checkbox me-4 d-inline-block'
                                 }
                               >
                                 <input
                                   type="checkbox"
                                   id="day4"
-                                  className={'custom-control-input'}
+                                  className={'custom-control-input me-2'}
                                 />
                                 <label
                                   htmlFor="day4"
@@ -225,13 +256,13 @@ const CreateSlot = () => {
                               </div>
                               <div
                                 className={
-                                  'custom-control custom-checkbox mr-4 d-inline-block'
+                                  'custom-control custom-checkbox me-4 d-inline-block'
                                 }
                               >
                                 <input
                                   type="checkbox"
                                   id="day5"
-                                  className={'custom-control-input'}
+                                  className={'custom-control-input me-2'}
                                 />
                                 <label
                                   htmlFor="day5"
@@ -242,13 +273,13 @@ const CreateSlot = () => {
                               </div>
                               <div
                                 className={
-                                  'custom-control custom-checkbox mr-4 d-inline-block'
+                                  'custom-control custom-checkbox me-4 d-inline-block'
                                 }
                               >
                                 <input
                                   type="checkbox"
                                   id="day6"
-                                  className={'custom-control-input'}
+                                  className={'custom-control-input me-2'}
                                 />
                                 <label
                                   htmlFor="day6"
@@ -259,13 +290,13 @@ const CreateSlot = () => {
                               </div>
                               <div
                                 className={
-                                  'custom-control custom-checkbox mr-4 d-inline-block'
+                                  'custom-control custom-checkbox me-4 d-inline-block'
                                 }
                               >
                                 <input
                                   type="checkbox"
                                   id="day7"
-                                  className={'custom-control-input'}
+                                  className={'custom-control-input me-2'}
                                 />
                                 <label
                                   htmlFor="day7"
@@ -275,6 +306,29 @@ const CreateSlot = () => {
                                 </label>
                               </div>
                             </div>
+                            <div className={'form-row mt-3 mb-3'}>
+                          <div className={'form-group col-md-12'}>
+                            <label
+                              className={
+                                'form-label text-primary font-weight-bold'
+                              }
+                              htmlFor="end_date"
+                            >
+                              End Date
+                            </label>
+                            <input
+                              className={'form-control'}
+                              type="date"
+                              name="end_date"
+                              id="end_date"
+                              min="2021-09-01"
+                              max="2021-11-30"
+                              defaultValue="2021-09-01"
+                              required
+                            />
+                          </div>
+                        </div>
+                            </>
                           ) : (
                             ''
                           )}
@@ -282,14 +336,14 @@ const CreateSlot = () => {
                         <div className={'form-group'}>
                           <label
                             htmlFor=""
-                            className={'text-primary font-weight-bold'}
+                            className={'text-primary font-weight-bold mb-2'}
                           >
                             Slot Mode
                           </label>
                           <div className={'custom-control custom-radio'}>
                             <input
                               type="radio"
-                              className={'custom-control-input'}
+                              className={'custom-control-input me-2'}
                               id="Offline"
                               name="slot_mode"
                               value="1"
@@ -305,7 +359,7 @@ const CreateSlot = () => {
                           <div className={'custom-control custom-radio'}>
                             <input
                               type="radio"
-                              className={'custom-control-input'}
+                              className={'custom-control-input me-2'}
                               id="Online"
                               name="slot_mode"
                               value="2"
@@ -321,7 +375,7 @@ const CreateSlot = () => {
                           <div className={'custom-control custom-radio'}>
                             <input
                               type="radio"
-                              className={'custom-control-input'}
+                              className={'custom-control-input me-2'}
                               id="Both"
                               name="slot_mode"
                               value="3"
@@ -340,7 +394,7 @@ const CreateSlot = () => {
                     <div className={'card-footer d-flex justify-content-end'}>
                       <button
                         type="submit"
-                        className={'btn btn-sm btn-primary mr-2'}
+                        className={'btn btn-sm btn-primary me-2'}
                       >
                         Save
                       </button>

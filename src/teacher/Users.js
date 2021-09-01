@@ -82,11 +82,11 @@ const Users = () => {
                         </p>
                         <div
                           className={
-                            'w-100 w-md-30 text-left text-md-right mt-3 mt-md-0'
+                            'w-100 w-md-30 text-end text-md-right mt-3 mt-md-0'
                           }
                         >
                           <button
-                            className={'btn btn-sm btn-outline-primary mr-2'}
+                            className={'btn btn-sm btn-outline-primary me-3'}
                             type="button"
                           >
                             Enable

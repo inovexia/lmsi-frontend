@@ -55,7 +55,7 @@ const SlotList = () => {
               <h3>Slots List</h3>
               <div>
                 <NavLink exact to="/teacher-dashboard/slots/create-slot">
-                  <button className={'invite-btn mr-2'}>Create Slot</button>
+                  <button className={'invite-btn me-2'}>Create Slot</button>
                 </NavLink>
                 <NavLink exact to="/teacher-dashboard/slots/my-appointments">
                   <button className={'invite-btn'}>My Appointments</button>
@@ -82,11 +82,11 @@ const SlotList = () => {
                         }
                         type="button"
                       >
-                        <span className={'d-block ml-n4 mr-4'}>
+                        <span className={'d-block ms-n4 me-4'}>
                           {slot.start_time}
                         </span>
                         To
-                        <span className={'d-block mr-n4 ml-4'}>
+                        <span className={'d-block me-n4 ms-4'}>
                           {slot.end_time}
                         </span>
                       </button>
@@ -94,12 +94,12 @@ const SlotList = () => {
                   </div>
                   <div className={'card-footer'}>
                     <NavLink exact to="/teacher-dashboard/slots/create">
-                      <button className={'btn btn-sm btn-primary mr-3'}>
+                      <button className={'btn btn-sm btn-primary me-3'}>
                         Create Common Slots
                       </button>
                     </NavLink>
                     <NavLink exact to="/teacher-dashboard/slots/create-course">
-                      <button className={'btn btn-sm btn-primary mr-1'}>
+                      <button className={'btn btn-sm btn-primary me-1'}>
                         Create Course Slot
                       </button>
                     </NavLink>
