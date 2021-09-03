@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom'
 
 const SlotList = () => {
   const [Slots, setSlots] = useState([])
+  const [loading, setLoading] = useState(false)
 
   const memberId = 22
   const coachingId = 20
@@ -39,8 +40,10 @@ const SlotList = () => {
 
   useEffect(() => {
     const getUser = async () => {
+      setLoading(true)
       const usersFromServer = await fetchUsers()
       setSlots(usersFromServer)
+      setLoading(false)
     }
 
     getUser()
@@ -66,49 +69,56 @@ const SlotList = () => {
           </div>
         </div>
 
-        {Slots.map((slot, i) => {
-          return (
-            <div key={i} className={'row'}>
-              <div className={'col-12 list'}>
-                <div className={'card mb-3'}>
-                  <div style={{ padding: '1.75rem' }} className={'card-body'}>
-                    <h4 className={'pb-1 border-bottom mb-3'}>
-                      {slot.slot_title}
-                    </h4>
-                    <div className={'mx-n2 my-n1 text-center text-md-start'}>
-                      <button
-                        className={
-                          'btn btn-outline-primary default book-slot m-1 px-md-5'
-                        }
-                        type="button"
-                      >
-                        <span className={'d-block ms-n4 me-4'}>
-                          {slot.start_time}
-                        </span>
-                        To
-                        <span className={'d-block me-n4 ms-4'}>
-                          {slot.end_time}
-                        </span>
-                      </button>
+        {loading ? (
+          <div className={'loading'}></div>
+        ) : (
+          Slots.map((slot, i) => {
+            return (
+              <div key={i} className={'row'}>
+                <div className={'col-12 list'}>
+                  <div className={'card mb-3'}>
+                    <div style={{ padding: '1.75rem' }} className={'card-body'}>
+                      <h4 className={'pb-1 border-bottom mb-3'}>
+                        {slot.slot_title}
+                      </h4>
+                      <div className={'mx-n2 my-n1 text-center text-md-start'}>
+                        <button
+                          className={
+                            'btn btn-outline-primary default book-slot m-1 px-md-5'
+                          }
+                          type="button"
+                        >
+                          <span className={'d-block ms-n4 me-4'}>
+                            {slot.start_time}
+                          </span>
+                          To
+                          <span className={'d-block me-n4 ms-4'}>
+                            {slot.end_time}
+                          </span>
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                  <div className={'card-footer'}>
-                    <NavLink exact to="/teacher-dashboard/slots/create">
-                      <button className={'btn btn-sm btn-primary me-3'}>
-                        Create Common Slots
-                      </button>
-                    </NavLink>
-                    <NavLink exact to="/teacher-dashboard/slots/create-course">
-                      <button className={'btn btn-sm btn-primary me-1'}>
-                        Create Course Slot
-                      </button>
-                    </NavLink>
+                    <div className={'card-footer'}>
+                      <NavLink exact to="/teacher-dashboard/slots/create">
+                        <button className={'btn btn-sm btn-primary me-3'}>
+                          Create Common Slots
+                        </button>
+                      </NavLink>
+                      <NavLink
+                        exact
+                        to="/teacher-dashboard/slots/create-course"
+                      >
+                        <button className={'btn btn-sm btn-primary me-1'}>
+                          Create Course Slot
+                        </button>
+                      </NavLink>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          )
-        })}
+            )
+          })
+        )}
       </div>
     </div>
   )

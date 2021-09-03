@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import KeyboardBackspaceSharpIcon from '@material-ui/icons/KeyboardBackspaceSharp'
-import './InviteUser.css'
 
 const InviteUser = () => {
-  const [users, setUser] = useState([]),
+  const [users, setUser] = useState([])
+  const [loading, setLoading] = useState(false),
     fetchUsers = async () => {
       const res = await fetch(
         'https://lmsi-api.herokuapp.com/api/teacher/members/list/11/7/1',
@@ -28,8 +28,10 @@ const InviteUser = () => {
       }
     },
     getUser = useCallback(async () => {
+      setLoading(true)
       const usersFromServer = await fetchUsers()
       usersFromServer && setUser(usersFromServer)
+      setLoading(false)
     }, [])
 
   useEffect(() => {
@@ -112,52 +114,58 @@ const InviteUser = () => {
               </div>
             </div>
           </div>
-          {users.map((user, i) => {
-            return (
-              <div key={i} className={'row'}>
-                <div className={'col-12 list'}>
-                  <div className={'card d-flex flex-row mb-2'}>
-                    <div className={'pl-2 d-flex flex-grow-1 min-width-zero'}>
-                      <div
-                        className={
-                          'card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center'
-                        }
-                      >
-                        <a href="##" className={'w-100 w-md-30'}>
-                          <p className={'list-item-heading mb-0 truncate'}>
-                            {user.serial_id}
-                          </p>
-                        </a>
-                        <p
-                          className={'mb-0 text-muted text-small w-100 w-md-40'}
-                        >
-                          {user.email}
-                        </p>
+          {loading ? (
+            <div className={'loading mt-5'}></div>
+          ) : (
+            users.map((user, i) => {
+              return (
+                <div key={i} className={'row'}>
+                  <div className={'col-12 list'}>
+                    <div className={'card d-flex flex-row mb-2'}>
+                      <div className={'pl-2 d-flex flex-grow-1 min-width-zero'}>
                         <div
                           className={
-                            'w-100 w-md-30 text-end text-md-right mt-3 mt-md-0'
+                            'card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center'
                           }
                         >
-                          <button
-                            className={'btn btn-sm btn-outline-primary me-3'}
-                            type="button"
+                          <a href="##" className={'w-100 w-md-30'}>
+                            <p className={'list-item-heading mb-0 truncate'}>
+                              {user.serial_id}
+                            </p>
+                          </a>
+                          <p
+                            className={
+                              'mb-0 text-muted text-small w-100 w-md-40'
+                            }
                           >
-                            Resend
-                          </button>
-                          <button
-                            className={'btn btn-sm btn-outline-danger'}
-                            type="button"
+                            {user.email}
+                          </p>
+                          <div
+                            className={
+                              'w-100 w-md-30 text-end text-md-right mt-3 mt-md-0'
+                            }
                           >
-                            Remove
-                          </button>
+                            <button
+                              className={'btn btn-sm btn-outline-primary me-3'}
+                              type="button"
+                            >
+                              Resend
+                            </button>
+                            <button
+                              className={'btn btn-sm btn-outline-danger'}
+                              type="button"
+                            >
+                              Remove
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            )
-          })}
+              )
+            })
+          )}
         </div>
       </div>
     </div>

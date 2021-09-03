@@ -4,10 +4,10 @@ import NotificationsIcon from '@material-ui/icons/Notifications'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 import SettingsIcon from '@material-ui/icons/Settings'
 import HelpIcon from '@material-ui/icons/Help'
-import './Navbar.css'
+// import './Navbar.css'
 import Sidebar from './Sidebar'
-import MenuIcon from '../svg/MenuIcon'
-import MobileMenuIcon from '../svg/MobileMenuIcon'
+import MenuIcon from '../assets/svg/MenuIcon'
+import MobileMenuIcon from '../assets/svg/MobileMenuIcon'
 
 const Navbar = () => {
   const [show, setShow] = useState(false)

@@ -1,7 +1,6 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import KeyboardBackspaceSharpIcon from '@material-ui/icons/KeyboardBackspaceSharp'
-import './EditUser.css'
 import UserCard from './UserCard'
 
 const EditUser = () => {
