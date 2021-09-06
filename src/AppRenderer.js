@@ -3,16 +3,14 @@ import ReactDOM from 'react-dom'
 import { BrowserRouter as Router } from 'react-router-dom'
 import reportWebVitals from './reportWebVitals'
 
-const App = React.lazy(() => import(/* webpackChunkName: "App" */ './App'))
+const App = React.lazy(() => import('./App'))
 
 const Main = () => {
   return (
     <Suspense fallback={<div className="loading" />}>
-      <React.StrictMode>
-        <Router>
-          <App />
-        </Router>
-      </React.StrictMode>
+      <Router>
+        <App />
+      </Router>
     </Suspense>
   )
 }

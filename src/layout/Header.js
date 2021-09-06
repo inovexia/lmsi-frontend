@@ -8,7 +8,7 @@ import Sidebar from './Sidebar'
 import MenuIcon from '../assets/svg/MenuIcon'
 import MobileMenuIcon from '../assets/svg/MobileMenuIcon'
 
-const Navbar = () => {
+const Header = () => {
   const [show, setShow] = useState(false)
 
   const handleClick = () => {
@@ -44,9 +44,6 @@ const Navbar = () => {
           <NavLink exact to="/teacher-dashboard/slots" className={'logo'}>
             <p>Slots</p>
           </NavLink>
-          <NavLink exact to="/teacher-dashboard/filters" className={'logo'}>
-            <p>Filters</p>
-          </NavLink>
         </div>
 
         <div className={'d-flex align-items-center navbar-right'}>
@@ -69,4 +66,4 @@ const Navbar = () => {
   )
 }
 
-export default Navbar
+export default Header

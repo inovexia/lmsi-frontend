@@ -1,4 +1,4 @@
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, Redirect } from 'react-router-dom'
 
 import Home from '../Home'
 import Dashboard from '../component/teacher/Dashboard'
@@ -52,6 +52,7 @@ function Routing() {
         path="/teacher-dashboard/users/test-taken"
         component={TestTaken}
       />
+      <Redirect to="/" />
     </Switch>
   )
 }

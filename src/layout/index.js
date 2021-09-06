@@ -1,12 +1,19 @@
 import React from 'react'
-import Navbar from './Navbar'
+import PropTypes from 'prop-types'
 
-const index = () => {
+import Header from './Header'
+
+const Layout = ({ children }) => {
   return (
     <>
-      <Navbar />
+      <Header />
+      <main>{children}</main>
     </>
   )
 }
 
-export default index
+Layout.propTypes = {
+  children: PropTypes.node.isRequired,
+}
+
+export default Layout
