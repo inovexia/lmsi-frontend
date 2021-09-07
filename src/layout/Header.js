@@ -27,41 +27,38 @@ const Header = () => {
           <div className={'menu-button-mobile d-xs-block d-sm-block d-md-none'}>
             <MobileMenuIcon />
           </div>
-
-          <NavLink exact to="/" className={'logo'}>
+          <NavLink exact to={'/'} className={'logo'}>
             <p>LMSI APP</p>
           </NavLink>
-
-          <div className="search">
-            <input type="text" placeholder="Search" />
+          <div className={'search'}>
+            <input type={'text'} placeholder="Search" />
           </div>
-          <NavLink exact to="/teacher-dashboard" className={'nav-item'}>
+          <NavLink exact to={'/teacher-dashboard'} className={'nav-item'}>
             <p>Dashboard</p>
           </NavLink>
-          <NavLink exact to="/teacher-dashboard/users" className={'logo'}>
+          <NavLink exact to={'/teacher-dashboard/users'} className={'logo'}>
             <p>Users</p>
           </NavLink>
-          <NavLink exact to="/teacher-dashboard/slots" className={'logo'}>
+          <NavLink exact to={'/teacher-dashboard/slots'} className={'logo'}>
             <p>Slots</p>
           </NavLink>
         </div>
-
         <div className={'d-flex align-items-center navbar-right'}>
-          <NavLink exact to="#">
-            <NotificationsIcon fontSize="medium" className={'icon'} />
+          <NavLink exact to={'#'}>
+            <NotificationsIcon fontSize={'medium'} className={'icon'} />
           </NavLink>
-          <NavLink exact to="#">
-            <HelpIcon fontSize="medium" className={'icon'} />
+          <NavLink exact to={'#'}>
+            <HelpIcon fontSize={'medium'} className={'icon'} />
           </NavLink>
-          <NavLink exact to="/teacher-dashboard/settings">
-            <SettingsIcon fontSize="medium" className={'icon'} />
+          <NavLink exact to={'/teacher-dashboard/settings'}>
+            <SettingsIcon fontSize={'medium'} className={'icon'} />
           </NavLink>
-          <NavLink exact to="#">
-            <AccountCircleIcon fontSize="medium" className={'icon'} />
+          <NavLink exact to={'#'}>
+            <AccountCircleIcon fontSize={'medium'} className={'icon'} />
           </NavLink>
         </div>
       </nav>
-      {show ? <Sidebar /> : ''}AccountCircleIcon
+      {show ? <Sidebar /> : ''}
     </>
   )
 }
