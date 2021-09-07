@@ -9,8 +9,8 @@ const SetPassword = React.lazy(() => import('./set-password'))
 
 const ViewAuth = ({ match }) => {
   return (
-    <AuthLayout>
-      <Suspense fallback={<div className="loading" />}>
+    <Suspense fallback={<div className="loading" />}>
+      <AuthLayout>
         <Switch>
           <Redirect exact from={`${match.url}/`} to={`${match.url}/sign-in`} />
           <Route
@@ -31,8 +31,8 @@ const ViewAuth = ({ match }) => {
           />
           <Redirect to="/error" />
         </Switch>
-      </Suspense>
-    </AuthLayout>
+      </AuthLayout>
+    </Suspense>
   )
 }
 

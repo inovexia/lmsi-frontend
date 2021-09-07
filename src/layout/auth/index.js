@@ -6,11 +6,11 @@ import Footer from './footer'
 
 const AuthLayout = ({ children }) => {
   return (
-    <>
+    <main className={'user-authorize'}>
       <Header />
-      <main>{children}</main>
+      <section className={'auth-box'}>{children}</section>
       <Footer />
-    </>
+    </main>
   )
 }
 

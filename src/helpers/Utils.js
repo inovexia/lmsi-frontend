@@ -4,6 +4,10 @@ import {
   languageOptions,
 } from '../constants/defaultValues'
 
+export const ucFirst = string => {
+  return string.charAt(0).toUpperCase() + string.slice(1)
+}
+
 export const formatDate = (date, patternStr) => {
   const monthNames = [
       'January',
