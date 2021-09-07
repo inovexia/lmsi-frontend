@@ -1,8 +1,8 @@
 export const UserRole = {
-  SuperAdmin: 1,
-  Admin: 2,
-  Instructor: 3,
-  Learner: 4,
+  super_admin: 1,
+  admin: 2,
+  instructor: 3,
+  learner: 4,
 }
 
 export const defaultLang = 'en'
