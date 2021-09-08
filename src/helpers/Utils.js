@@ -1,4 +1,5 @@
 import {
+  UserRole,
   defaultDirection,
   defaultLang,
   languageOptions,
@@ -194,4 +195,8 @@ export const setCurrentUser = user => {
   } catch (error) {
     console.log('>>>>: src/helpers/Utils.js : setCurrentUser -> error', error)
   }
+}
+
+export const getRoleId = RoleKey => {
+  return UserRole[RoleKey]
 }

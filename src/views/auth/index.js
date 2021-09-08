@@ -3,7 +3,7 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 import AuthLayout from '../../layout/auth'
 
 const SignIn = React.lazy(() => import('./sign-in'))
-const SignUp = React.lazy(() => import('./sign-up'))
+const ViewSignUp = React.lazy(() => import('./sign-up'))
 const ForgotPassword = React.lazy(() => import('./forgot-password'))
 const SetPassword = React.lazy(() => import('./set-password'))
 
@@ -18,8 +18,8 @@ const ViewAuth = ({ match }) => {
             render={props => <SignIn {...props} />}
           />
           <Route
-            path={`${match.url}/sign-up/:RoleKey/:Method?/:MethodValue?/:InstituteId?`}
-            render={props => <SignUp {...props} />}
+            path={`${match.url}/sign-up`}
+            render={props => <ViewSignUp {...props} />}
           />
           <Route
             path={`${match.url}/forgot-password`}

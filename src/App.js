@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
 
-// import { appRoot } from 'constants/defaultValues'
+// import { appRoot } from './constants/defaultValues'
 
 const ViewAuth = React.lazy(() => import('./views/auth'))
 
