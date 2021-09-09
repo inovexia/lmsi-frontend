@@ -15,18 +15,22 @@ const ViewUnauthorized = React.lazy(() => import('./views/Unauthorized'))
 
 const App = () => {
   return (
-    <Suspense fallback={<div className="loading" />}>
+    <Suspense fallback={<div className={'loading'} />}>
       <Switch>
-        <Route path="/auth" render={props => <ViewAuth {...props} />} />
-        <Route path="/error" exact render={props => <ViewError {...props} />} />
+        <Route path={'/auth'} render={props => <ViewAuth {...props} />} />
         <Route
-          path="/unauthorized"
+          path={'/error'}
+          exact
+          render={props => <ViewError {...props} />}
+        />
+        <Route
+          path={'/unauthorized'}
           exact
           render={props => <ViewUnauthorized {...props} />}
         />
-        <Route path="/" exact render={props => <ViewHome {...props} />} />
+        <Route path={'/'} exact render={props => <ViewHome {...props} />} />
         {/* <Redirect exact from="/" to={appRoot} /> */}
-        <Redirect to="/error" />
+        <Redirect to={'/error'} />
       </Switch>
     </Suspense>
   )

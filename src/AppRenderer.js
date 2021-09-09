@@ -1,18 +1,11 @@
-import React, { Suspense } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
-import { BrowserRouter as Router } from 'react-router-dom'
 import reportWebVitals from './reportWebVitals'
 
 const App = React.lazy(() => import('./App'))
 
 const Main = () => {
-  return (
-    <Suspense fallback={<div className="loading" />}>
-      <Router>
-        <App />
-      </Router>
-    </Suspense>
-  )
+  return <App />
 }
 
 ReactDOM.render(<Main />, document.getElementById('root'))

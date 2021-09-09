@@ -1,9 +1,7 @@
 import React, { useState } from 'react'
 
-const Number = () => {
-  const min = 1,
-    max = 50,
-    [value, setValue] = useState(min),
+const Number = ({ min = 1, max = 50 }) => {
+  const [value, setValue] = useState(min),
     [timeout, updateTimeOut] = useState(null),
     increaseValue = speed => {
       setValue(oldValue => {
@@ -25,8 +23,8 @@ const Number = () => {
         }, speed)
       )
     },
-    buttonPress = doAction => {
-      doAction(100)
+    buttonPress = (doAction, speed = 100) => {
+      doAction(speed)
     },
     buttonRelease = () => {
       timeout && clearTimeout(timeout)
