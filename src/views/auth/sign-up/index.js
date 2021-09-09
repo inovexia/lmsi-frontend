@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
 
-const SignUp = React.lazy(() => import('./sign-up'))
+const SignUp = React.lazy(() => import('./defaultView'))
 
 const ViewSignUp = ({ match }) => {
   return (
@@ -11,7 +11,7 @@ const ViewSignUp = ({ match }) => {
         path={`${match.url}/:RoleKey/:Method?/:MethodValue?/:InstituteId?`}
         render={props => <SignUp {...props} />}
       />
-      {/* <Redirect to="/error" /> */}
+      <Redirect to="/error" />
     </Switch>
   )
 }
