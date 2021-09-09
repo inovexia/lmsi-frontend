@@ -1,0 +1,99 @@
+@media (min-width: map-get($grid-breakpoints, 'xs')) {
+  .user-authorize {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: center;
+
+    .auth-box {
+      align-items: center;
+      display: flex;
+      flex-grow: 1;
+
+      .signIn-card {
+        display: flex;
+        flex-direction: column;
+        margin: 0px auto 24px;
+        width: 400px;
+        padding: 32px 40px;
+        background: rgb(255, 255, 255);
+        border-radius: 3px;
+        box-shadow: 0 1px 15px rgba(180, 180, 180, 0.6),
+          0 1px 6px rgba(180, 180, 180, 0.6);
+        box-sizing: border-box;
+        color: rgb(94, 108, 132);
+
+        .card-heading {
+          display: flex;
+          -webkit-box-align: center;
+          align-items: center;
+          flex-direction: column;
+          text-align: center;
+          color: rgb(94, 108, 132);
+          font-size: 16px;
+        }
+
+        .form-group {
+          align-items: center;
+          background-color: var(
+            --background-subtleBorderedNeutral-resting,
+            #fafbfc
+          );
+          border-color: var(--border-neutral, #dfe1e6);
+          color: var(--text-highEmphasis, #091e42);
+          cursor: text;
+          border-radius: 3px;
+          border-width: 1px;
+          border-style: solid;
+          box-sizing: border-box;
+          display: flex;
+          flex: 1 1 100%;
+          font-size: 14px;
+          justify-content: space-between;
+          max-width: 100%;
+          margin-top: 20px;
+          overflow: hidden;
+          transition: background-color 0.2s ease-in-out 0s,
+            border-color 0.2s ease-in-out 0s;
+          overflow-wrap: break-word;
+          vertical-align: top;
+          pointer-events: auto;
+
+          .form-data {
+            background-color: transparent;
+            border: none;
+            box-sizing: border-box;
+            color: inherit;
+            cursor: inherit;
+            font-size: 14px;
+            min-width: 0px;
+            outline: none;
+            padding: 8px 6px;
+            width: 100%;
+            line-height: 1.42857;
+
+            &.form-data:focus {
+              border: 2px solid #0052cc;
+              box-shadow: none;
+            }
+          }
+
+          .btn {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+@media (min-width: map-get($grid-breakpoints, 'sm')) {
+}
+@media (min-width: map-get($grid-breakpoints, 'md')) {
+}
+@media (min-width: map-get($grid-breakpoints, 'lg')) {
+}
+@media (min-width: map-get($grid-breakpoints, 'xl')) {
+}
+@media (min-width: map-get($grid-breakpoints, 'xxl')) {
+}
