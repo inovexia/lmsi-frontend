@@ -9,6 +9,8 @@ const Header = () => {
       <Logo
         className={`${IsTablet() ? `mw-50` : `mw-100`} h-auto`}
         textColor={'#212529'}
+        width={160}
+        height={36}
       />
     </header>
   )

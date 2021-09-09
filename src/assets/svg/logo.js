@@ -10,7 +10,7 @@ const Logo = ({
   return (
     <svg
       className={className}
-      viewBox={`0 0 ${width} ${height}`}
+      viewBox={`0 0 320 72`}
       height={height}
       width={width}
       xmlns={'//www.w3.org/2000/svg'}
