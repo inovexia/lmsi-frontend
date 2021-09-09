@@ -1,15 +1,37 @@
 @media (min-width: map-get($grid-breakpoints, 'xs')) {
   .user-authorize {
+    background-blend-mode: multiply;
+    background-image: url('../../../images/auth1.svg'),
+      url('../../../images/auth2.svg');
+    background-position: bottom left, bottom right;
+    background-size: 400px auto, 450px auto;
+    background-repeat: no-repeat;
     align-items: center;
     display: flex;
     flex-direction: column;
     height: 100vh;
     justify-content: center;
 
+    header {
+      padding: 40px 0px;
+    }
+
     .auth-box {
       align-items: center;
       display: flex;
       flex-grow: 1;
+    }
+
+    footer {
+      padding: 24px 0px;
+
+      .copyright {
+        text-align: center;
+
+        * {
+          margin-bottom: 0;
+        }
+      }
     }
   }
 }

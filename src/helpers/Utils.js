@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import {
   UserRole,
   defaultDirection,
@@ -5,8 +6,33 @@ import {
   languageOptions,
 } from '../constants/defaultValues'
 
-export const ucFirst = string => {
-  return string.charAt(0).toUpperCase() + string.slice(1)
+export const isBrowser = typeof window !== 'undefined'
+
+export const IsTablet = () => {
+  const [isTablet, setTablet] = useState(false)
+
+  useEffect(() => {
+    if (isBrowser) {
+      setTablet(window.outerWidth < 992 ? true : false)
+      window.addEventListener('resize', () => {
+        setTablet(window.outerWidth < 992 ? true : false)
+      })
+    }
+  }, [setTablet])
+
+  return isTablet
+}
+
+export const ucFirst = input => {
+  return input.charAt(0).toUpperCase() + input.slice(1)
+}
+
+export const doCapitalize = input => {
+  return input
+    .toLowerCase()
+    .split(' ')
+    .map(s => ucFirst(s))
+    .join(' ')
 }
 
 export const formatDate = (date, patternStr) => {
