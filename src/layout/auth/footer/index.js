@@ -3,7 +3,10 @@ import React from 'react'
 const Footer = () => {
   return (
     <footer>
-      <h1>Footer</h1>
+      <div className={'copyright'}>
+        <p>Copyright © 2020</p>
+        <p>Innovage Softwares Pvt LTD.</p>
+      </div>
     </footer>
   )
 }
