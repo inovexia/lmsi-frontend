@@ -2,8 +2,10 @@ import React from 'react'
 
 export const Button = ({
   type = 'button',
+  className,
   variant = 'primary',
   label = 'Click Me',
+  children,
   onClick,
   onMouseDown,
   onMouseUp,
@@ -12,21 +14,23 @@ export const Button = ({
   return (
     <button
       type={type}
-      className={`btn btn-${variant}`}
+      className={`btn btn-${variant} ${className}`}
       onClick={onClick}
       onMouseDown={onMouseDown}
       onMouseUp={onMouseUp}
       onKeyDown={onKeyDown}
     >
-      {label}
+      {children ? children : label}
     </button>
   )
 }
 
 export const OutlineButton = ({
   type = 'button',
+  className,
   variant = 'primary',
   label = 'Click Me',
+  children,
   onClick,
   onMouseDown,
   onMouseUp,
@@ -35,13 +39,13 @@ export const OutlineButton = ({
   return (
     <button
       type={type}
-      className={`btn btn-outline-${variant}`}
+      className={`btn btn-outline-${variant} ${className}`}
       onClick={onClick}
       onMouseDown={onMouseDown}
       onMouseUp={onMouseUp}
       onKeyDown={onKeyDown}
     >
-      {label}
+      {children ? children : label}
     </button>
   )
 }
