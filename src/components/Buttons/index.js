@@ -4,6 +4,7 @@ export const Button = ({
   type = 'button',
   className,
   variant = 'primary',
+  ariaLabel,
   label = 'Click Me',
   disabled = false,
   title,
@@ -22,6 +23,7 @@ export const Button = ({
       onMouseUp={onMouseUp}
       onKeyDown={onKeyDown}
       title={title}
+      aria-label={ariaLabel}
       disabled={disabled}
     >
       {children ? children : label}
@@ -33,6 +35,7 @@ export const OutlineButton = ({
   type = 'button',
   className,
   variant = 'primary',
+  ariaLabel,
   label = 'Click Me',
   disabled = false,
   title,
@@ -51,6 +54,7 @@ export const OutlineButton = ({
       onMouseUp={onMouseUp}
       onKeyDown={onKeyDown}
       title={title}
+      aria-label={ariaLabel}
       disabled={disabled}
     >
       {children ? children : label}
