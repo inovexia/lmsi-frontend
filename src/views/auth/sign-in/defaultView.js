@@ -23,25 +23,25 @@ const SignIn = () => {
         <small>OR</small>
       </h6>
       <div className={'social-login'}>
-        <Button className={'d-flex w-100'} variant="light">
+        <Button className={'d-flex w-100'} variant="light" disabled={true}>
           <GoogleIcon className={'my-auto'} />
           <span className={'flex-grow-1 text-center'}>
             Continue With Google
           </span>
         </Button>
-        <Button className={'d-flex w-100'} variant="light">
+        <Button className={'d-flex w-100'} variant="light" disabled={true}>
           <Icon icon={'facebook'} className={'my-auto'} />
           <span className={'flex-grow-1 text-center'}>
             Continue With Facebook
           </span>
         </Button>
-        <Button className={'d-flex w-100'} variant="light">
+        <Button className={'d-flex w-100'} variant="light" disabled={true}>
           <Icon icon={'linkedin'} className={'my-auto'} />
           <span className={'flex-grow-1 text-center'}>
             Continue With LinkedIn
           </span>
         </Button>
-        <Button className={'d-flex w-100'} variant="light">
+        <Button className={'d-flex w-100'} variant="light" disabled={true}>
           <Icon icon={'twitter'} className={'my-auto'} />
           <span className={'flex-grow-1 text-center'}>
             Continue With Twitter
