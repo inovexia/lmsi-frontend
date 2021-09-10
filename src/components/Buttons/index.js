@@ -16,7 +16,7 @@ export const Button = ({
   return (
     <button
       type={type}
-      className={`btn btn-${variant} ${className}`}
+      className={`btn btn-${variant}${className ? ` ${className}` : ``}`}
       onClick={onClick}
       onMouseDown={onMouseDown}
       onMouseUp={onMouseUp}
@@ -45,7 +45,7 @@ export const OutlineButton = ({
   return (
     <button
       type={type}
-      className={`btn btn-outline-${variant} ${className}`}
+      className={`btn btn-${variant}${className ? ` ${className}` : ``}`}
       onClick={onClick}
       onMouseDown={onMouseDown}
       onMouseUp={onMouseUp}
