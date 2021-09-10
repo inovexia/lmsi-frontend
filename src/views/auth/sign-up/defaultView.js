@@ -1,5 +1,5 @@
 import React from 'react'
-import { ucFirst, getRoleId } from '../../../helpers/Utils'
+import { ucFirst, getRoleId } from 'src/helpers/Utils'
 const SignUp = ({
   match: {
     params: { InstituteId, Method, MethodValue, RoleKey = 'learner' },

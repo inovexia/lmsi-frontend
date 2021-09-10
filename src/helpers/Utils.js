@@ -4,7 +4,7 @@ import {
   defaultDirection,
   defaultLang,
   languageOptions,
-} from '../constants/defaultValues'
+} from 'src/constants/defaultValues'
 
 export const isBrowser = typeof window !== 'undefined'
 

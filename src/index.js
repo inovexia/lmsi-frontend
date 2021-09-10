@@ -1,6 +1,6 @@
 const render = () => {
-  import(`./assets/scss/app.scss`).then(() => {
-    require('./AppRenderer')
+  import(`src/assets/scss/app.scss`).then(() => {
+    require('src/AppRenderer')
   })
 }
 render()

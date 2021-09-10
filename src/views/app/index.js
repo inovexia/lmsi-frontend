@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
 
-// import AppLayout from '../../layout/app'
+// import AppLayout from 'src/layout/app'
 
 const BlankPage = React.lazy(() => import('./blank-page'))
 

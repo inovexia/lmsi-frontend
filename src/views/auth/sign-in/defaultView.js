@@ -1,6 +1,6 @@
 import React from 'react'
-import { Button } from '../../../components/Buttons'
-import { Icon, GoogleIcon } from '../../../components/Icon'
+import { Button } from 'src/components/Buttons'
+import { Icon, GoogleIcon } from 'src/components/Icon'
 
 const SignIn = () => {
   return (

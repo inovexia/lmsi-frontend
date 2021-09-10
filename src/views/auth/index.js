@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
-import AuthLayout from '../../layout/auth'
+import AuthLayout from 'src/layout/auth'
 
 const ViewSignIn = React.lazy(() => import('./sign-in'))
 const ViewSignUp = React.lazy(() => import('./sign-up'))

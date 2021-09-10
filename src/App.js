@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
 
-// import { appRoot } from './constants/defaultValues'
+// import { appRoot } from 'src/constants/defaultValues'
 
 const ViewAuth = React.lazy(() => import('./views/auth'))
 

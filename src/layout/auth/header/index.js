@@ -1,7 +1,7 @@
 import React from 'react'
 
-import Logo from '../../../assets/svg/logo'
-import { IsTablet } from '../../../helpers/Utils'
+import Logo from 'src/assets/svg/logo'
+import { IsTablet } from 'src/helpers/Utils'
 
 const Header = () => {
   return (
