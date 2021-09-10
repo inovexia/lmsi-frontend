@@ -6,6 +6,7 @@ export const Button = ({
   variant = 'primary',
   label = 'Click Me',
   disabled = false,
+  title,
   children,
   onClick,
   onMouseDown,
@@ -20,6 +21,7 @@ export const Button = ({
       onMouseDown={onMouseDown}
       onMouseUp={onMouseUp}
       onKeyDown={onKeyDown}
+      title={title}
       disabled={disabled}
     >
       {children ? children : label}
@@ -33,6 +35,7 @@ export const OutlineButton = ({
   variant = 'primary',
   label = 'Click Me',
   disabled = false,
+  title,
   children,
   onClick,
   onMouseDown,
@@ -47,6 +50,7 @@ export const OutlineButton = ({
       onMouseDown={onMouseDown}
       onMouseUp={onMouseUp}
       onKeyDown={onKeyDown}
+      title={title}
       disabled={disabled}
     >
       {children ? children : label}
