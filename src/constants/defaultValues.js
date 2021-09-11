@@ -23,12 +23,15 @@ export const apiURL = `${api.URL}${api.path}`
 export const appRoot = '/app'
 export const isAuthGuardActive = true
 
-export const currentUser = {
-  id: 1,
-  displayName: 'Sarah Kortney',
-  username: 'sarah_kortney',
-  imgURL: '',
-  role: UserRole.Admin,
-  accessToken: '',
-  refreshToken: '',
+export const userProps = {
+  first_name: String,
+  last_name: String,
+  member_id: Number,
+  serial_id: String,
+  role_id: Number,
+  is_email_verified: Boolean,
+  email: String,
+  checksum: String,
+  accessToken: String,
+  refreshToken: String,
 }

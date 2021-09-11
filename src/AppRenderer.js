@@ -3,15 +3,19 @@ import ReactDOM from 'react-dom'
 import { BrowserRouter as Router } from 'react-router-dom'
 import reportWebVitals from './reportWebVitals'
 
+import { AppStore } from 'src/AppContext'
+
 const App = React.lazy(() => import('./App'))
 
 const Main = () => {
   return (
-    <Suspense fallback={<div className="loading" />}>
-      <Router>
-        <App />
-      </Router>
-    </Suspense>
+    <AppStore>
+      <Suspense fallback={<div className="loading" />}>
+        <Router>
+          <App />
+        </Router>
+      </Suspense>
+    </AppStore>
   )
 }
 

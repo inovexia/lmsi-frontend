@@ -1,14 +1,26 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import AuthLayout from 'src/layout/auth'
 
+import { AppContext } from 'src/AppContext'
 const ViewSignIn = React.lazy(() => import('./sign-in'))
 const ViewSignUp = React.lazy(() => import('./sign-up'))
 const ForgotPassword = React.lazy(() => import('./forgot-password'))
 const SetPassword = React.lazy(() => import('./set-password'))
 
 const ViewAuth = ({ match }) => {
-  return (
+  const [sendPath, sendTo] = useState(null),
+    { appRoot, user } = useContext(AppContext)
+
+  useEffect(() => {
+    if (user) {
+      sendTo(appRoot)
+    }
+  }, [appRoot, user])
+
+  return sendPath ? (
+    <Redirect to={sendPath} />
+  ) : (
     <AuthLayout>
       <Switch>
         <Redirect exact from={`${match.url}/`} to={`${match.url}/sign-in`} />

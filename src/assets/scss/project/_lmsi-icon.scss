@@ -15,7 +15,6 @@
   .lmsi {
     /* use !important to prevent issues with browser extensions that change fonts */
     font-family: 'lms-icon' !important;
-    speak: never;
     font-style: normal;
     font-weight: normal;
     font-variant: normal;
@@ -68,12 +67,16 @@
     content: '\e904';
     color: #1877f2;
   }
-  .icon-linkedin:before {
+  .icon-instagram:before {
     content: '\e905';
+    color: #e4405f;
+  }
+  .icon-linkedin:before {
+    content: '\e906';
     color: #0077b5;
   }
   .icon-twitter:before {
-    content: '\e906';
+    content: '\e907';
     color: #1da1f2;
   }
 }

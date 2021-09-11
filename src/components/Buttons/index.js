@@ -34,7 +34,7 @@ export const Button = ({
 export const OutlineButton = ({
   type = 'button',
   className,
-  variant = 'primary',
+  variant = 'outline-primary',
   ariaLabel,
   label = 'Click Me',
   disabled = false,

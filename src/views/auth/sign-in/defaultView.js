@@ -1,52 +1,104 @@
-import React, { useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import React, { useContext, useState } from 'react'
+import { NavLink, Redirect } from 'react-router-dom'
+
+import { AppContext } from 'src/AppContext'
 import { Button } from 'src/components/Buttons'
 import { Icon, GoogleIcon } from 'src/components/Icon'
 
 const SignIn = () => {
-  const [show, setShow] = useState(false)
+  const { apiURL, loginUser } = useContext(AppContext)
+  const [sendPath, sendTo] = useState(null),
+    [alowLogin, setAlowLogin] = useState(false),
+    [email, setEmail] = useState(''),
+    [password, setPassword] = useState('')
 
-  const handleSubmit = () => {
-    setShow(true)
+  const handleSubmit = async event => {
+    event.preventDefault()
+    if (!alowLogin) {
+      // Check Email Existence From API
+      const checkRequest = await fetch(`${apiURL}/member/check-email/exists`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          language: 'en',
+        },
+        body: JSON.stringify({ email }),
+      })
+      try {
+        if (checkRequest.ok) {
+          const data = await checkRequest.json()
+          if (data.EMAIL_EXISTS) {
+            setAlowLogin(true)
+          } else {
+            sendTo(`/auth/sign-up/learner/email/${email}`)
+          }
+        } else {
+          throw new Error('Unexpected Error')
+        }
+      } catch (err) {
+        console.error(err.message)
+      }
+    } else {
+      // Request Access Token From API
+      const loginRequest = await fetch(`${apiURL}/member/signin`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          language: 'en',
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      })
+      try {
+        if (loginRequest.ok) {
+          const data = await loginRequest.json()
+          loginUser(data.response)
+        } else {
+          throw new Error('Unexpected Error')
+        }
+      } catch (err) {
+        console.error(err.message)
+      }
+    }
   }
 
-  const handleChange = () => {
-    setShow(false)
-  }
-
-  return (
+  return sendPath ? (
+    <Redirect to={sendPath} />
+  ) : (
     <>
       <div className={'Info-card'}>
         <div className={'card-heading'}>
           <h5>Log in to your account</h5>
         </div>
-        <form action="">
+        <form onSubmit={event => handleSubmit(event)}>
           <div className={'form-group'}>
             <input
-              onFocus={handleChange}
               className={'form-data'}
-              type="email"
-              placeholder="Enter your email address"
+              type={'email'}
+              onChange={({ target: { value } }) => setEmail(value)}
+              placeholder={'Enter your email address'}
+              defaultValue={email}
               required
             />
           </div>
-          {show ? (
+          {alowLogin && (
             <div className={'form-group'}>
               <input
                 className={'form-data'}
-                type="password"
-                placeholder="Enter your password"
+                type={'password'}
+                onChange={({ target: { value } }) => setPassword(value)}
+                defaultValue={password}
+                placeholder={'Enter your password'}
               />
             </div>
-          ) : (
-            ''
           )}
           <div className={'form-group'}>
             <Button
-              onClick={handleSubmit}
-              type="button"
-              variant="primary"
-              label={show ? 'Log in' : 'Continue'}
+              type={'submit'}
+              variant={'primary'}
+              label={alowLogin ? 'Log in' : 'Continue'}
             />
           </div>
         </form>
@@ -99,7 +151,6 @@ const SignIn = () => {
             </span>
           </Button>
         </div>
-
         <div className={'Info-card-footer'}>
           <ul>
             <li>
@@ -116,18 +167,17 @@ const SignIn = () => {
           </ul>
         </div>
       </div>
-
       <div className={'footer-top'}>
         <div>
           <ul>
             <li>
-              <NavLink to={'#'}>
+              <NavLink to={'/'}>
                 <span>Privacy Policy</span>
               </NavLink>
             </li>
             <p style={{ margin: '0px 8px' }}>•</p>
             <li>
-              <NavLink to={`#`}>
+              <NavLink to={'/'}>
                 <span>User Notice</span>
               </NavLink>
             </li>
