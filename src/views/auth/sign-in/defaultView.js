@@ -117,15 +117,12 @@ const SignIn = () => {
             />
           </div>
         </form>
-        <h6 className={'text-center my-3'}>
-          <small>OR</small>
-        </h6>
-        <div className={'social-login'}>
+        <p className={'d-block text-center fs-sm fw-bold my-3'}>OR</p>
+        <div className={'social-login'} title={'Coming Soon'}>
           <Button
             className={'d-flex w-100 border'}
             variant="light"
             disabled={true}
-            title={'Coming Soon'}
           >
             <GoogleIcon className={'my-auto'} />
             <span className={'flex-grow-1 text-center'}>
@@ -136,7 +133,6 @@ const SignIn = () => {
             className={'d-flex w-100 border'}
             variant="light"
             disabled={true}
-            title={'Coming Soon'}
           >
             <Icon icon={'facebook'} className={'my-auto'} />
             <span className={'flex-grow-1 text-center'}>
@@ -147,22 +143,20 @@ const SignIn = () => {
             className={'d-flex w-100 border'}
             variant="light"
             disabled={true}
-            title={'Coming Soon'}
           >
-            <Icon icon={'linkedin'} className={'my-auto'} />
+            <Icon icon={'instagram'} className={'my-auto'} />
             <span className={'flex-grow-1 text-center'}>
-              Continue With LinkedIn
+              Continue With Instagram
             </span>
           </Button>
           <Button
             className={'d-flex w-100 border'}
             variant="light"
             disabled={true}
-            title={'Coming Soon'}
           >
-            <Icon icon={'twitter'} className={'my-auto'} />
+            <Icon icon={'linkedin'} className={'my-auto'} />
             <span className={'flex-grow-1 text-center'}>
-              Continue With Twitter
+              Continue With LinkedIn
             </span>
           </Button>
         </div>

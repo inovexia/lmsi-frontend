@@ -604,8 +604,8 @@ $font-size-lg: $font-size-base * 1.25 !default;
 $font-weight-lighter: lighter !default;
 $font-weight-light: 300 !default;
 $font-weight-normal: 400 !default;
-$font-weight-bold: 700 !default;
-$font-weight-bolder: bolder !default;
+$font-weight-bold: 500 !default;
+$font-weight-bolder: 700 !default;
 
 $font-weight-base: $font-weight-normal !default;
 
@@ -629,6 +629,7 @@ $font-sizes: (
   4: $h4-font-size,
   5: $h5-font-size,
   6: $h6-font-size,
+  sm: $font-size-sm,
 ) !default;
 // scss-docs-end font-sizes
 

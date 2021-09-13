@@ -165,11 +165,11 @@ const SignUp = ({
           </div>
           <div className={'term-conditions'}>
             <span>
-              By signing up, I accept the LMSI{' '}
+              By signing up, user will be accepting the LMSI{' '}
               <NavLink to={'/'}>
-                <span>Cloud Terms of Service</span>
+                <span>Terms of Service</span>
               </NavLink>{' '}
-              and acknowledge the{' '}
+              and acknowledging the{' '}
               <NavLink to={'/'}>
                 <span>Privacy Policy</span>
               </NavLink>
@@ -182,12 +182,11 @@ const SignUp = ({
         <h6 className={'text-center my-3'}>
           <small>OR</small>
         </h6>
-        <div className={'social-login'}>
+        <div className={'social-login'} title={'Coming Soon'}>
           <Button
             className={'d-flex w-100 border'}
             variant={'light'}
             disabled={true}
-            title={'Coming Soon'}
           >
             <GoogleIcon className={'my-auto'} />
             <span className={'flex-grow-1 text-center'}>
@@ -198,7 +197,6 @@ const SignUp = ({
             className={'d-flex w-100 border'}
             variant={'light'}
             disabled={true}
-            title={'Coming Soon'}
           >
             <Icon icon={'facebook'} className={'my-auto'} />
             <span className={'flex-grow-1 text-center'}>
@@ -209,7 +207,6 @@ const SignUp = ({
             className={'d-flex w-100 border'}
             variant={'light'}
             disabled={true}
-            title={'Coming Soon'}
           >
             <Icon icon={'linkedin'} className={'my-auto'} />
             <span className={'flex-grow-1 text-center'}>
@@ -220,7 +217,6 @@ const SignUp = ({
             className={'d-flex w-100 border'}
             variant={'light'}
             disabled={true}
-            title={'Coming Soon'}
           >
             <Icon icon={'twitter'} className={'my-auto'} />
             <span className={'flex-grow-1 text-center'}>
