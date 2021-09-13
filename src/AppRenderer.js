@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import { BrowserRouter as Router } from 'react-router-dom'
 import reportWebVitals from './reportWebVitals'
 
+import NotificationCenter from 'src/components/NotificationCenter'
 import { AppStore } from 'src/AppContext'
 
 const App = React.lazy(() => import('./App'))
@@ -10,6 +11,7 @@ const App = React.lazy(() => import('./App'))
 const Main = () => {
   return (
     <AppStore>
+      <NotificationCenter />
       <Suspense fallback={<div className="loading" />}>
         <Router>
           <App />

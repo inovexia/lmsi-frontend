@@ -7,7 +7,7 @@ import { Button } from 'src/components/Buttons'
 import { Icon, GoogleIcon } from 'src/components/Icon'
 import { ucFirst } from 'src/helpers/Utils'
 
-const SignIn = () => {
+const SignIn = ({ history }) => {
   const { apiURL, loginUser } = useContext(AppContext)
   const [sendPath, sendTo] = useState(null),
     [alowLogin, setAlowLogin] = useState(false),
@@ -15,7 +15,7 @@ const SignIn = () => {
     [password, setPassword] = useState(''),
     [resColor, setResColor] = useState(null),
     [resMsg, setResMsg] = useState(null)
-
+  false && console.log(history)
   const handleSubmit = async event => {
     event.preventDefault()
     setResMsg(null)

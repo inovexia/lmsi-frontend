@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
-
+import React, { createContext, useEffect, useReducer, useRef } from 'react'
 import { isBrowser } from 'src/helpers/Utils'
 import {
   UserRole,
@@ -8,16 +7,22 @@ import {
   appRoot,
   isAuthGuardActive,
 } from 'src/constants/defaultValues'
+import { LOAD_USER, LOGIN_USER } from 'src/constants/actions'
 
-export const AppContext = React.createContext()
+import AppReducer from './AppReducer'
+
+export const AppContext = createContext()
+
+export const initialStoreState = {
+  isLoggedIn: false,
+  user: null,
+  error: null,
+  notification: null,
+}
 
 export const AppStore = ({ children }) => {
   const { Provider } = AppContext,
-    initialStoreState = {
-      isLoggedIn: false,
-      user: null,
-    },
-    [appStore, updateAppStore] = useState(initialStoreState),
+    [appStore, updateAppStore] = useReducer(AppReducer, initialStoreState),
     isRemoved = useRef(false)
 
   useEffect(() => {
@@ -25,8 +30,9 @@ export const AppStore = ({ children }) => {
       // Check for an existing cart.
       const existingUser = isBrowser ? localStorage.getItem('app_user') : null,
         setUserInState = user => {
-          updateAppStore(prevState => {
-            return { ...prevState, user }
+          updateAppStore({
+            type: LOAD_USER,
+            user,
           })
         }
       // const createNewCheckout = () => appStore.client.checkout.create(),
@@ -59,10 +65,12 @@ export const AppStore = ({ children }) => {
         UserRole,
         isLoggedIn: appStore.isLoggedIn,
         user: appStore.user,
+        updateAppStore,
         loginUser: user => {
           isBrowser && localStorage.setItem('app_user', JSON.stringify(user))
-          updateAppStore(prevState => {
-            return { ...prevState, user: user }
+          updateAppStore({
+            type: LOGIN_USER,
+            user,
           })
         },
       }}
