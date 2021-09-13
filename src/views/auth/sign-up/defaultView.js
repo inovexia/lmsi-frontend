@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import { AppContext } from 'src/AppContext'
 import { NavLink } from 'react-router-dom'
 import { ucFirst, getRoleId } from 'src/helpers/Utils'
 import { Button, OutlineButton } from 'src/components/Buttons'
@@ -10,7 +11,10 @@ const SignUp = ({
     params: { InstituteId, Method, MethodValue, RoleKey = 'learner' },
   },
 }) => {
-  const [email, setEmail] = useState(''),
+  const { apiURL, registerUser } = useContext(AppContext)
+  const [err, setErr] = useState(false),
+    [alowRegister, setAlowRegister] = useState(false),
+    [email, setEmail] = useState(''),
     [firstName, setFirstName] = useState(''),
     [lastName, setLastName] = useState(''),
     [password, setPassword] = useState(''),
@@ -38,8 +42,64 @@ const SignUp = ({
         setFirstName(value)
       }
     },
-    handleSubmit = event => {
+    handleSubmit = async event => {
       event.preventDefault()
+      if (!alowRegister) {
+        // Check Email Existence From API
+        const checkRequest = await fetch(
+          `${apiURL}/member/check-email/exists`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              language: 'en',
+            },
+            body: JSON.stringify({ email }),
+          }
+        )
+        try {
+          if (checkRequest.ok) {
+            const data = await checkRequest.json()
+            if (data.EMAIL_EXISTS) {
+              setErr(true)
+            } else {
+              setAlowRegister(true)
+            }
+          } else {
+            throw new Error('Unexpected Error')
+          }
+        } catch (err) {
+          console.error(err.message)
+        }
+      } else {
+        // Request Access Token From API
+        const registerRequest = await fetch(`${apiURL}/member/signup`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            language: 'en',
+          },
+          body: JSON.stringify({
+            first_name: firstName,
+            last_name: lastName,
+            password,
+            email,
+            institutionId,
+            role_id: getRoleId(RoleKey),
+          }),
+        })
+        try {
+          if (registerRequest.ok) {
+            const data = await registerRequest.json()
+            registerUser(data.response)
+          } else {
+            throw new Error('Unexpected Error')
+          }
+        } catch (err) {
+          console.error(err.message)
+        }
+      }
+
       const newPasswordField = document.getElementById('new-password')
       newPasswordField.type = 'password'
       console.log({
@@ -77,6 +137,9 @@ const SignUp = ({
               defaultValue={email}
             />
           </div>
+          {err && (
+            <p className={'ms-2 mt-1 text-danger'}>Email already taken</p>
+          )}
           <div className={'form-group'}>
             <input
               className={'form-data'}
