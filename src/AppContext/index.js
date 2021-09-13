@@ -23,7 +23,6 @@ export const AppStore = ({ children }) => {
   useEffect(() => {
     const initializeUser = async () => {
       // Check for an existing cart.
-
       const existingUser = isBrowser ? localStorage.getItem('app_user') : null,
         setUserInState = user => {
           updateAppStore(prevState => {
@@ -32,7 +31,6 @@ export const AppStore = ({ children }) => {
         }
       // const createNewCheckout = () => appStore.client.checkout.create(),
       //   fetchCheckout = id => appStore.client.checkout.fetch(id)
-
       if (existingUser) {
         try {
           if (!isRemoved.current) {

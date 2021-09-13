@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const Number = ({ min = 1, max = 50 }) => {
+export const Number = ({ min = 1, max = 50 }) => {
   const [value, setValue] = useState(min),
     [timeout, updateTimeOut] = useState(null),
     increaseValue = speed => {
@@ -62,5 +62,3 @@ const Number = ({ min = 1, max = 50 }) => {
     </div>
   )
 }
-
-export default Number

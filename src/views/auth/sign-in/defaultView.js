@@ -2,18 +2,23 @@ import React, { useContext, useState } from 'react'
 import { NavLink, Redirect } from 'react-router-dom'
 
 import { AppContext } from 'src/AppContext'
+import { Toast } from 'src/components/Toast'
 import { Button } from 'src/components/Buttons'
 import { Icon, GoogleIcon } from 'src/components/Icon'
+import { ucFirst } from 'src/helpers/Utils'
 
 const SignIn = () => {
   const { apiURL, loginUser } = useContext(AppContext)
   const [sendPath, sendTo] = useState(null),
     [alowLogin, setAlowLogin] = useState(false),
     [email, setEmail] = useState(''),
-    [password, setPassword] = useState('')
+    [password, setPassword] = useState(''),
+    [resColor, setResColor] = useState(null),
+    [resMsg, setResMsg] = useState(null)
 
   const handleSubmit = async event => {
     event.preventDefault()
+    setResMsg(null)
     if (!alowLogin) {
       // Check Email Existence From API
       const checkRequest = await fetch(`${apiURL}/member/check-email/exists`, {
@@ -54,7 +59,16 @@ const SignIn = () => {
       try {
         if (loginRequest.ok) {
           const data = await loginRequest.json()
-          loginUser(data.response)
+          if (data.API_STATUS) {
+            setResColor('success')
+            setResMsg(data.message)
+            setTimeout(() => {
+              loginUser(data.response)
+            }, 3000)
+          } else {
+            setResColor('danger')
+            setResMsg(data.message)
+          }
         } else {
           throw new Error('Unexpected Error')
         }
@@ -73,6 +87,7 @@ const SignIn = () => {
           <h5>Log in to your account</h5>
         </div>
         <form onSubmit={event => handleSubmit(event)}>
+          {resMsg && <Toast bgColor={resColor} message={ucFirst(resMsg)} />}
           <div className={'form-group'}>
             <input
               className={'form-data'}

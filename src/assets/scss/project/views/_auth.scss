@@ -91,7 +91,12 @@
             width: 100%;
             line-height: 1.42857;
 
-            &.form-data:focus {
+            &.invalid {
+              border-color: #dc3545;
+              box-shadow: none;
+            }
+
+            &:focus {
               border-color: #0052cc;
               box-shadow: none;
             }

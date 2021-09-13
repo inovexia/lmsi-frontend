@@ -12,8 +12,7 @@ const SignUp = ({
   },
 }) => {
   const { apiURL, registerUser } = useContext(AppContext)
-  const [err, setErr] = useState(false),
-    [alowRegister, setAlowRegister] = useState(false),
+  const [userExists, setUserExists] = useState(false),
     [email, setEmail] = useState(''),
     [firstName, setFirstName] = useState(''),
     [lastName, setLastName] = useState(''),
@@ -44,72 +43,56 @@ const SignUp = ({
     },
     handleSubmit = async event => {
       event.preventDefault()
-      if (!alowRegister) {
-        // Check Email Existence From API
-        const checkRequest = await fetch(
-          `${apiURL}/member/check-email/exists`,
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              language: 'en',
-            },
-            body: JSON.stringify({ email }),
-          }
-        )
-        try {
-          if (checkRequest.ok) {
-            const data = await checkRequest.json()
-            if (data.EMAIL_EXISTS) {
-              setErr(true)
-            } else {
-              setAlowRegister(true)
-            }
-          } else {
-            throw new Error('Unexpected Error')
-          }
-        } catch (err) {
-          console.error(err.message)
-        }
-      } else {
-        // Request Access Token From API
-        const registerRequest = await fetch(`${apiURL}/member/signup`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            language: 'en',
-          },
-          body: JSON.stringify({
-            first_name: firstName,
-            last_name: lastName,
-            password,
-            email,
-            institutionId,
-            role_id: getRoleId(RoleKey),
-          }),
-        })
-        try {
-          if (registerRequest.ok) {
-            const data = await registerRequest.json()
-            registerUser(data.response)
-          } else {
-            throw new Error('Unexpected Error')
-          }
-        } catch (err) {
-          console.error(err.message)
-        }
-      }
-
       const newPasswordField = document.getElementById('new-password')
       newPasswordField.type = 'password'
-      console.log({
-        firstName,
-        lastName,
-        password,
-        email,
-        institutionId,
-        role_id: getRoleId(RoleKey),
+      // Check Email Existence From API
+      const checkRequest = await fetch(`${apiURL}/member/check-email/exists`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          language: 'en',
+        },
+        body: JSON.stringify({ email }),
       })
+      try {
+        if (checkRequest.ok) {
+          const data = await checkRequest.json()
+          if (data.EMAIL_EXISTS) {
+            setUserExists(data.EMAIL_EXISTS)
+          } else {
+            // Request Access Token From API
+            const registerRequest = await fetch(`${apiURL}/member/signup`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                language: 'en',
+              },
+              body: JSON.stringify({
+                first_name: firstName,
+                last_name: lastName,
+                password,
+                email,
+                institutionId,
+                role_id: getRoleId(RoleKey),
+              }),
+            })
+            try {
+              if (registerRequest.ok) {
+                const data = await registerRequest.json()
+                registerUser(data.response)
+              } else {
+                throw new Error('Unexpected Error')
+              }
+            } catch (err) {
+              console.error(err.message)
+            }
+          }
+        } else {
+          throw new Error('Unexpected Error')
+        }
+      } catch (err) {
+        console.error(err.message)
+      }
     }
 
   useEffect(() => {
@@ -130,16 +113,18 @@ const SignUp = ({
         <form autoComplete={'off'} onSubmit={event => handleSubmit(event)}>
           <div className={'form-group'}>
             <input
-              className={'form-data'}
+              className={`form-data${userExists ? ` invalid` : ``}`}
               type={'email'}
               placeholder={'Enter your email address'}
-              onChange={({ target: { value } }) => setEmail(value)}
+              onChange={({ target: { value } }) => {
+                setEmail(value)
+                setUserExists(false)
+              }}
               defaultValue={email}
+              title={userExists ? `Email already taken` : undefined}
+              required={true}
             />
           </div>
-          {err && (
-            <p className={'ms-2 mt-1 text-danger'}>Email already taken</p>
-          )}
           <div className={'form-group'}>
             <input
               className={'form-data'}
@@ -148,6 +133,7 @@ const SignUp = ({
               autoComplete={'full-name'}
               onChange={({ target: { value } }) => setFullName(value)}
               placeholder={'Enter your full name'}
+              required={true}
             />
           </div>
           <div className={'form-group'}>
@@ -166,6 +152,7 @@ const SignUp = ({
               onChange={({ target: { value } }) => setPassword(value)}
               defaultValue={password}
               placeholder={'Enter your password'}
+              required={true}
             />
           </div>
           <div className={'form-group'}>
