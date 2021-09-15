@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { AppContext } from 'src/AppContext'
+import { Toast } from 'src/components/Toast'
 import { NavLink } from 'react-router-dom'
 import { ucFirst, getRoleId } from 'src/helpers/Utils'
 import { Button, OutlineButton } from 'src/components/Buttons'
@@ -11,13 +12,15 @@ const SignUp = ({
     params: { InstituteId, Method, MethodValue, RoleKey = 'learner' },
   },
 }) => {
-  const { apiURL, registerUser } = useContext(AppContext)
+  const { apiURL } = useContext(AppContext)
   const [userExists, setUserExists] = useState(false),
     [email, setEmail] = useState(''),
     [firstName, setFirstName] = useState(''),
     [lastName, setLastName] = useState(''),
     [password, setPassword] = useState(''),
     [institutionId, setInstitutionId] = useState(null),
+    [resColor, setResColor] = useState(null),
+    [resMsg, setResMsg] = useState(null),
     copyPassword = () => {
       const newPasswordField = document.getElementById('new-password')
       newPasswordField.select()
@@ -60,26 +63,35 @@ const SignUp = ({
           if (data.EMAIL_EXISTS) {
             setUserExists(data.EMAIL_EXISTS)
           } else {
-            // Request Access Token From API
-            const registerRequest = await fetch(`${apiURL}/member/signup`, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                language: 'en',
-              },
-              body: JSON.stringify({
-                first_name: firstName,
-                last_name: lastName,
-                password,
-                email,
-                institutionId,
-                role_id: getRoleId(RoleKey),
-              }),
-            })
             try {
+              // Request Access Token From API
+              const registerRequest = await fetch(`${apiURL}/member/signup`, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  language: 'en',
+                },
+                body: JSON.stringify({
+                  first_name: firstName,
+                  last_name: lastName,
+                  password,
+                  email,
+                  institutionId,
+                  role_id: getRoleId(RoleKey),
+                }),
+              })
               if (registerRequest.ok) {
                 const data = await registerRequest.json()
-                registerUser(data.response)
+                if (data.API_STATUS) {
+                  setResColor('success')
+                  setResMsg(data.message)
+                  setTimeout(() => {
+                    return data.response
+                  }, 3000)
+                } else {
+                  setResColor('danger')
+                  setResMsg(data.message)
+                }
               } else {
                 throw new Error('Unexpected Error')
               }
@@ -111,6 +123,7 @@ const SignUp = ({
           <h5>{`Register your account ${ucFirst(RoleKey)}`}</h5>
         </div>
         <form autoComplete={'off'} onSubmit={event => handleSubmit(event)}>
+          {resMsg && <Toast bgColor={resColor} message={ucFirst(resMsg)} />}
           <div className={'form-group'}>
             <input
               className={`form-data${userExists ? ` invalid` : ``}`}
@@ -150,7 +163,7 @@ const SignUp = ({
                 }
               }}
               onChange={({ target: { value } }) => setPassword(value)}
-              defaultValue={password}
+              value={password}
               placeholder={'Enter your password'}
               required={true}
             />
