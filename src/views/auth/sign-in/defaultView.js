@@ -7,7 +7,12 @@ import { Button } from 'src/components/Buttons'
 import { Icon, GoogleIcon } from 'src/components/Icon'
 import { ucFirst } from 'src/helpers/Utils'
 
-const SignIn = ({ history }) => {
+const SignIn = ({
+  history,
+  match: {
+    params: { redirectTo },
+  },
+}) => {
   const { apiURL, loginUser } = useContext(AppContext)
   const [sendPath, sendTo] = useState(null),
     [alowLogin, setAlowLogin] = useState(false),
@@ -77,6 +82,8 @@ const SignIn = ({ history }) => {
       }
     }
   }
+
+  console.log(redirectTo)
 
   return sendPath ? (
     <Redirect to={sendPath} />

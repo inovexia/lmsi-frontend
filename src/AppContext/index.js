@@ -14,6 +14,11 @@ import AppReducer from './AppReducer'
 export const AppContext = createContext()
 
 export const initialStoreState = {
+  apiURL,
+  appRoot,
+  isAuthGuardActive,
+  userProps,
+  UserRole,
   isLoggedIn: false,
   user: null,
   error: null,
@@ -65,6 +70,7 @@ export const AppStore = ({ children }) => {
         UserRole,
         isLoggedIn: appStore.isLoggedIn,
         user: appStore.user,
+        appStore,
         updateAppStore,
         loginUser: user => {
           isBrowser && localStorage.setItem('app_user', JSON.stringify(user))

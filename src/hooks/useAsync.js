@@ -9,11 +9,12 @@ export default function useAsync(callback, dependencies = []) {
     setLoading(true)
     setError(undefined)
     setValue(undefined)
+    false && console.log(dependencies)
     callback()
       .then(setValue)
       .catch(setError)
       .finally(() => setLoading(false))
-  }, dependencies)
+  }, [callback, dependencies])
 
   useEffect(() => {
     callbackMemoized()
