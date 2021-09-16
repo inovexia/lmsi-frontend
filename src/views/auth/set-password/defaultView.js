@@ -19,7 +19,6 @@ const SetPassword = () => {
               placeholder="Enter your new password"
             />
           </div>
-
           <div className={'form-group'}>
             <input
               className={'form-data'}
@@ -29,12 +28,10 @@ const SetPassword = () => {
               placeholder="Confirm your new password"
             />
           </div>
-
           <div className={'form-group'}>
             <Button type="submit" variant="primary" label="Change password" />
           </div>
         </form>
-
         <div className={'Info-card-footer'}>
           <ul>
             <li>
@@ -45,7 +42,6 @@ const SetPassword = () => {
           </ul>
         </div>
       </div>
-
       <div className={'footer-top'}>
         <div>
           <ul>

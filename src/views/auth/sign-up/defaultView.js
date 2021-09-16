@@ -12,7 +12,9 @@ const SignUp = ({
     params: { InstituteId, Method, MethodValue, RoleKey = 'learner' },
   },
 }) => {
-  const { apiURL } = useContext(AppContext)
+  const {
+    appStore: { apiURL },
+  } = useContext(AppContext)
   const [userExists, setUserExists] = useState(false),
     [email, setEmail] = useState(''),
     [firstName, setFirstName] = useState(''),

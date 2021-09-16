@@ -7,17 +7,18 @@ import { Toast } from 'src/components/Toast'
 import { ucFirst } from 'src/helpers/Utils'
 
 const ForgotPassword = () => {
-  const { apiURL } = useContext(AppContext)
+  const {
+    appStore: { apiURL },
+  } = useContext(AppContext)
   const [email, setEmail] = useState(''),
     [resColor, setResColor] = useState(null),
     [resMsg, setResMsg] = useState(null),
     handleSubmit = async event => {
       event.preventDefault()
       setResMsg(null)
-
       try {
         // Request Access Token From API
-        const registerRequest = await fetch(`${apiURL}/member/password-reset`, {
+        const forgotRequest = await fetch(`${apiURL}/member/password-reset`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -27,8 +28,8 @@ const ForgotPassword = () => {
             email,
           }),
         })
-        if (registerRequest.ok) {
-          const data = await registerRequest.json()
+        if (forgotRequest.ok) {
+          const data = await forgotRequest.json()
           if (data.API_STATUS) {
             setResColor('success')
             setResMsg(data.message)
@@ -70,7 +71,6 @@ const ForgotPassword = () => {
               required={true}
             />
           </div>
-
           <div className={'form-group'}>
             <Button
               type="submit"
@@ -79,7 +79,6 @@ const ForgotPassword = () => {
             />
           </div>
         </form>
-
         <div className={'Info-card-footer'}>
           <ul>
             <li>
@@ -90,7 +89,6 @@ const ForgotPassword = () => {
           </ul>
         </div>
       </div>
-
       <div className={'footer-top'}>
         <div>
           <ul>

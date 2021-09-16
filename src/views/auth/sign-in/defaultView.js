@@ -1,11 +1,12 @@
 import React, { useContext, useState } from 'react'
-import { NavLink, Redirect } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 import { AppContext } from 'src/AppContext'
 import { Toast } from 'src/components/Toast'
 import { Button } from 'src/components/Buttons'
 import { Icon, GoogleIcon } from 'src/components/Icon'
-import { ucFirst } from 'src/helpers/Utils'
+import { LOGIN_USER } from 'src/constants/actions'
+import { isBrowser, ucFirst } from 'src/helpers/Utils'
 
 const SignIn = ({
   history,
@@ -13,81 +14,89 @@ const SignIn = ({
     params: { redirectTo },
   },
 }) => {
-  const { apiURL, loginUser } = useContext(AppContext)
-  const [sendPath, sendTo] = useState(null),
+  const {
+      appStore: { apiURL, appRoot },
+      updateAppStore,
+    } = useContext(AppContext),
     [alowLogin, setAlowLogin] = useState(false),
     [email, setEmail] = useState(''),
     [password, setPassword] = useState(''),
     [resColor, setResColor] = useState(null),
-    [resMsg, setResMsg] = useState(null)
-  false && console.log(history)
-  const handleSubmit = async event => {
-    event.preventDefault()
-    setResMsg(null)
-    if (!alowLogin) {
-      // Check Email Existence From API
-      const checkRequest = await fetch(`${apiURL}/member/check-email/exists`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          language: 'en',
-        },
-        body: JSON.stringify({ email }),
-      })
-      try {
-        if (checkRequest.ok) {
-          const data = await checkRequest.json()
-          if (data.EMAIL_EXISTS) {
-            setAlowLogin(true)
-          } else {
-            sendTo(`/auth/sign-up/learner/email/${email}`)
+    [resMsg, setResMsg] = useState(null),
+    handleSubmit = async event => {
+      event.preventDefault()
+      setResMsg(null)
+      if (!alowLogin) {
+        // Check Email Existence From API
+        const checkRequest = await fetch(
+          `${apiURL}/member/check-email/exists`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              language: 'en',
+            },
+            body: JSON.stringify({ email }),
           }
-        } else {
-          throw new Error('Unexpected Error')
-        }
-      } catch (err) {
-        console.error(err.message)
-      }
-    } else {
-      // Request Access Token From API
-      const loginRequest = await fetch(`${apiURL}/member/signin`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          language: 'en',
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      })
-      try {
-        if (loginRequest.ok) {
-          const data = await loginRequest.json()
-          if (data.API_STATUS) {
-            setResColor('success')
-            setResMsg(data.message)
-            setTimeout(() => {
-              loginUser(data.response)
-            }, 3000)
+        )
+        try {
+          if (checkRequest.ok) {
+            const data = await checkRequest.json()
+            if (data.EMAIL_EXISTS) {
+              setAlowLogin(true)
+            } else {
+              history.push(`/auth/sign-up/learner/email/${email}`)
+            }
           } else {
-            setResColor('danger')
-            setResMsg(data.message)
+            throw new Error('Unexpected Error')
           }
-        } else {
-          throw new Error('Unexpected Error')
+        } catch (err) {
+          console.error(err.message)
         }
-      } catch (err) {
-        console.error(err.message)
+      } else {
+        // Request Access Token From API
+        const loginRequest = await fetch(`${apiURL}/member/signin`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            language: 'en',
+          },
+          body: JSON.stringify({
+            email,
+            password,
+          }),
+        })
+        try {
+          if (loginRequest.ok) {
+            const data = await loginRequest.json()
+            if (data.API_STATUS) {
+              const sendTo = redirectTo ? window.atob(redirectTo) : appRoot
+              setResColor('success')
+              setResMsg(data.message)
+              const user = data.response
+              isBrowser &&
+                localStorage.setItem('app_user', JSON.stringify(user))
+              updateAppStore({
+                type: LOGIN_USER,
+                payload: { user },
+              })
+              setTimeout(() => {
+                history.push(sendTo)
+              }, 3000)
+            } else {
+              setResColor('danger')
+              setResMsg(data.message)
+            }
+          } else {
+            throw new Error('Unexpected Error')
+          }
+        } catch (err) {
+          console.error(err.message)
+        }
       }
     }
-  }
 
-  console.log(redirectTo)
-
-  return sendPath ? (
-    <Redirect to={sendPath} />
-  ) : (
+  return (
     <>
       <div className={'Info-card'}>
         <div className={'card-heading'}>

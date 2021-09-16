@@ -7,7 +7,7 @@ import {
   appRoot,
   isAuthGuardActive,
 } from 'src/constants/defaultValues'
-import { LOAD_USER, LOGIN_USER } from 'src/constants/actions'
+import { LOAD_USER } from 'src/constants/actions'
 
 import AppReducer from './AppReducer'
 
@@ -32,7 +32,6 @@ export const AppStore = ({ children }) => {
 
   useEffect(() => {
     const initializeUser = async () => {
-      // Check for an existing cart.
       const existingUser = isBrowser ? localStorage.getItem('app_user') : null,
         setUserInState = user => {
           updateAppStore({
@@ -40,8 +39,6 @@ export const AppStore = ({ children }) => {
             user,
           })
         }
-      // const createNewCheckout = () => appStore.client.checkout.create(),
-      //   fetchCheckout = id => appStore.client.checkout.fetch(id)
       if (existingUser) {
         try {
           if (!isRemoved.current) {
@@ -63,22 +60,8 @@ export const AppStore = ({ children }) => {
   return (
     <Provider
       value={{
-        apiURL,
-        appRoot,
-        isAuthGuardActive,
-        userProps,
-        UserRole,
-        isLoggedIn: appStore.isLoggedIn,
-        user: appStore.user,
         appStore,
         updateAppStore,
-        loginUser: user => {
-          isBrowser && localStorage.setItem('app_user', JSON.stringify(user))
-          updateAppStore({
-            type: LOGIN_USER,
-            user,
-          })
-        },
       }}
     >
       {children}

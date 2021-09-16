@@ -10,7 +10,9 @@ const SetPassword = React.lazy(() => import('./set-password'))
 
 const ViewAuth = ({ match }) => {
   const [sendPath, sendTo] = useState(null),
-    { appRoot, user } = useContext(AppContext)
+    {
+      appStore: { appRoot, user },
+    } = useContext(AppContext)
 
   useEffect(() => {
     if (user) {
