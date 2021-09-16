@@ -46,6 +46,7 @@ const SignUp = ({
     },
     handleSubmit = async event => {
       event.preventDefault()
+      setResMsg(null)
       const newPasswordField = document.getElementById('new-password')
       newPasswordField.type = 'password'
       // Check Email Existence From API
