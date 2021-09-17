@@ -34,7 +34,7 @@ export const Button = ({
 export const OutlineButton = ({
   type = 'button',
   className,
-  variant = 'outline-primary',
+  variant = 'primary',
   ariaLabel,
   label = 'Click Me',
   disabled = false,
@@ -48,7 +48,9 @@ export const OutlineButton = ({
   return (
     <button
       type={type}
-      className={`btn btn-${variant}${className ? ` ${className}` : ``}`}
+      className={`btn btn-outline-${variant}${
+        className ? ` ${className}` : ``
+      }`}
       onClick={onClick}
       onMouseDown={onMouseDown}
       onMouseUp={onMouseUp}

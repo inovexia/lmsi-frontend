@@ -175,6 +175,7 @@ const SignUp = ({
           <div className={'form-group'}>
             <OutlineButton
               type={'button'}
+              variant={'app'}
               onClick={() => generateNewPassword()}
             >
               Generate Strong Password
