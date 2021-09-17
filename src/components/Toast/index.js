@@ -1,4 +1,5 @@
 import React from 'react'
+import ReactHtmlParser from 'html-react-parser'
 import { useToggle } from 'src/hooks'
 
 export const Toast = ({ bgColor = 'primary', message }) => {
@@ -13,7 +14,7 @@ export const Toast = ({ bgColor = 'primary', message }) => {
       aria-atomic={'true'}
     >
       <div className={'d-flex'}>
-        <div className={'toast-body'}>{message}</div>
+        <div className={'toast-body'}>{ReactHtmlParser(message)}</div>
         <button
           type={'button'}
           className={'btn-close btn-close-white me-2 m-auto'}
