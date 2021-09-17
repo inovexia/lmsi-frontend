@@ -15,7 +15,7 @@ const LearnerView = ({ match }) => {
   return (
     <Switch>
       {isUnAuthorized(user.role_id, UserRole.learner) && (
-        <Redirect exact from={`${match.url}/`} to={`/unauthorized`} />
+        <Redirect from={`${match.url}/`} to={`/unauthorized`} />
       )}
       <Redirect exact from={`${match.url}/`} to={`${match.url}/dashboard`} />
       <Route

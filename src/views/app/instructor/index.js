@@ -15,7 +15,7 @@ const InstructorView = ({ match }) => {
   return (
     <Switch>
       {isUnAuthorized(user.role_id, UserRole.instructor) && (
-        <Redirect exact from={`${match.url}/`} to={`/unauthorized`} />
+        <Redirect from={`${match.url}/`} to={`/unauthorized`} />
       )}
       <Route
         path={`${match.url}/`}
