@@ -31,9 +31,7 @@ const ChangePassword = () => {
                 Send create password link on user's email and primary contact
                 number. User can create their own password using that link
               </p>
-              <NavLink exact to="#">
-                <button className={'btn btn-primary'}>Send Link</button>
-              </NavLink>
+              <button className={'btn btn-app'}>Send Link</button>
             </div>
           </div>
           <div className={'card mb-4'}>
@@ -43,9 +41,7 @@ const ChangePassword = () => {
                 Reset and send a system generated password on user's email and
                 primary contact number. User can login with the new password
               </p>
-              <NavLink exact to="#">
-                <button className={'btn btn-primary'}>Send Link</button>
-              </NavLink>
+              <button className={'btn btn-app'}>Send Link</button>
             </div>
           </div>
         </div>

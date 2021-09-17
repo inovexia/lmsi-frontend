@@ -74,7 +74,7 @@ const InviteUser = () => {
                             borderBottomLeftRadius: 0,
                           }}
                           type="submit"
-                          className={'btn btn-primary default'}
+                          className={'btn btn-app default'}
                         >
                           Invite
                         </button>
@@ -103,7 +103,7 @@ const InviteUser = () => {
                             borderBottomLeftRadius: 0,
                           }}
                           type="submit"
-                          className={'btn btn-primary default'}
+                          className={'btn btn-app default'}
                         >
                           Invite
                         </button>

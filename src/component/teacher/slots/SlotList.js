@@ -100,7 +100,7 @@ const SlotList = () => {
                     </div>
                     <div className={'card-footer'}>
                       <NavLink exact to="/teacher-dashboard/slots/create">
-                        <button className={'btn btn-sm btn-primary me-3'}>
+                        <button className={'btn btn-sm btn-app me-3'}>
                           Create Common Slots
                         </button>
                       </NavLink>
@@ -108,7 +108,7 @@ const SlotList = () => {
                         exact
                         to="/teacher-dashboard/slots/create-course"
                       >
-                        <button className={'btn btn-sm btn-primary me-1'}>
+                        <button className={'btn btn-sm btn-app me-1'}>
                           Create Course Slot
                         </button>
                       </NavLink>

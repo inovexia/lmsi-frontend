@@ -193,7 +193,7 @@ const SignUp = ({
             </span>
           </div>
           <div className={'form-group'}>
-            <Button type={'submit'} variant={'primary'} label={'Register'} />
+            <Button type={'submit'} variant={'app'} label={'Register'} />
           </div>
         </form>
         <h6 className={'text-center my-3'}>

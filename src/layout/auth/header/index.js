@@ -8,7 +8,8 @@ const Header = () => {
     <header className={'d-flex justify-content-center w-100 px-3 px-sm-0'}>
       <Logo
         className={`${IsTablet() ? `mw-50` : `mw-100`} h-auto`}
-        textColor={'#212529'}
+        iconColor={'#5927e5'}
+        textColor={'#362B48'}
         width={160}
         height={36}
       />

@@ -56,7 +56,7 @@ const ForgotPassword = () => {
         </div>
         <form autoComplete={'off'} onSubmit={event => handleSubmit(event)}>
           {resMsg && <Toast bgColor={resColor} message={ucFirst(resMsg)} />}
-          <label className={'input-label mt-4'} htmlFor="email">
+          <label className={'input-label mt-4'} htmlFor={'email'}>
             We'll send a recovery link to
           </label>
           <div className={'form-group mt-0'}>
@@ -73,9 +73,9 @@ const ForgotPassword = () => {
           </div>
           <div className={'form-group'}>
             <Button
-              type="submit"
-              variant="primary"
-              label="Send recovery link"
+              type={'submit'}
+              variant={'app'}
+              label={'Send recovery link'}
             />
           </div>
         </form>

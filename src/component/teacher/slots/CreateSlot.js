@@ -185,149 +185,149 @@ const CreateSlot = () => {
                           </div>
                           {isChecked ? (
                             <>
-                            <div className={'mb-3'}>
-                              <div
-                                className={
-                                  'custom-control custom-checkbox me-4 d-inline-block'
-                                }
-                              >
-                                <input
-                                  type="checkbox"
-                                  id="day1"
-                                  className={'custom-control-input me-2'}
-                                />
-                                <label
-                                  htmlFor="day1"
-                                  className={'custom-control-label'}
+                              <div className={'mb-3'}>
+                                <div
+                                  className={
+                                    'custom-control custom-checkbox me-4 d-inline-block'
+                                  }
                                 >
-                                  Mon
-                                </label>
-                              </div>
-                              <div
-                                className={
-                                  'custom-control custom-checkbox me-4 d-inline-block'
-                                }
-                              >
-                                <input
-                                  type="checkbox"
-                                  id="day2"
-                                  className={'custom-control-input me-2'}
-                                />
-                                <label
-                                  htmlFor="day2"
-                                  className={'custom-control-label'}
+                                  <input
+                                    type="checkbox"
+                                    id="day1"
+                                    className={'custom-control-input me-2'}
+                                  />
+                                  <label
+                                    htmlFor="day1"
+                                    className={'custom-control-label'}
+                                  >
+                                    Mon
+                                  </label>
+                                </div>
+                                <div
+                                  className={
+                                    'custom-control custom-checkbox me-4 d-inline-block'
+                                  }
                                 >
-                                  Tue
-                                </label>
-                              </div>
-                              <div
-                                className={
-                                  'custom-control custom-checkbox me-4 d-inline-block'
-                                }
-                              >
-                                <input
-                                  type="checkbox"
-                                  id="day3"
-                                  className={'custom-control-input me-2'}
-                                />
-                                <label
-                                  htmlFor="day3"
-                                  className={'custom-control-label'}
+                                  <input
+                                    type="checkbox"
+                                    id="day2"
+                                    className={'custom-control-input me-2'}
+                                  />
+                                  <label
+                                    htmlFor="day2"
+                                    className={'custom-control-label'}
+                                  >
+                                    Tue
+                                  </label>
+                                </div>
+                                <div
+                                  className={
+                                    'custom-control custom-checkbox me-4 d-inline-block'
+                                  }
                                 >
-                                  Wed
-                                </label>
-                              </div>
-                              <div
-                                className={
-                                  'custom-control custom-checkbox me-4 d-inline-block'
-                                }
-                              >
-                                <input
-                                  type="checkbox"
-                                  id="day4"
-                                  className={'custom-control-input me-2'}
-                                />
-                                <label
-                                  htmlFor="day4"
-                                  className={'custom-control-label'}
+                                  <input
+                                    type="checkbox"
+                                    id="day3"
+                                    className={'custom-control-input me-2'}
+                                  />
+                                  <label
+                                    htmlFor="day3"
+                                    className={'custom-control-label'}
+                                  >
+                                    Wed
+                                  </label>
+                                </div>
+                                <div
+                                  className={
+                                    'custom-control custom-checkbox me-4 d-inline-block'
+                                  }
                                 >
-                                  Thu
-                                </label>
-                              </div>
-                              <div
-                                className={
-                                  'custom-control custom-checkbox me-4 d-inline-block'
-                                }
-                              >
-                                <input
-                                  type="checkbox"
-                                  id="day5"
-                                  className={'custom-control-input me-2'}
-                                />
-                                <label
-                                  htmlFor="day5"
-                                  className={'custom-control-label'}
+                                  <input
+                                    type="checkbox"
+                                    id="day4"
+                                    className={'custom-control-input me-2'}
+                                  />
+                                  <label
+                                    htmlFor="day4"
+                                    className={'custom-control-label'}
+                                  >
+                                    Thu
+                                  </label>
+                                </div>
+                                <div
+                                  className={
+                                    'custom-control custom-checkbox me-4 d-inline-block'
+                                  }
                                 >
-                                  Fri
-                                </label>
-                              </div>
-                              <div
-                                className={
-                                  'custom-control custom-checkbox me-4 d-inline-block'
-                                }
-                              >
-                                <input
-                                  type="checkbox"
-                                  id="day6"
-                                  className={'custom-control-input me-2'}
-                                />
-                                <label
-                                  htmlFor="day6"
-                                  className={'custom-control-label'}
+                                  <input
+                                    type="checkbox"
+                                    id="day5"
+                                    className={'custom-control-input me-2'}
+                                  />
+                                  <label
+                                    htmlFor="day5"
+                                    className={'custom-control-label'}
+                                  >
+                                    Fri
+                                  </label>
+                                </div>
+                                <div
+                                  className={
+                                    'custom-control custom-checkbox me-4 d-inline-block'
+                                  }
                                 >
-                                  Sat
-                                </label>
-                              </div>
-                              <div
-                                className={
-                                  'custom-control custom-checkbox me-4 d-inline-block'
-                                }
-                              >
-                                <input
-                                  type="checkbox"
-                                  id="day7"
-                                  className={'custom-control-input me-2'}
-                                />
-                                <label
-                                  htmlFor="day7"
-                                  className={'custom-control-label'}
+                                  <input
+                                    type="checkbox"
+                                    id="day6"
+                                    className={'custom-control-input me-2'}
+                                  />
+                                  <label
+                                    htmlFor="day6"
+                                    className={'custom-control-label'}
+                                  >
+                                    Sat
+                                  </label>
+                                </div>
+                                <div
+                                  className={
+                                    'custom-control custom-checkbox me-4 d-inline-block'
+                                  }
                                 >
-                                  Sun
-                                </label>
+                                  <input
+                                    type="checkbox"
+                                    id="day7"
+                                    className={'custom-control-input me-2'}
+                                  />
+                                  <label
+                                    htmlFor="day7"
+                                    className={'custom-control-label'}
+                                  >
+                                    Sun
+                                  </label>
+                                </div>
                               </div>
-                            </div>
-                            <div className={'form-row mt-3 mb-3'}>
-                          <div className={'form-group col-md-12'}>
-                            <label
-                              className={
-                                'form-label text-primary font-weight-bold'
-                              }
-                              htmlFor="end_date"
-                            >
-                              End Date
-                            </label>
-                            <input
-                              className={'form-control'}
-                              type="date"
-                              name="end_date"
-                              id="end_date"
-                              min="2021-09-01"
-                              max="2021-11-30"
-                              defaultValue="2021-09-01"
-                              required
-                            />
-                          </div>
-                        </div>
+                              <div className={'form-row mt-3 mb-3'}>
+                                <div className={'form-group col-md-12'}>
+                                  <label
+                                    className={
+                                      'form-label text-primary font-weight-bold'
+                                    }
+                                    htmlFor="end_date"
+                                  >
+                                    End Date
+                                  </label>
+                                  <input
+                                    className={'form-control'}
+                                    type="date"
+                                    name="end_date"
+                                    id="end_date"
+                                    min="2021-09-01"
+                                    max="2021-11-30"
+                                    defaultValue="2021-09-01"
+                                    required
+                                  />
+                                </div>
+                              </div>
                             </>
                           ) : (
                             ''
@@ -394,13 +394,13 @@ const CreateSlot = () => {
                     <div className={'card-footer d-flex justify-content-end'}>
                       <button
                         type="submit"
-                        className={'btn btn-sm btn-primary me-2'}
+                        className={'btn btn-sm btn-app me-2'}
                       >
                         Save
                       </button>
                       <button
                         type="button"
-                        className={'btn btn-sm btn-outline-primary'}
+                        className={'btn btn-sm btn-outline-app'}
                       >
                         Cancel
                       </button>

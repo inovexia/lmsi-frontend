@@ -97,7 +97,7 @@
             }
 
             &:focus {
-              border-color: #0052cc;
+              border-color: #5927e5;
               box-shadow: none;
             }
           }
@@ -117,11 +117,11 @@
             font-size: 12px;
 
             a {
-              color: rgb(0, 82, 204);
               text-decoration: none;
-            }
-            a:hover {
-              text-decoration: underline;
+
+              &:hover {
+                text-decoration: underline;
+              }
             }
           }
         }
@@ -135,10 +135,9 @@
         }
 
         .Info-card-footer {
-          color: rgb(107, 119, 140);
           padding-top: 16px;
           margin-top: 32px;
-          border-top: 1px solid rgb(213, 216, 222);
+          border-top: 1px solid #d5d8de;
           font-size: 14px;
           text-align: center;
           line-height: 20px;
@@ -152,11 +151,11 @@
             margin: 0;
 
             a {
-              color: rgb(0, 82, 204);
               text-decoration: none;
-            }
-            a:hover {
-              text-decoration: underline;
+
+              &:hover {
+                text-decoration: underline;
+              }
             }
           }
         }
@@ -171,14 +170,13 @@
         -webkit-box-align: center;
         align-items: center;
         border-radius: 3px;
-        color: rgb(107, 119, 140);
 
         a {
-          color: rgb(0, 82, 204);
           text-decoration: none;
-        }
-        a:hover {
-          text-decoration: underline;
+
+          &:hover {
+            text-decoration: underline;
+          }
         }
 
         ul {
@@ -193,7 +191,7 @@
     }
 
     footer {
-      border-top: 1px solid rgb(223, 225, 230);
+      border-top: 1px solid #d5d8de;
       width: 320px;
       padding: 24px 0px;
 

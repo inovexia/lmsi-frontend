@@ -128,7 +128,7 @@ const SignIn = ({
           <div className={'form-group'}>
             <Button
               type={'submit'}
-              variant={'primary'}
+              variant={'app'}
               label={alowLogin ? 'Log in' : 'Continue'}
             />
           </div>

@@ -147,7 +147,7 @@ const EditUser = () => {
                 type="submit"
                 name="submit"
                 value="Save"
-                className={'btn btn-primary'}
+                className={'btn btn-app'}
               />
             </div>
           </div>
