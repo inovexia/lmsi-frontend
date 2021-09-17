@@ -19,7 +19,6 @@ export const initialStoreState = {
   isAuthGuardActive,
   userProps,
   UserRole,
-  isLoggedIn: false,
   user: null,
   error: null,
   notification: null,
@@ -36,7 +35,7 @@ export const AppStore = ({ children }) => {
         setUserInState = user => {
           updateAppStore({
             type: LOAD_USER,
-            user,
+            payload: { user },
           })
         }
       if (existingUser) {

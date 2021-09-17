@@ -227,6 +227,24 @@ export const getRoleId = RoleKey => {
   return UserRole[RoleKey]
 }
 
+export const isUnAuthorized = (userRoleId, authRoleId) => {
+  return userRoleId !== authRoleId
+}
+
+export const getUserPath = RoleId => {
+  switch (RoleId) {
+    case UserRole.super_admin:
+    case UserRole.admin:
+      return `admin`
+    case UserRole.instructor:
+      return `instructor`
+    case UserRole.learner:
+      return `learner`
+    default:
+      return `unauthorized`
+  }
+}
+
 export const generatePassword = (
   length = 10,
   alphabets = 'abcdefghijklmnopqrstuvwxyz',

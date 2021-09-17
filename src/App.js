@@ -21,8 +21,9 @@ const App = () => {
         path={appRoot}
         component={ViewApp}
         roles={[
-          UserRole.super_admin,
-          UserRole.admin,
+          // TODO: Disable super_admin and admin Login until Components will be created
+          // UserRole.super_admin,
+          // UserRole.admin,
           UserRole.instructor,
           UserRole.learner,
         ]}
