@@ -1,0 +1,22 @@
+@media (min-width: map-get($grid-breakpoints, 'xs')) {
+  .app-footer {
+    padding-top: 2.2rem;
+    padding-bottom: 2.2rem;
+    border-top: 1px solid #d7d7d7;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 90px;
+  }
+}
+@media (min-width: map-get($grid-breakpoints, 'sm')) {
+}
+@media (min-width: map-get($grid-breakpoints, 'md')) {
+}
+@media (min-width: map-get($grid-breakpoints, 'lg')) {
+}
+@media (min-width: map-get($grid-breakpoints, 'xl')) {
+}
+@media (min-width: map-get($grid-breakpoints, 'xxl')) {
+}

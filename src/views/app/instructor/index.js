@@ -5,7 +5,8 @@ import { AppContext } from 'src/AppContext'
 import { UserRole } from 'src/constants/defaultValues'
 import { isUnAuthorized } from 'src/helpers/Utils'
 
-const Instructor = React.lazy(() => import('./defaultView'))
+const Dashboard = React.lazy(() => import('./dashboard/Dashboard'))
+const Users = React.lazy(() => import('./user/Users.js'))
 
 const InstructorView = ({ match }) => {
   const {
@@ -18,8 +19,14 @@ const InstructorView = ({ match }) => {
         <Redirect from={`${match.url}/`} to={`/unauthorized`} />
       )}
       <Route
+        exact
         path={`${match.url}/`}
-        render={props => <Instructor {...props} />}
+        render={props => <Dashboard {...props} />}
+      />
+      <Route
+        exact
+        path={`${match.url}/users`}
+        render={props => <Users {...props} />}
       />
       <Redirect to="/error" message={'page not exist'} />
     </Switch>

@@ -8,7 +8,7 @@ import Sidebar from './Sidebar'
 import MenuIcon from 'src/assets/svg/MenuIcon'
 import MobileMenuIcon from 'src/assets/svg/MobileMenuIcon'
 
-const Header = () => {
+const Header = ({ match }) => {
   const [show, setShow] = useState(false)
 
   const handleClick = () => {
@@ -33,10 +33,10 @@ const Header = () => {
           <div className={'search'}>
             <input type={'text'} placeholder="Search" />
           </div>
-          <NavLink exact to={'/teacher-dashboard'} className={'nav-item'}>
+          <NavLink exact to={'/app/instructor'} className={'nav-item'}>
             <p>Dashboard</p>
           </NavLink>
-          <NavLink exact to={'/teacher-dashboard/users'} className={'logo'}>
+          <NavLink exact to={'/app/instructor/users'} className={'logo'}>
             <p>Users</p>
           </NavLink>
           <NavLink exact to={'/teacher-dashboard/slots'} className={'logo'}>

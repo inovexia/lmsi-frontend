@@ -13,7 +13,7 @@ const Sidebar = () => {
                 <NavLink
                   exact
                   activeClassName="active_class"
-                  to="/teacher-dashboard"
+                  to="/app/instructor"
                 >
                   Dashboard
                 </NavLink>
@@ -22,7 +22,7 @@ const Sidebar = () => {
                 <NavLink
                   exact
                   activeClassName="active_class"
-                  to="/teacher-dashboard/users"
+                  to="/app/instructor/users"
                 >
                   Users
                 </NavLink>
