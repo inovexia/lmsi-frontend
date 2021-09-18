@@ -39,7 +39,7 @@ const Header = ({ match }) => {
           <NavLink exact to={'/app/instructor/users'} className={'logo'}>
             <p>Users</p>
           </NavLink>
-          <NavLink exact to={'/teacher-dashboard/slots'} className={'logo'}>
+          <NavLink exact to={'/app/instructor/slots'} className={'logo'}>
             <p>Slots</p>
           </NavLink>
         </div>

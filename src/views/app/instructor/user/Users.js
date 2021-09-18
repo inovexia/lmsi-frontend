@@ -47,7 +47,7 @@ const Users = () => {
             <div className={'col-12'}>
               <div className={'mb-2 d-flex justify-content-between'}>
                 <h3>Users List</h3>
-                <NavLink exact to="/teacher-dashboard/users/invite">
+                <NavLink exact to="/app/instructor/users/invite">
                   <button className={'invite-btn'}>Invite User</button>
                 </NavLink>
               </div>
