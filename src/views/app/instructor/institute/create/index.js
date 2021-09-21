@@ -1,14 +1,26 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { Route, Switch, Redirect } from 'react-router-dom'
 
-const Create = () => {
+import { AppContext } from 'src/AppContext'
+import { UserRole } from 'src/constants/defaultValues'
+import { isUnAuthorized } from 'src/helpers/Utils'
+
+const Create = React.lazy(() => import('./defaultView'))
+
+const CreateRoute = ({ match }) => {
+  const {
+    appStore: { user },
+  } = useContext(AppContext)
+
   return (
-    <div
-      className={'d-flex justify-content-center align-items-center mt-5'}
-      style={{ backgroundColor: '#f8f8f8' }}
-    >
-      <h2>Create Institute</h2>
-    </div>
+    <Switch>
+      {isUnAuthorized(user.role_id, UserRole.instructor) && (
+        <Redirect from={`${match.url}/`} to={`/unauthorized`} />
+      )}
+      <Route path={`${match.url}/`} render={props => <Create {...props} />} />
+      <Redirect to="/error" message={'page not exist'} />
+    </Switch>
   )
 }
 
-export default Create
+export default CreateRoute

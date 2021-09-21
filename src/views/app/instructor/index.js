@@ -5,10 +5,10 @@ import { AppContext } from 'src/AppContext'
 import { UserRole } from 'src/constants/defaultValues'
 import { isUnAuthorized } from 'src/helpers/Utils'
 
-const Dashboard = React.lazy(() => import('./dashboard/Dashboard'))
-const Users = React.lazy(() => import('./user/Users.js'))
-const InviteUsers = React.lazy(() => import('./user/InviteUser'))
-const Slots = React.lazy(() => import('./slots/SlotList.js'))
+const Dashboard = React.lazy(() => import('./dashboard'))
+const Users = React.lazy(() => import('./users'))
+const InviteUsers = React.lazy(() => import('./users/InviteUser'))
+const Slots = React.lazy(() => import('./slots'))
 const InstituteView = React.lazy(() => import('./institute'))
 
 const InstructorView = ({ match }) => {

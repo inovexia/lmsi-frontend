@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 
-const Users = () => {
+const UserList = () => {
   const [users, setUser] = useState([])
   const [loading, setLoading] = useState(false)
 
@@ -119,4 +119,4 @@ const Users = () => {
   )
 }
 
-export default Users
+export default UserList
