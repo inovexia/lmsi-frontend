@@ -6,10 +6,12 @@ import { UserRole } from 'src/constants/defaultValues'
 import { isUnAuthorized } from 'src/helpers/Utils'
 
 const Dashboard = React.lazy(() => import('./dashboard'))
-const Users = React.lazy(() => import('./users'))
-const InviteUsers = React.lazy(() => import('./users/InviteUser'))
-const Slots = React.lazy(() => import('./slots'))
-const InstituteView = React.lazy(() => import('./institute'))
+const InstructorInstitute = React.lazy(() => import('./institute'))
+const InstructorProfile = React.lazy(() => import('./profile'))
+
+// const Users = React.lazy(() => import('./users'))
+// const InviteUsers = React.lazy(() => import('./users/InviteUser'))
+// const Slots = React.lazy(() => import('./slots'))
 
 const InstructorView = ({ match }) => {
   const {
@@ -23,16 +25,18 @@ const InstructorView = ({ match }) => {
       )}
       <Redirect exact from={`${match.url}/`} to={`${match.url}/dashboard`} />
       <Route
-        exact
         path={`${match.url}/dashboard`}
         render={props => <Dashboard {...props} />}
       />
       <Route
-        exact
         path={`${match.url}/institute`}
-        render={props => <InstituteView {...props} />}
+        render={props => <InstructorInstitute {...props} />}
       />
       <Route
+        path={`${match.url}/profile`}
+        render={props => <InstructorProfile {...props} />}
+      />
+      {/* <Route
         exact
         path={`${match.url}/users`}
         render={props => <Users {...props} />}
@@ -46,8 +50,7 @@ const InstructorView = ({ match }) => {
         exact
         path={`${match.url}/slots`}
         render={props => <Slots {...props} />}
-      />
-
+      /> */}
       <Redirect to="/error" message={'page not exist'} />
     </Switch>
   )
