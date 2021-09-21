@@ -258,5 +258,9 @@ export const generatePassword = (
   for (let i = 0, n = charset.length; i < length; ++i) {
     retVal += charset.charAt(Math.floor(Math.random() * n))
   }
-  return retVal
+  return retVal.match(
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+  )
+    ? retVal
+    : generatePassword(length)
 }
