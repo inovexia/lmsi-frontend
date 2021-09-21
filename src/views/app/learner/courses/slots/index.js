@@ -5,9 +5,9 @@ import { AppContext } from 'src/AppContext'
 import { UserRole } from 'src/constants/defaultValues'
 import { isUnAuthorized } from 'src/helpers/Utils'
 
-const Dashboard = React.lazy(() => import('./defaultView'))
+const Slots = React.lazy(() => import('./defaultView'))
 
-const DashboardRoute = ({ match }) => {
+const SlotsView = ({ match }) => {
   const {
     appStore: { user },
   } = useContext(AppContext)
@@ -17,13 +17,10 @@ const DashboardRoute = ({ match }) => {
       {isUnAuthorized(user.role_id, UserRole.learner) && (
         <Redirect from={`${match.url}/`} to={`/unauthorized`} />
       )}
-      <Route
-        path={`${match.url}/`}
-        render={props => <Dashboard {...props} />}
-      />
+      <Route path={`${match.url}/`} render={props => <Slots {...props} />} />
       <Redirect to="/error" message={'page not exist'} />
     </Switch>
   )
 }
 
-export default DashboardRoute
+export default SlotsView

@@ -6,6 +6,8 @@ import { UserRole } from 'src/constants/defaultValues'
 import { isUnAuthorized } from 'src/helpers/Utils'
 
 const LearnerDashboard = React.lazy(() => import('./dashboard'))
+const LearnerCourses = React.lazy(() => import('./courses'))
+const LearnerProfile = React.lazy(() => import('./profile'))
 
 const LearnerView = ({ match }) => {
   const {
@@ -21,6 +23,14 @@ const LearnerView = ({ match }) => {
       <Route
         path={`${match.url}/dashboard`}
         render={props => <LearnerDashboard {...props} />}
+      />
+      <Route
+        path={`${match.url}/courses`}
+        render={props => <LearnerCourses {...props} />}
+      />
+      <Route
+        path={`${match.url}/profile`}
+        render={props => <LearnerProfile {...props} />}
       />
       <Redirect to="/error" message={'page not exist'} />
     </Switch>

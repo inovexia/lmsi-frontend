@@ -6,6 +6,15 @@ const AppReducer = (appStore, AppAction) => {
       return { ...appStore, user: AppAction.payload.user }
     case AllActions.LOGIN_USER:
       return { ...appStore, user: AppAction.payload.user }
+    case AllActions.LOGIN_FAILED:
+      return {
+        ...appStore,
+        error: {
+          code: AllActions.LOGIN_FAILED,
+          message:
+            '<strong>Login Failed</strong> Username or Password is incorrect!',
+        },
+      }
     default:
       return appStore
   }
