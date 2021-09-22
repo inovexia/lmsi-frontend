@@ -1,6 +1,6 @@
 import React from 'react'
 
-const InstituteView = () => {
+const InstituteInfo = () => {
   return (
     <div
       className={
@@ -14,4 +14,4 @@ const InstituteView = () => {
   )
 }
 
-export default InstituteView
+export default InstituteInfo

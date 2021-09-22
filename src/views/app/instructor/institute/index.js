@@ -5,7 +5,7 @@ import { AppContext } from 'src/AppContext'
 import { UserRole } from 'src/constants/defaultValues'
 import { isUnAuthorized } from 'src/helpers/Utils'
 
-const InstituteView = React.lazy(() => import('./defaultView'))
+const InstituteInfo = React.lazy(() => import('./defaultView'))
 const CreateRoute = React.lazy(() => import('./create'))
 const EditRoute = React.lazy(() => import('./edit'))
 
@@ -29,7 +29,7 @@ const InstituteRoute = ({ match }) => {
       />
       <Route
         path={`${match.url}/`}
-        render={props => <InstituteView {...props} />}
+        render={props => <InstituteInfo {...props} />}
       />
       <Redirect to="/error" message={'page not exist'} />
     </Switch>

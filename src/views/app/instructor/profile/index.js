@@ -6,6 +6,7 @@ import { UserRole } from 'src/constants/defaultValues'
 import { isUnAuthorized } from 'src/helpers/Utils'
 
 const Profile = React.lazy(() => import('./defaultView'))
+const EditProfile = React.lazy(() => import('./edit'))
 
 const LearnerView = ({ match }) => {
   const {
@@ -17,6 +18,10 @@ const LearnerView = ({ match }) => {
       {isUnAuthorized(user.role_id, UserRole.instructor) && (
         <Redirect from={`${match.url}/`} to={`/unauthorized`} />
       )}
+      <Route
+        path={`${match.url}/edit`}
+        render={props => <EditProfile {...props} />}
+      />
       <Route path={`${match.url}/`} render={props => <Profile {...props} />} />
       <Redirect to="/error" message={'page not exist'} />
     </Switch>

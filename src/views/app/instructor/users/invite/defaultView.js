@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import KeyboardBackspaceSharpIcon from '@material-ui/icons/KeyboardBackspaceSharp'
 
-const InviteUser = () => {
+const Invite = () => {
   const [users, setUser] = useState([])
   const [loading, setLoading] = useState(false),
     fetchUsers = async () => {
@@ -173,4 +173,4 @@ const InviteUser = () => {
   )
 }
 
-export default InviteUser
+export default Invite

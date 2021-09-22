@@ -1,6 +1,6 @@
 import React from 'react'
 
-const EditView = () => {
+const CreateSlot = () => {
   return (
     <div
       className={
@@ -8,10 +8,10 @@ const EditView = () => {
       }
       style={{ backgroundColor: '#f8f8f8' }}
     >
-      <h2>Institute Edit</h2>
-      <p>This is a instructor institute edit page</p>
+      <h2>Slot Create Page</h2>
+      <p>This is instructor slot create page.</p>
     </div>
   )
 }
 
-export default EditView
+export default CreateSlot

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const EditView = () => {
+const EditProfile = () => {
   return (
     <div
       className={
@@ -8,10 +8,10 @@ const EditView = () => {
       }
       style={{ backgroundColor: '#f8f8f8' }}
     >
-      <h2>Institute Edit</h2>
-      <p>This is a instructor institute edit page</p>
+      <h1>Edit instructor profile</h1>
+      <p>This is edit instructor profile page.</p>
     </div>
   )
 }
 
-export default EditView
+export default EditProfile
