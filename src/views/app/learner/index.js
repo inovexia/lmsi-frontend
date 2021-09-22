@@ -32,7 +32,7 @@ const LearnerView = ({ match }) => {
         path={`${match.url}/profile`}
         render={props => <LearnerProfile {...props} />}
       />
-      <Redirect to="/error" message={'page not exist'} />
+      <Redirect to={'/error'} message={'page not exist'} />
     </Switch>
   )
 }

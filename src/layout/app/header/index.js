@@ -31,7 +31,7 @@ const Header = ({ match }) => {
             <p>LMSI APP</p>
           </NavLink>
           <div className={'search'}>
-            <input type={'text'} placeholder="Search" />
+            <input type={'text'} placeholder={'Search'} />
           </div>
           <NavLink exact to={'/app/instructor'} className={'nav-item'}>
             <p>Dashboard</p>

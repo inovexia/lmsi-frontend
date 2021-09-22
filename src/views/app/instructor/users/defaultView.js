@@ -47,7 +47,7 @@ const UserList = () => {
             <div className={'col-12'}>
               <div className={'mb-2 d-flex justify-content-between'}>
                 <h3>Users List</h3>
-                <NavLink exact to="/app/instructor/users/invite">
+                <NavLink exact to={'/app/instructor/users/invite'}>
                   <button className={'invite-btn'}>Invite User</button>
                 </NavLink>
               </div>
@@ -71,7 +71,7 @@ const UserList = () => {
                         >
                           <NavLink
                             exact
-                            to="/teacher-dashboard/users/edit"
+                            to={'/teacher-dashboard/users/edit'}
                             className={'w-100 w-md-30'}
                           >
                             <p className={'list-item-heading mb-0 truncate'}>
@@ -94,13 +94,13 @@ const UserList = () => {
                           >
                             <button
                               className={'btn btn-sm btn-outline-primary me-3'}
-                              type="button"
+                              type={'button'}
                             >
                               Enable
                             </button>
                             <button
                               className={'btn btn-sm btn-outline-danger'}
-                              type="button"
+                              type={'button'}
                             >
                               Disable
                             </button>

@@ -11,7 +11,7 @@ const App = React.lazy(() => import('./App'))
 const Main = () => {
   return (
     <AppStore>
-      <Suspense fallback={<div className="loading" />}>
+      <Suspense fallback={<div className={'loading'} />}>
         <Router>
           <App />
         </Router>

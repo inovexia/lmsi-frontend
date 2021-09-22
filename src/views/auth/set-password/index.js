@@ -10,7 +10,7 @@ const ViewSetPassword = ({ match }) => {
         path={`${match.url}/`}
         render={props => <SetPassword {...props} />}
       />
-      <Redirect to="/error" message={'page not exist'} />
+      <Redirect to={'/error'} message={'page not exist'} />
     </Switch>
   )
 }

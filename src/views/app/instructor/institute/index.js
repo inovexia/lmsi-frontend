@@ -31,7 +31,7 @@ const InstituteRoute = ({ match }) => {
         path={`${match.url}/`}
         render={props => <InstituteInfo {...props} />}
       />
-      <Redirect to="/error" message={'page not exist'} />
+      <Redirect to={'/error'} message={'page not exist'} />
     </Switch>
   )
 }

@@ -16,43 +16,47 @@ import TestTaken from '../component/teacher/TestTaken'
 function Routing() {
   return (
     <Switch>
-      <Route exact path="/" component={Home} />
-      <Route exact path="/teacher-dashboard" component={Dashboard} />
-      <Route exact path="/teacher-dashboard/users" component={Users} />
-      <Route exact path="/teacher-dashboard/slots" component={SlotList} />
+      <Route exact path={'/'} component={Home} />
+      <Route exact path={'/teacher-dashboard'} component={Dashboard} />
+      <Route exact path={'/teacher-dashboard/users'} component={Users} />
+      <Route exact path={'/teacher-dashboard/slots'} component={SlotList} />
       <Route
         exact
-        path="/teacher-dashboard/slots/create-slot"
+        path={'/teacher-dashboard/slots/create-slot'}
         component={CreateSlot}
       />
       <Route
         exact
-        path="/teacher-dashboard/slots/my-appointments"
+        path={'/teacher-dashboard/slots/my-appointments'}
         component={MyAppointment}
       />
-      <Route exact path="/teacher-dashboard/settings" component={Settings} />
+      <Route exact path={'/teacher-dashboard/settings'} component={Settings} />
       <Route
         exact
-        path="/teacher-dashboard/users/invite"
+        path={'/teacher-dashboard/users/invite'}
         component={InviteUser}
       />
-      <Route exact path="/teacher-dashboard/users/edit" component={EditUser} />
       <Route
         exact
-        path="/teacher-dashboard/users/change-password"
+        path={'/teacher-dashboard/users/edit'}
+        component={EditUser}
+      />
+      <Route
+        exact
+        path={'/teacher-dashboard/users/change-password'}
         component={ChangePassword}
       />
       <Route
         exact
-        path="/teacher-dashboard/users/enrolled-course"
+        path={'/teacher-dashboard/users/enrolled-course'}
         component={EnrolledCourse}
       />
       <Route
         exact
-        path="/teacher-dashboard/users/test-taken"
+        path={'/teacher-dashboard/users/test-taken'}
         component={TestTaken}
       />
-      <Redirect to="/" />
+      <Redirect to={'/'} />
     </Switch>
   )
 }

@@ -16,7 +16,7 @@ const ViewUnauthorized = () => {
         <h3 className={'fs-3'}>
           Sorry, You are not allowed to access that page.
         </h3>
-        <NavLink className={'fs-4 text-decoration-none'} to="/">
+        <NavLink className={'fs-4 text-decoration-none'} to={'/'}>
           Start Over
         </NavLink>
       </div>

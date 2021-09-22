@@ -21,7 +21,7 @@ const DashboardRoute = ({ match }) => {
         path={`${match.url}/`}
         render={props => <Dashboard {...props} />}
       />
-      <Redirect to="/error" message={'page not exist'} />
+      <Redirect to={'/error'} message={'page not exist'} />
     </Switch>
   )
 }

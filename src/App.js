@@ -36,7 +36,6 @@ const App = () => {
         render={props => <ViewUnauthorized {...props} />}
       />
       <Route path={'/'} exact render={props => <ViewHome {...props} />} />
-      {/* <Redirect exact from="/" to={appRoot} /> */}
       <Redirect to={'/error'} />
     </Switch>
   )

@@ -12,8 +12,8 @@ const Sidebar = () => {
               <li className={'nav-item'}>
                 <NavLink
                   exact
-                  activeClassName="active_class"
-                  to="/app/instructor"
+                  activeClassName={'active_class'}
+                  to={'/app/instructor'}
                 >
                   Dashboard
                 </NavLink>
@@ -21,8 +21,8 @@ const Sidebar = () => {
               <li>
                 <NavLink
                   exact
-                  activeClassName="active_class"
-                  to="/app/instructor/users"
+                  activeClassName={'active_class'}
+                  to={'/app/instructor/users'}
                 >
                   Users
                 </NavLink>
@@ -30,8 +30,8 @@ const Sidebar = () => {
               <li>
                 <NavLink
                   exact
-                  activeClassName="active_class"
-                  to="/app/instructor/slots"
+                  activeClassName={'active_class'}
+                  to={'/app/instructor/slots'}
                 >
                   Slots
                 </NavLink>
@@ -39,8 +39,8 @@ const Sidebar = () => {
               <li>
                 <NavLink
                   exact
-                  activeClassName="active_class"
-                  to="/teacher-dashboard/settings"
+                  activeClassName={'active_class'}
+                  to={'/teacher-dashboard/settings'}
                 >
                   Settings
                 </NavLink>
