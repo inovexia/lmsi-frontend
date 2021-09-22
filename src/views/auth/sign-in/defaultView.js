@@ -1,31 +1,38 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 
 import { AppContext } from 'src/AppContext'
-import { Toast } from 'src/components/Toast'
+import { useLocalStorage } from 'src/hooks'
 import { Button } from 'src/components/Buttons'
+import { isBrowser } from 'src/helpers/Utils'
 import { Icon, GoogleIcon } from 'src/components/Icon'
-import { LOGIN_USER } from 'src/constants/actions'
-import { isBrowser, ucFirst } from 'src/helpers/Utils'
+import {
+  LOGIN_USER,
+  LOGIN_SUCCESS,
+  LOGIN_FAILED,
+  LOGIN_ERROR,
+  LOGOUT_USER,
+} from 'src/constants/actions'
 
 const SignIn = ({
   history,
+  location: { state: redirectionState },
   match: {
     params: { redirectTo },
   },
 }) => {
   const {
-      appStore: { apiURL, appRoot },
+      appStore: { apiURL, appRoot, user: loggedInUser },
       updateAppStore,
     } = useContext(AppContext),
+    [, setAppUser] = useLocalStorage('app_user', null),
     [alowLogin, setAlowLogin] = useState(false),
     [email, setEmail] = useState(''),
     [password, setPassword] = useState(''),
-    [resColor, setResColor] = useState(null),
-    [resMsg, setResMsg] = useState(null),
+    [btnDisable, setBtnDisable] = useState(false),
     handleSubmit = async event => {
       event.preventDefault()
-      setResMsg(null)
+      setBtnDisable(true)
       if (!alowLogin) {
         // Check Email Existence From API
         const checkRequest = await fetch(
@@ -52,6 +59,8 @@ const SignIn = ({
           }
         } catch (err) {
           console.error(err.message)
+        } finally {
+          setBtnDisable(false)
         }
       } else {
         // Request Access Token From API
@@ -70,31 +79,65 @@ const SignIn = ({
           if (loginRequest.ok) {
             const data = await loginRequest.json()
             if (data.API_STATUS) {
-              const sendTo = redirectTo ? window.atob(redirectTo) : appRoot
-              setResColor('success')
-              setResMsg(data.message)
               const user = data.response
-              isBrowser &&
-                localStorage.setItem('app_user', JSON.stringify(user))
+              isBrowser && setAppUser(user)
               updateAppStore({
                 type: LOGIN_USER,
-                payload: { user },
+                payload: {
+                  user,
+                  notification: {
+                    code: LOGIN_SUCCESS,
+                    color: 'success',
+                    message: data.message,
+                  },
+                },
               })
-              setTimeout(() => {
-                history.push(sendTo)
-              }, 3000)
+              history.push(redirectTo ? window.atob(redirectTo) : appRoot)
             } else {
-              setResColor('danger')
-              setResMsg(data.message)
+              updateAppStore({
+                type: LOGIN_FAILED,
+                payload: {
+                  error: {
+                    code: LOGIN_FAILED,
+                    color: 'danger',
+                    message: data.message,
+                  },
+                },
+              })
             }
           } else {
             throw new Error('Unexpected Error')
           }
         } catch (err) {
-          console.error(err.message)
+          updateAppStore({
+            type: LOGIN_ERROR,
+            payload: {
+              error: {
+                code: LOGIN_ERROR,
+                color: 'warning',
+                message: err.message,
+              },
+            },
+          })
+        } finally {
+          setBtnDisable(false)
         }
       }
     }
+
+  useEffect(() => {
+    if (loggedInUser) {
+      history.push(appRoot)
+    }
+    if (redirectionState && redirectionState.notification) {
+      updateAppStore({
+        type: LOGOUT_USER,
+        payload: {
+          notification: redirectionState.notification,
+        },
+      })
+    }
+  }, [loggedInUser, updateAppStore, redirectionState, history, appRoot])
 
   return (
     <>
@@ -103,7 +146,6 @@ const SignIn = ({
           <h5>Log in to your account</h5>
         </div>
         <form onSubmit={event => handleSubmit(event)}>
-          {resMsg && <Toast bgColor={resColor} message={ucFirst(resMsg)} />}
           <div className={'form-group'}>
             <input
               className={'form-data'}
@@ -126,11 +168,20 @@ const SignIn = ({
             </div>
           )}
           <div className={'form-group'}>
-            <Button
-              type={'submit'}
-              variant={'app'}
-              label={alowLogin ? 'Log in' : 'Continue'}
-            />
+            <Button type={'submit'} variant={'app'} disabled={btnDisable}>
+              {btnDisable ? (
+                <div
+                  className={'spinner-border spinner-border-sm text-light'}
+                  role={'status'}
+                >
+                  <span className={'visually-hidden'}>Loading...</span>
+                </div>
+              ) : alowLogin ? (
+                'Log in'
+              ) : (
+                'Continue'
+              )}
+            </Button>
           </div>
         </form>
         <p className={'d-block text-center fs-sm fw-bold my-3'}>OR</p>

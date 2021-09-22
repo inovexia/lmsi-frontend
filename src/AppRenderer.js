@@ -11,12 +11,12 @@ const App = React.lazy(() => import('./App'))
 const Main = () => {
   return (
     <AppStore>
-      <NotificationCenter />
       <Suspense fallback={<div className="loading" />}>
         <Router>
           <App />
         </Router>
       </Suspense>
+      <NotificationCenter />
     </AppStore>
   )
 }

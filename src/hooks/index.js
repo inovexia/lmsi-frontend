@@ -107,14 +107,17 @@ export const useFetch = (url = '', options = null) => {
 }
 
 export const useStorage = (key, defaultValue, storageObject) => {
+  const isMounted = useIsMounted()
   const [value, setValue] = useState(() => {
-    const jsonValue = storageObject.getItem(key)
-    if (jsonValue != null) return JSON.parse(jsonValue)
+    if (isMounted.current) {
+      const jsonValue = storageObject.getItem(key)
+      if (jsonValue != null) return JSON.parse(jsonValue)
 
-    if (typeof initialValue === 'function') {
-      return defaultValue()
-    } else {
-      return defaultValue
+      if (typeof initialValue === 'function') {
+        return defaultValue()
+      } else {
+        return defaultValue
+      }
     }
   })
 
@@ -124,8 +127,8 @@ export const useStorage = (key, defaultValue, storageObject) => {
   }, [key, value, storageObject])
 
   const remove = useCallback(() => {
-    setValue(undefined)
-  }, [])
+    isMounted.current && setValue(undefined)
+  }, [isMounted])
 
   return [value, setValue, remove]
 }
@@ -136,6 +139,15 @@ export const useLocalStorage = (key, defaultValue) => {
 
 export const useSessionStorage = (key, defaultValue) => {
   return useStorage(key, defaultValue, window.sessionStorage)
+}
+
+export const useIsMounted = () => {
+  const isMounted = useRef(false)
+  useEffect(() => {
+    isMounted.current = true
+    return () => (isMounted.current = false)
+  }, [])
+  return isMounted
 }
 
 export const useTimeout = (callback, delay) => {
@@ -169,10 +181,12 @@ export const useTimeout = (callback, delay) => {
 
 export const useToggle = defaultValue => {
   const [value, setValue] = useState(defaultValue),
+    isMounted = useIsMounted(),
     toggleValue = value => {
-      setValue(currentValue =>
-        typeof value === 'boolean' ? value : !currentValue
-      )
+      isMounted.current &&
+        setValue(currentValue =>
+          typeof value === 'boolean' ? value : !currentValue
+        )
     }
 
   return [value, toggleValue]
