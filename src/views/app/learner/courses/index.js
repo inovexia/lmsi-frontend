@@ -20,13 +20,13 @@ const LearnerView = ({ match }) => {
       )}
       <Route
         exact={true}
-        path={`${match.url}/`}
-        render={props => <Courses {...props} />}
+        path={`${match.url}/slots`}
+        render={props => <Slots {...props} />}
       />
       <Route
         exact={true}
-        path={`${match.url}/slots`}
-        render={props => <Slots {...props} />}
+        path={`${match.url}/`}
+        render={props => <Courses {...props} />}
       />
       <Redirect to={'/error'} message={'page not exist'} />
     </Switch>

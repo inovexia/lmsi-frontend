@@ -81,15 +81,6 @@ export const navMenus = {
   learner: [
     { label: `Dashboard`, link: `/app/learner/dashboard` },
     {
-      label: `Institute`,
-      link: `#`,
-      subMenu: [
-        { label: `Info`, link: `/app/learner/institute` },
-        { label: `Create`, link: `/app/learner/institute/create` },
-        { label: `Edit`, link: `/app/learner/institute/edit` },
-      ],
-    },
-    {
       label: `Profile`,
       link: `#`,
       subMenu: [
@@ -98,24 +89,11 @@ export const navMenus = {
       ],
     },
     {
-      label: `Slots`,
-      link: `#`,
-      subMenu: [
-        { label: `List`, link: `/app/learner/slots` },
-        { label: `Create`, link: `/app/learner/slots/create` },
-        { label: `Edit`, link: `/app/learner/slots/edit` },
-        {
-          label: `My Appointment`,
-          link: `/app/learner/slots/my-appointment`,
-        },
-      ],
-    },
-    {
       label: `Courses`,
       link: `#`,
       subMenu: [
         { label: `List`, link: `/app/learner/courses` },
-        { label: `Invite`, link: `/app/learner/users/invite` },
+        { label: `Slots`, link: `/app/learner/courses/slots` },
       ],
     },
   ],
