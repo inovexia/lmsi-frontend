@@ -12,18 +12,23 @@ const Header = () => {
     navMenu = getNavMenu(user.role_id)
 
   return (
-    <Navbar bg="app" expand="lg">
+    <Navbar variant={'dark'} bg={'app'} expand={'lg'}>
       <Container fluid>
         <Link className={'navbar-brand'} to={'/app'}>
           LMSI
         </Link>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
+        <Navbar.Toggle aria-controls={'main-menu'} />
+        <Navbar.Collapse id={'main-menu'}>
+          <Nav className={'me-auto'}>
             {navMenu.map(({ link, label, subMenu }, i) => {
               if (subMenu) {
                 return (
-                  <NavDropdown title={label} key={i}>
+                  <NavDropdown
+                    title={label}
+                    key={i}
+                    renderMenuOnMount={true}
+                    menuVariant={'dark'}
+                  >
                     {subMenu.map(({ label, link }, j) => {
                       return (
                         <NavDropdown.Item as={'div'} key={j}>
