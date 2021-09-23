@@ -20,33 +20,28 @@ const Header = () => {
         <Navbar.Toggle aria-controls={'main-menu'} />
         <Navbar.Collapse id={'main-menu'}>
           <Nav className={'me-auto'}>
-            {navMenu.map(({ link, label, subMenu }, i) => {
-              if (subMenu) {
-                return (
-                  <NavDropdown
-                    title={label}
-                    key={i}
-                    renderMenuOnMount={true}
-                    menuVariant={'dark'}
-                  >
-                    {subMenu.map(({ label, link }, j) => {
-                      return (
-                        <NavDropdown.Item as={'div'} key={j}>
-                          <Link className={'dropdown-item'} to={link}>
-                            {label}
-                          </Link>
-                        </NavDropdown.Item>
-                      )
-                    })}
-                  </NavDropdown>
-                )
-              }
-              return (
+            {navMenu.map(({ link, label, subMenu }, i) =>
+              subMenu ? (
+                <NavDropdown
+                  title={label}
+                  key={i}
+                  renderMenuOnMount={true}
+                  menuVariant={'dark'}
+                >
+                  {subMenu.map(({ label, link }, j) => (
+                    <NavDropdown.Item as={'div'} key={j}>
+                      <Link className={'dropdown-item'} to={link}>
+                        {label}
+                      </Link>
+                    </NavDropdown.Item>
+                  ))}
+                </NavDropdown>
+              ) : (
                 <Link className={'nav-link'} key={i} to={link}>
                   {label}
                 </Link>
               )
-            })}
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>
