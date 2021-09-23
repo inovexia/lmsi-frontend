@@ -35,3 +35,89 @@ export const userProps = {
   accessToken: String,
   refreshToken: String,
 }
+
+export const navMenus = {
+  instructor: [
+    { label: `Dashboard`, link: `/app/instructor/dashboard` },
+    {
+      label: `Institute`,
+      link: `#`,
+      subMenu: [
+        { label: `Info`, link: `/app/instructor/institute` },
+        { label: `Create`, link: `/app/instructor/institute/create` },
+        { label: `Edit`, link: `/app/instructor/institute/edit` },
+      ],
+    },
+    {
+      label: `Profile`,
+      link: `#`,
+      subMenu: [
+        { label: `View`, link: `/app/instructor/profile` },
+        { label: `Edit`, link: `/app/instructor/profile/edit` },
+      ],
+    },
+    {
+      label: `Slots`,
+      link: `#`,
+      subMenu: [
+        { label: `List`, link: `/app/instructor/slots` },
+        { label: `Create`, link: `/app/instructor/slots/create` },
+        { label: `Edit`, link: `/app/instructor/slots/edit` },
+        {
+          label: `My Appointment`,
+          link: `/app/instructor/slots/my-appointment`,
+        },
+      ],
+    },
+    {
+      label: `Users`,
+      link: `#`,
+      subMenu: [
+        { label: `List`, link: `/app/instructor/users` },
+        { label: `Invite`, link: `/app/instructor/users/invite` },
+      ],
+    },
+  ],
+  learner: [
+    { label: `Dashboard`, link: `/app/learner/dashboard` },
+    {
+      label: `Institute`,
+      link: `#`,
+      subMenu: [
+        { label: `Info`, link: `/app/learner/institute` },
+        { label: `Create`, link: `/app/learner/institute/create` },
+        { label: `Edit`, link: `/app/learner/institute/edit` },
+      ],
+    },
+    {
+      label: `Profile`,
+      link: `#`,
+      subMenu: [
+        { label: `View`, link: `/app/learner/profile` },
+        { label: `Edit`, link: `/app/learner/profile/edit` },
+      ],
+    },
+    {
+      label: `Slots`,
+      link: `#`,
+      subMenu: [
+        { label: `List`, link: `/app/learner/slots` },
+        { label: `Create`, link: `/app/learner/slots/create` },
+        { label: `Edit`, link: `/app/learner/slots/edit` },
+        {
+          label: `My Appointment`,
+          link: `/app/learner/slots/my-appointment`,
+        },
+      ],
+    },
+    {
+      label: `Users`,
+      link: `#`,
+      subMenu: [
+        { label: `List`, link: `/app/learner/users` },
+        { label: `Invite`, link: `/app/learner/users/invite` },
+      ],
+    },
+  ],
+  admin: [],
+}

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Profile = () => {
+const EditProfile = () => {
   return (
     <div
       className={
@@ -8,10 +8,10 @@ const Profile = () => {
       }
       style={{ backgroundColor: '#f8f8f8' }}
     >
-      <h2>Profile</h2>
-      <p>This page will be used for displaying profile information.</p>
+      <h1>Edit learner profile</h1>
+      <p>This is edit learner profile page.</p>
     </div>
   )
 }
 
-export default Profile
+export default EditProfile

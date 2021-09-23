@@ -25,7 +25,7 @@ const SlotRoute = ({ match }) => {
         render={props => <EditSlot {...props} />}
       />
       <Route
-        path={`${match.url}/myappointment`}
+        path={`${match.url}/my-appointment`}
         render={props => <MyAppointment {...props} />}
       />
       <Route

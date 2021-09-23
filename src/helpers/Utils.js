@@ -4,6 +4,7 @@ import {
   defaultDirection,
   defaultLang,
   languageOptions,
+  navMenus,
 } from 'src/constants/defaultValues'
 
 export const isBrowser = typeof window !== 'undefined'
@@ -242,6 +243,20 @@ export const getUserPath = RoleId => {
       return `learner`
     default:
       return `unauthorized`
+  }
+}
+
+export const getNavMenu = RoleId => {
+  switch (RoleId) {
+    case UserRole.super_admin:
+    case UserRole.admin:
+      return navMenus.admin
+    case UserRole.instructor:
+      return navMenus.instructor
+    case UserRole.learner:
+      return navMenus.learner
+    default:
+      return []
   }
 }
 

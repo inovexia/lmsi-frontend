@@ -1,65 +1,51 @@
-import React, { useState } from 'react'
-import { NavLink } from 'react-router-dom'
-import NotificationsIcon from '@material-ui/icons/Notifications'
-import AccountCircleIcon from '@material-ui/icons/AccountCircle'
-import SettingsIcon from '@material-ui/icons/Settings'
-import HelpIcon from '@material-ui/icons/Help'
-import Sidebar from './Sidebar'
-import MenuIcon from 'src/assets/svg/MenuIcon'
-import MobileMenuIcon from 'src/assets/svg/MobileMenuIcon'
+import React, { useContext } from 'react'
+import { Link } from 'react-router-dom'
+import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap'
 
-const Header = ({ match }) => {
-  const [show, setShow] = useState(false)
+import { AppContext } from 'src/AppContext'
+import { getNavMenu } from 'src/helpers/Utils'
 
-  const handleClick = () => {
-    setShow(!show)
-  }
+const Header = () => {
+  const {
+      appStore: { user },
+    } = useContext(AppContext),
+    navMenu = getNavMenu(user.role_id)
+
   return (
-    <>
-      <nav className={'navbar'}>
-        <div className={'d-flex align-items-center navbar-left'}>
-          <div
-            onClick={handleClick}
-            className={'menu-button d-none d-md-block'}
-          >
-            <MenuIcon />
-          </div>
-          <div className={'menu-button-mobile d-xs-block d-sm-block d-md-none'}>
-            <MobileMenuIcon />
-          </div>
-          <NavLink exact to={'/'} className={'logo'}>
-            <p>LMSI APP</p>
-          </NavLink>
-          <div className={'search'}>
-            <input type={'text'} placeholder="Search" />
-          </div>
-          <NavLink exact to={'/app/instructor'} className={'nav-item'}>
-            <p>Dashboard</p>
-          </NavLink>
-          <NavLink exact to={'/app/instructor/users'} className={'logo'}>
-            <p>Users</p>
-          </NavLink>
-          <NavLink exact to={'/app/instructor/slots'} className={'logo'}>
-            <p>Slots</p>
-          </NavLink>
-        </div>
-        <div className={'d-flex align-items-center navbar-right'}>
-          <NavLink exact to={'#'}>
-            <NotificationsIcon fontSize={'medium'} className={'icon'} />
-          </NavLink>
-          <NavLink exact to={'#'}>
-            <HelpIcon fontSize={'medium'} className={'icon'} />
-          </NavLink>
-          <NavLink exact to={'/teacher-dashboard/settings'}>
-            <SettingsIcon fontSize={'medium'} className={'icon'} />
-          </NavLink>
-          <NavLink exact to={'#'}>
-            <AccountCircleIcon fontSize={'medium'} className={'icon'} />
-          </NavLink>
-        </div>
-      </nav>
-      {show ? <Sidebar /> : ''}
-    </>
+    <Navbar bg="app" expand="lg">
+      <Container fluid>
+        <Link className={'navbar-brand'} to={'/app'}>
+          LMSI
+        </Link>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="me-auto">
+            {navMenu.map(({ link, label, subMenu }, i) => {
+              if (subMenu) {
+                return (
+                  <NavDropdown title={label} key={i}>
+                    {subMenu.map(({ label, link }, j) => {
+                      return (
+                        <NavDropdown.Item as={'div'} key={j}>
+                          <Link className={'dropdown-item'} to={link}>
+                            {label}
+                          </Link>
+                        </NavDropdown.Item>
+                      )
+                    })}
+                  </NavDropdown>
+                )
+              }
+              return (
+                <Link className={'nav-link'} key={i} to={link}>
+                  {label}
+                </Link>
+              )
+            })}
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   )
 }
 

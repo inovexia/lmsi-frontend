@@ -5,10 +5,9 @@ import { AppContext } from 'src/AppContext'
 import { UserRole } from 'src/constants/defaultValues'
 import { isUnAuthorized } from 'src/helpers/Utils'
 
-const Profile = React.lazy(() => import('./defaultView'))
-const EditProfile = React.lazy(() => import('./edit'))
+const EditProfile = React.lazy(() => import('./defaultView'))
 
-const LearnerView = ({ match }) => {
+const EditRoute = ({ match }) => {
   const {
     appStore: { user },
   } = useContext(AppContext)
@@ -19,17 +18,12 @@ const LearnerView = ({ match }) => {
         <Redirect from={`${match.url}/`} to={`/unauthorized`} />
       )}
       <Route
-        path={`${match.url}/edit`}
-        render={props => <EditProfile {...props} />}
-      />
-      <Route
-        exact
         path={`${match.url}/`}
-        render={props => <Profile {...props} />}
+        render={props => <EditProfile {...props} />}
       />
       <Redirect to="/error" message={'page not exist'} />
     </Switch>
   )
 }
 
-export default LearnerView
+export default EditRoute
