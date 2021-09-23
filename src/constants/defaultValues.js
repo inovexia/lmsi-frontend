@@ -111,10 +111,10 @@ export const navMenus = {
       ],
     },
     {
-      label: `Users`,
+      label: `Courses`,
       link: `#`,
       subMenu: [
-        { label: `List`, link: `/app/learner/users` },
+        { label: `List`, link: `/app/learner/courses` },
         { label: `Invite`, link: `/app/learner/users/invite` },
       ],
     },

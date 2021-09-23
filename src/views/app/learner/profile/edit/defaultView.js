@@ -8,7 +8,7 @@ const EditProfile = () => {
       }
       style={{ backgroundColor: '#f8f8f8' }}
     >
-      <h1>Edit learner profile</h1>
+      <h2>Edit learner profile</h2>
       <p>This is edit learner profile page.</p>
     </div>
   )
