@@ -23,7 +23,7 @@ const LearnerView = ({ match }) => {
         render={props => <EditProfile {...props} />}
       />
       <Route
-        exact
+        exact={true}
         path={`${match.url}/`}
         render={props => <Profile {...props} />}
       />
