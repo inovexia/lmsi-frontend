@@ -29,7 +29,7 @@ const Header = () => {
                   menuVariant={'dark'}
                 >
                   {subMenu.map(({ label, link }, j) => (
-                    <NavDropdown.Item as={'div'} key={j}>
+                    <NavDropdown.Item as={'div'} key={j} className={'p-0'}>
                       <Link className={'dropdown-item'} to={link}>
                         {label}
                       </Link>
