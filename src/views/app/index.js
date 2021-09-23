@@ -39,7 +39,7 @@ const App = ({ match }) => {
           path={`${match.url}/learner`}
           render={props => <LearnerView {...props} />}
         />
-        <Redirect to="/error" />
+        <Redirect to={'/error'} />
       </Switch>
     </AppLayout>
   )

@@ -5,15 +5,27 @@ const AppReducer = (appStore, AppAction) => {
     case AllActions.LOAD_USER:
       return { ...appStore, user: AppAction.payload.user }
     case AllActions.LOGIN_USER:
+      appStore.notifications.push(AppAction.payload.notification)
       return { ...appStore, user: AppAction.payload.user }
     case AllActions.LOGIN_FAILED:
+      appStore.errors.push(AppAction.payload.error)
       return {
         ...appStore,
-        error: {
-          code: AllActions.LOGIN_FAILED,
-          message:
-            '<strong>Login Failed</strong> Username or Password is incorrect!',
-        },
+      }
+    case AllActions.LOGOUT_USER:
+      appStore.notifications.push(AppAction.payload.notification)
+      return {
+        ...appStore,
+      }
+    case AllActions.DISMISS_ERROR:
+      appStore.errors.splice(AppAction.payload.index, 1)
+      return {
+        ...appStore,
+      }
+    case AllActions.DISMISS_NOTIFICATION:
+      appStore.notifications.splice(AppAction.payload.index, 1)
+      return {
+        ...appStore,
       }
     default:
       return appStore

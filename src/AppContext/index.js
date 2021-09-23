@@ -20,8 +20,8 @@ export const initialStoreState = {
   userProps,
   UserRole,
   user: null,
-  error: null,
-  notification: null,
+  errors: [],
+  notifications: [],
 }
 
 export const AppStore = ({ children }) => {

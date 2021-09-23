@@ -21,7 +21,7 @@ const MyAppointmentRoute = ({ match }) => {
         path={`${match.url}/`}
         render={props => <MyAppointment {...props} />}
       />
-      <Redirect to="/error" message={'page not exist'} />
+      <Redirect to={'/error'} message={'page not exist'} />
     </Switch>
   )
 }

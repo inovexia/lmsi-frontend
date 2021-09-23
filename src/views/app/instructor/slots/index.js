@@ -37,7 +37,7 @@ const SlotRoute = ({ match }) => {
         path={`${match.url}/`}
         render={props => <SlotList {...props} />}
       />
-      <Redirect to="/error" message={'page not exist'} />
+      <Redirect to={'/error'} message={'page not exist'} />
     </Switch>
   )
 }

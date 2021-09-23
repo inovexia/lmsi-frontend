@@ -18,16 +18,8 @@ const LearnerView = ({ match }) => {
       {isUnAuthorized(user.role_id, UserRole.learner) && (
         <Redirect from={`${match.url}/`} to={`/unauthorized`} />
       )}
-      <Route
-        path={`${match.url}/edit`}
-        render={props => <EditProfile {...props} />}
-      />
-      <Route
-        exact
-        path={`${match.url}/`}
-        render={props => <Profile {...props} />}
-      />
-      <Redirect to="/error" message={'page not exist'} />
+      <Route path={`${match.url}/`} render={props => <Profile {...props} />} />
+      <Redirect to={'/error'} message={'page not exist'} />
     </Switch>
   )
 }

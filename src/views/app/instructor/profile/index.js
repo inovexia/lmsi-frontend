@@ -23,7 +23,7 @@ const LearnerView = ({ match }) => {
         render={props => <EditProfile {...props} />}
       />
       <Route path={`${match.url}/`} render={props => <Profile {...props} />} />
-      <Redirect to="/error" message={'page not exist'} />
+      <Redirect to={'/error'} message={'page not exist'} />
     </Switch>
   )
 }

@@ -28,7 +28,7 @@ const LearnerView = ({ match }) => {
         path={`${match.url}/slots`}
         render={props => <Slots {...props} />}
       />
-      <Redirect to="/error" message={'page not exist'} />
+      <Redirect to={'/error'} message={'page not exist'} />
     </Switch>
   )
 }

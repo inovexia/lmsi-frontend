@@ -23,7 +23,7 @@ const UserRoute = ({ match }) => {
         render={props => <InviteRoute {...props} />}
       />
       <Route path={`${match.url}/`} render={props => <UserList {...props} />} />
-      <Redirect to="/error" message={'page not exist'} />
+      <Redirect to={'/error'} message={'page not exist'} />
     </Switch>
   )
 }

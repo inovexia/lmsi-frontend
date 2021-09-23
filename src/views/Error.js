@@ -14,7 +14,7 @@ const Error = () => {
           className={'img-fluid mb-3'}
         />
         <h3 className={'fs-3'}>Sorry, This page can not be displayed.</h3>
-        <NavLink className={'fs-4 text-decoration-none'} to="/">
+        <NavLink className={'fs-4 text-decoration-none'} to={'/'}>
           Start Over
         </NavLink>
       </div>

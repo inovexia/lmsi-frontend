@@ -18,7 +18,7 @@ const EmptyView = ({ match }) => {
         <Redirect from={`${match.url}/`} to={`/unauthorized`} />
       )}
       <Route path={`${match.url}/`} render={props => <Empty {...props} />} />
-      <Redirect to="/error" message={'page not exist'} />
+      <Redirect to={'/error'} message={'page not exist'} />
     </Switch>
   )
 }

@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { Route, Redirect } from 'react-router-dom'
 
 import { AppContext } from 'src/AppContext'
+import { LOGOUT_USER } from 'src/constants/actions'
 
 export const ProtectedRoute = ({
   component: Component,
@@ -33,7 +34,13 @@ export const ProtectedRoute = ({
           <Redirect
             to={{
               pathname: `/auth/sign-in/${window.btoa(props.location.pathname)}`,
-              state: { from: props.location },
+              state: {
+                notification: {
+                  code: LOGOUT_USER,
+                  color: 'app',
+                  message: 'User logged out.',
+                },
+              },
             }}
           />
         )
