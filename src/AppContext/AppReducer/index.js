@@ -27,6 +27,19 @@ const AppReducer = (appStore, AppAction) => {
       return {
         ...appStore,
       }
+    case AllActions.RESET_PASSWORD_SUCCESS:
+      appStore.notifications.push(AppAction.payload.notification)
+      AppAction.payload.history.replace(`/auth/sign-in`)
+      return { ...appStore }
+    case AllActions.RESET_PASSWORD_MISMATCH:
+      appStore.notifications.push(AppAction.payload.notification)
+      return { ...appStore }
+    case AllActions.RESET_PASSWORD_ERROR:
+      appStore.errors.push(AppAction.payload.error)
+      return { ...appStore }
+    case AllActions.UNEXPECTED_ERROR:
+      appStore.errors.push(AppAction.payload.error)
+      return { ...appStore }
     default:
       return appStore
   }

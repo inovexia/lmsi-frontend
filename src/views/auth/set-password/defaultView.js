@@ -3,24 +3,27 @@ import { NavLink } from 'react-router-dom'
 import { Button } from 'src/components/Buttons'
 
 import { AppContext } from 'src/AppContext'
-import { Toast } from 'src/components/Toast'
-import { ucFirst } from 'src/helpers/Utils'
+import {
+  RESET_PASSWORD_SUCCESS,
+  RESET_PASSWORD_ERROR,
+  RESET_PASSWORD_MISMATCH,
+  UNEXPECTED_ERROR,
+} from 'src/constants/actions'
 
 const SetPassword = ({
+  history,
   match: {
     params: { token },
   },
 }) => {
   const {
     appStore: { apiURL },
+    updateAppStore,
   } = useContext(AppContext)
   const [newPassword, setNewPassword] = useState(''),
     [confirmPassword, setConfirmPassword] = useState(''),
-    [resColor, setResColor] = useState(null),
-    [resMsg, setResMsg] = useState(null),
     handleSubmit = async event => {
       event.preventDefault()
-      setResMsg(null)
       if (newPassword === confirmPassword) {
         try {
           // Request Access Token From API
@@ -40,26 +43,58 @@ const SetPassword = ({
           if (forgotRequest.ok) {
             const data = await forgotRequest.json()
             if (data.API_STATUS) {
-              setResColor('success')
-              setResMsg(data.message)
-              setTimeout(() => {
-                return data.response
-              }, 3000)
+              updateAppStore({
+                type: RESET_PASSWORD_SUCCESS,
+                payload: {
+                  notification: {
+                    code: RESET_PASSWORD_SUCCESS,
+                    color: 'success',
+                    message: data.message,
+                  },
+                  history,
+                },
+              })
             } else {
-              setResColor('danger')
-              setResMsg(data.message)
+              updateAppStore({
+                type: RESET_PASSWORD_ERROR,
+                payload: {
+                  error: {
+                    code: RESET_PASSWORD_ERROR,
+                    color: 'danger',
+                    message: data.message,
+                  },
+                },
+              })
             }
           } else {
             throw new Error('Unexpected Error')
           }
         } catch (err) {
-          console.error(err.message)
+          updateAppStore({
+            type: UNEXPECTED_ERROR,
+            payload: {
+              error: {
+                code: UNEXPECTED_ERROR,
+                color: 'warning',
+                message: err.message,
+              },
+            },
+          })
         }
       } else {
-        setResColor('danger')
-        setResMsg('New password OR Confirm password not match')
+        updateAppStore({
+          type: RESET_PASSWORD_MISMATCH,
+          payload: {
+            notification: {
+              code: RESET_PASSWORD_MISMATCH,
+              color: 'info',
+              message: 'New password and Confirm password mismatch',
+            },
+          },
+        })
       }
     }
+
   return (
     <>
       <div className={'Info-card'}>
@@ -67,7 +102,6 @@ const SetPassword = ({
           <h5>Set your new password</h5>
         </div>
         <form onSubmit={event => handleSubmit(event)}>
-          {resMsg && <Toast bgColor={resColor} message={ucFirst(resMsg)} />}
           <div className={'form-group'}>
             <input
               autoComplete={'new-password'}
@@ -114,13 +148,13 @@ const SetPassword = ({
         <div>
           <ul>
             <li>
-              <NavLink to={'#'}>
+              <NavLink to={'/'}>
                 <span>Login help</span>
               </NavLink>
             </li>
             <p style={{ margin: '0px 8px' }}>•</p>
             <li>
-              <NavLink to={`#`}>
+              <NavLink to={`/`}>
                 <span>Contact Support</span>
               </NavLink>
             </li>
