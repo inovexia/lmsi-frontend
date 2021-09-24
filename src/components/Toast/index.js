@@ -14,7 +14,9 @@ export const Toast = ({ bgColor = 'primary', message }) => {
       aria-atomic={'true'}
     >
       <div className={'d-flex'}>
-        <div className={'toast-body my-auto'}>{ReactHtmlParser(message)}</div>
+        <div className={'toast-body my-auto flex-grow-1'}>
+          {ReactHtmlParser(message)}
+        </div>
         <button
           type={'button'}
           className={'btn-close btn-close-white me-2 my-auto'}

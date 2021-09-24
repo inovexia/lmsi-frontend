@@ -23,6 +23,8 @@ export const apiURL = `${api.URL}${api.path}`
 export const appRoot = '/app'
 export const isAuthGuardActive = true
 
+export const userStorageKey = 'appUser'
+
 export const userProps = {
   first_name: String,
   last_name: String,

@@ -107,9 +107,8 @@ export const useFetch = (url = '', options = null) => {
 }
 
 export const useStorage = (key, defaultValue, storageObject) => {
-  const isMounted = useIsMounted()
-  const [value, setValue] = useState(() => {
-    if (isMounted.current) {
+  const isMounted = useIsMounted(),
+    [value, setValue] = useState(() => {
       const jsonValue = storageObject.getItem(key)
       if (jsonValue != null) return JSON.parse(jsonValue)
 
@@ -118,8 +117,7 @@ export const useStorage = (key, defaultValue, storageObject) => {
       } else {
         return defaultValue
       }
-    }
-  })
+    })
 
   useEffect(() => {
     if (value === undefined) return storageObject.removeItem(key)

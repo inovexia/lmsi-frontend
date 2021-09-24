@@ -6,6 +6,7 @@ import { useLocalStorage } from 'src/hooks'
 import { Button } from 'src/components/Buttons'
 import { isBrowser } from 'src/helpers/Utils'
 import { Icon, GoogleIcon } from 'src/components/Icon'
+import { userStorageKey } from 'src/constants/defaultValues'
 import {
   LOGIN_USER,
   LOGIN_SUCCESS,
@@ -25,7 +26,7 @@ const SignIn = ({
       appStore: { apiURL, appRoot, user: loggedInUser },
       updateAppStore,
     } = useContext(AppContext),
-    [, setAppUser] = useLocalStorage('app_user', null),
+    [, setAppUser] = useLocalStorage(userStorageKey, null),
     [alowLogin, setAlowLogin] = useState(false),
     [email, setEmail] = useState(''),
     [password, setPassword] = useState(''),
@@ -136,6 +137,8 @@ const SignIn = ({
           notification: redirectionState.notification,
         },
       })
+      delete redirectionState.notification
+      history.replace(history.location.pathname, redirectionState)
     }
   }, [loggedInUser, updateAppStore, redirectionState, history, appRoot])
 
@@ -244,21 +247,19 @@ const SignIn = ({
         </div>
       </div>
       <div className={'footer-top'}>
-        <div>
-          <ul>
-            <li>
-              <NavLink to={'/'}>
-                <span>Privacy Policy</span>
-              </NavLink>
-            </li>
-            <p style={{ margin: '0px 8px' }}>•</p>
-            <li>
-              <NavLink to={'/'}>
-                <span>User Notice</span>
-              </NavLink>
-            </li>
-          </ul>
-        </div>
+        <ul>
+          <li>
+            <NavLink to={'/'}>
+              <span>Privacy Policy</span>
+            </NavLink>
+          </li>
+          <p style={{ margin: '0px 8px' }}>•</p>
+          <li>
+            <NavLink to={'/'}>
+              <span>User Notice</span>
+            </NavLink>
+          </li>
+        </ul>
       </div>
     </>
   )
