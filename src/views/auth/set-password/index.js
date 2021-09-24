@@ -7,7 +7,7 @@ const ViewSetPassword = ({ match }) => {
   return (
     <Switch>
       <Route
-        path={`${match.url}/`}
+        path={`${match.url}/:token`}
         render={props => <SetPassword {...props} />}
       />
       <Redirect to={'/error'} message={'page not exist'} />

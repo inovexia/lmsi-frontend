@@ -26,7 +26,7 @@ const ViewAuth = ({ match }) => {
           render={props => <ForgotPassword {...props} />}
         />
         <Route
-          path={`${match.url}/set-password/:token`}
+          path={`${match.url}/set-password`}
           render={props => <SetPassword {...props} />}
         />
         <Route
