@@ -10,7 +10,7 @@ const ViewSignIn = ({ match }) => {
         path={`${match.url}/:redirectTo?`}
         render={props => <SignIn {...props} />}
       />
-      <Redirect to="/error" />
+      <Redirect to={'/error'} />
     </Switch>
   )
 }

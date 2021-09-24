@@ -10,7 +10,7 @@ const ViewForgotPassword = ({ match }) => {
         path={`${match.url}/`}
         render={props => <ForgotPassword {...props} />}
       />
-      <Redirect to="/error" />
+      <Redirect to={'/error'} />
     </Switch>
   )
 }

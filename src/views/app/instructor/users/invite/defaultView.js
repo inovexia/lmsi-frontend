@@ -45,12 +45,12 @@ const Invite = () => {
         <div className={'col-12'}>
           <div className={'mb-2 d-flex justify-content-between'}>
             <h3>
-              <NavLink exact to="/teacher-dashboard/users">
+              <NavLink exact to={'/teacher-dashboard/users'}>
                 <KeyboardBackspaceSharpIcon className={'icon'} />
               </NavLink>
               <span>Invite Users</span>
             </h3>
-            <NavLink exact to="/teacher-dashboard/users/invite">
+            <NavLink exact to={'/teacher-dashboard/users/invite'}>
               <button className={'invite-btn'}>Invite User</button>
             </NavLink>
           </div>
@@ -59,14 +59,14 @@ const Invite = () => {
             <div className={'col-sm-6 mb-2'}>
               <div className={'card'}>
                 <div className={'card-body'}>
-                  <form action="#" method="post">
+                  <form method={'post'}>
                     <h4 className={'card-title'}>Send Invite By Email</h4>
                     <div className={'input-group'}>
                       <input
-                        type="email"
-                        name="email"
-                        id="1"
-                        placeholder="Enter user email-id"
+                        type={'email'}
+                        name={'email'}
+                        id={'1'}
+                        placeholder={'Enter user email-id'}
                       />
                       <div className={'input-group-append'}>
                         <button
@@ -74,7 +74,7 @@ const Invite = () => {
                             borderTopLeftRadius: 0,
                             borderBottomLeftRadius: 0,
                           }}
-                          type="submit"
+                          type={'submit'}
                           className={'btn btn-app default'}
                         >
                           Invite
@@ -88,14 +88,14 @@ const Invite = () => {
             <div className={'col-sm-6'}>
               <div className={'card'}>
                 <div className={'card-body'}>
-                  <form action="#" method="post">
+                  <form method={'post'}>
                     <h4 className={'card-title'}>Send Invite By Mobile</h4>
                     <div className={'input-group'}>
                       <input
-                        type="tel"
-                        name="phone"
-                        id="2"
-                        placeholder="Enter mobile number"
+                        type={'tel'}
+                        name={'phone'}
+                        id={'2'}
+                        placeholder={'Enter mobile number'}
                       />
                       <div className={'input-group-append'}>
                         <button
@@ -103,7 +103,7 @@ const Invite = () => {
                             borderTopLeftRadius: 0,
                             borderBottomLeftRadius: 0,
                           }}
-                          type="submit"
+                          type={'submit'}
                           className={'btn btn-app default'}
                         >
                           Invite
@@ -129,11 +129,13 @@ const Invite = () => {
                             'card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center'
                           }
                         >
-                          <a href="##" className={'w-100 w-md-30'}>
-                            <p className={'list-item-heading mb-0 truncate'}>
-                              {user.email}
-                            </p>
-                          </a>
+                          <p
+                            className={
+                              'list-item-heading mb-0 truncate w-100 w-md-30'
+                            }
+                          >
+                            <a href={`mailto:${user.email}`}>{user.email}</a>
+                          </p>
                           <p
                             className={
                               'mb-0 text-muted text-small w-100 w-md-40'
@@ -148,13 +150,13 @@ const Invite = () => {
                           >
                             <button
                               className={'btn btn-sm btn-outline-primary me-3'}
-                              type="button"
+                              type={'button'}
                             >
                               Resend
                             </button>
                             <button
                               className={'btn btn-sm btn-outline-danger'}
-                              type="button"
+                              type={'button'}
                             >
                               Remove
                             </button>

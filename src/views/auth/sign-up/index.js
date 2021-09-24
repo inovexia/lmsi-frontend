@@ -11,7 +11,7 @@ const ViewSignUp = ({ match }) => {
         path={`${match.url}/:RoleKey/:Method?/:MethodValue?/:InstituteId?`}
         render={props => <SignUp {...props} />}
       />
-      <Redirect to="/error" />
+      <Redirect to={'/error'} />
     </Switch>
   )
 }

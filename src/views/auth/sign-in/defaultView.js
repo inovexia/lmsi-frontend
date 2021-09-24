@@ -191,7 +191,7 @@ const SignIn = ({
         <div className={'social-login'} title={'Coming Soon'}>
           <Button
             className={'d-flex w-100 border'}
-            variant="light"
+            variant={'light'}
             disabled={true}
           >
             <GoogleIcon className={'my-auto'} />
@@ -201,7 +201,7 @@ const SignIn = ({
           </Button>
           <Button
             className={'d-flex w-100 border'}
-            variant="light"
+            variant={'light'}
             disabled={true}
           >
             <Icon icon={'facebook'} className={'my-auto'} />
@@ -211,7 +211,7 @@ const SignIn = ({
           </Button>
           <Button
             className={'d-flex w-100 border'}
-            variant="light"
+            variant={'light'}
             disabled={true}
           >
             <Icon icon={'instagram'} className={'my-auto'} />
@@ -221,7 +221,7 @@ const SignIn = ({
           </Button>
           <Button
             className={'d-flex w-100 border'}
-            variant="light"
+            variant={'light'}
             disabled={true}
           >
             <Icon icon={'linkedin'} className={'my-auto'} />

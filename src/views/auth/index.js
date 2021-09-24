@@ -33,7 +33,7 @@ const ViewAuth = ({ match }) => {
           path={`${match.url}/verify-email/:verificationId/:token`}
           render={props => <VerifyEmail {...props} />}
         />
-        <Redirect to="/error" />
+        <Redirect to={'/error'} />
       </Switch>
     </AuthLayout>
   )
