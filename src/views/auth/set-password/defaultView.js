@@ -27,7 +27,7 @@ const SetPassword = ({
       if (newPassword === confirmPassword) {
         try {
           // Request Access Token From API
-          const forgotRequest = await fetch(
+          const resetRequest = await fetch(
             `${apiURL}/member/reset/password/${token}`,
             {
               method: 'PUT',
@@ -40,8 +40,8 @@ const SetPassword = ({
               }),
             }
           )
-          if (forgotRequest.ok) {
-            const data = await forgotRequest.json()
+          if (resetRequest.ok) {
+            const data = await resetRequest.json()
             if (data.API_STATUS) {
               updateAppStore({
                 type: RESET_PASSWORD_SUCCESS,

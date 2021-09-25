@@ -3,19 +3,21 @@ import { NavLink } from 'react-router-dom'
 import { Button } from 'src/components/Buttons'
 
 import { AppContext } from 'src/AppContext'
-import { Toast } from 'src/components/Toast'
-import { ucFirst } from 'src/helpers/Utils'
+import {
+  FORGOT_PASSWORD_SUCCESS,
+  FORGOT_PASSWORD_ERROR,
+  UNEXPECTED_ERROR,
+} from 'src/constants/actions'
 
 const ForgotPassword = () => {
   const {
     appStore: { apiURL },
+    updateAppStore,
   } = useContext(AppContext)
   const [email, setEmail] = useState(''),
-    [resColor, setResColor] = useState(null),
-    [resMsg, setResMsg] = useState(null),
     handleSubmit = async event => {
       event.preventDefault()
-      setResMsg(null)
+
       try {
         // Request Access Token From API
         const forgotRequest = await fetch(`${apiURL}/member/password-reset`, {
@@ -31,20 +33,42 @@ const ForgotPassword = () => {
         if (forgotRequest.ok) {
           const data = await forgotRequest.json()
           if (data.API_STATUS) {
-            setResColor('success')
-            setResMsg(data.message)
-            setTimeout(() => {
-              return data.response
-            }, 3000)
+            updateAppStore({
+              type: FORGOT_PASSWORD_SUCCESS,
+              payload: {
+                notification: {
+                  code: FORGOT_PASSWORD_SUCCESS,
+                  color: 'success',
+                  message: data.message,
+                },
+              },
+            })
           } else {
-            setResColor('danger')
-            setResMsg(data.message)
+            updateAppStore({
+              type: FORGOT_PASSWORD_ERROR,
+              payload: {
+                error: {
+                  code: FORGOT_PASSWORD_ERROR,
+                  color: 'danger',
+                  message: data.message,
+                },
+              },
+            })
           }
         } else {
           throw new Error('Unexpected Error')
         }
       } catch (err) {
-        console.error(err.message)
+        updateAppStore({
+          type: UNEXPECTED_ERROR,
+          payload: {
+            error: {
+              code: UNEXPECTED_ERROR,
+              color: 'warning',
+              message: err.message,
+            },
+          },
+        })
       }
     }
 
@@ -55,7 +79,6 @@ const ForgotPassword = () => {
           <h5>Can't log in?</h5>
         </div>
         <form autoComplete={'off'} onSubmit={event => handleSubmit(event)}>
-          {resMsg && <Toast bgColor={resColor} message={ucFirst(resMsg)} />}
           <label className={'input-label mt-4'} htmlFor={'email'}>
             We'll send a recovery link to
           </label>
