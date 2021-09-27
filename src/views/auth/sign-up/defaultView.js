@@ -11,6 +11,7 @@ import {
   REGISTER_USER_SUCCESS,
   REGISTER_USER_ERROR,
   UNEXPECTED_ERROR,
+  REGISTER_USER_EXIST,
 } from 'src/constants/actions'
 
 const SignUp = ({
@@ -70,6 +71,16 @@ const SignUp = ({
           const data = await checkRequest.json()
           if (data.EMAIL_EXISTS) {
             setUserExists(data.EMAIL_EXISTS)
+            updateAppStore({
+              type: REGISTER_USER_EXIST,
+              payload: {
+                error: {
+                  code: REGISTER_USER_EXIST,
+                  color: 'danger',
+                  message: 'Email already taken.',
+                },
+              },
+            })
           } else {
             try {
               // Request Access Token From API

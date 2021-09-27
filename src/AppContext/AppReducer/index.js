@@ -34,6 +34,9 @@ const AppReducer = (appStore, AppAction) => {
     case AllActions.REGISTER_USER_ERROR:
       appStore.errors.push(AppAction.payload.error)
       return { ...appStore }
+    case AllActions.REGISTER_USER_EXIST:
+      appStore.errors.push(AppAction.payload.error)
+      return { ...appStore }
     case AllActions.FORGOT_PASSWORD_SUCCESS:
       appStore.notifications.push(AppAction.payload.notification)
       return { ...appStore }
