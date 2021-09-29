@@ -46,6 +46,7 @@ const Header = () => {
           )
         )}
       </div>
+      <button className={'logout-button'}>Logout</button>
     </div>
   )
 }

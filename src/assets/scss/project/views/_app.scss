@@ -5,6 +5,8 @@
     max-height: 100vh;
 
     .sidebar {
+      display: flex;
+      flex-direction: column;
       background-image: $appGradient;
       width: 100%;
       max-width: 250px;
@@ -28,6 +30,25 @@
           }
         }
       }
+
+      .logout-button {
+        background: transparent;
+        border: none;
+        color: #ffffff;
+        margin-top: auto;
+        margin-left: -40px;
+        margin-bottom: 20px;
+      }
+    }
+
+    .right-sidebar {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      max-width: 250px;
+      height: 100%;
+      background: #ffffff;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     }
 
     main {
@@ -36,6 +57,7 @@
       flex-grow: 1;
       overflow: auto;
       padding: 0 24px;
+      background: #e5e5e5;
     }
   }
 }
