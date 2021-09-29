@@ -43,6 +43,46 @@ export const navMenus = {
     { label: `Dashboard`, link: `/app/instructor/dashboard` },
     {
       label: `Institute`,
+      link: `/app/instructor/institute`,
+    },
+
+    {
+      label: `Slots`,
+      link: `/app/instructor/slots`,
+    },
+    { label: `Messages`, link: `#` },
+    {
+      label: `Users`,
+      link: `/app/instructor/users`,
+    },
+  ],
+  learner: [
+    { label: `Dashboard`, link: `/app/learner/dashboard` },
+    {
+      label: `Profile`,
+      link: `#`,
+      subMenu: [
+        { label: `View`, link: `/app/learner/profile` },
+        { label: `Edit`, link: `/app/learner/profile/edit` },
+      ],
+    },
+    {
+      label: `Courses`,
+      link: `#`,
+      subMenu: [
+        { label: `List`, link: `/app/learner/courses` },
+        { label: `Slots`, link: `/app/learner/courses/slots` },
+      ],
+    },
+  ],
+  admin: [],
+}
+
+export const navMenusOld = {
+  instructor: [
+    { label: `Dashboard`, link: `/app/instructor/dashboard` },
+    {
+      label: `Institute`,
       link: `#`,
       subMenu: [
         { label: `Info`, link: `/app/instructor/institute` },
