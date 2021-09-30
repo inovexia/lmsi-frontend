@@ -2,7 +2,7 @@ import React from 'react'
 
 const Dashboard = () => {
   return (
-    <div style={{ height: '200vh' }}>
+    <div>
       <h2>Instructor Dashboard</h2>
     </div>
   )

@@ -1,4 +1,5 @@
 import * as AllActions from 'src/constants/actions'
+import { isValidRedirectPath } from 'src/helpers/Utils'
 
 const AppReducer = (appStore, AppAction) => {
   switch (AppAction.type) {
@@ -6,7 +7,14 @@ const AppReducer = (appStore, AppAction) => {
       return { ...appStore, user: AppAction.payload.user }
     case AllActions.LOGIN_USER:
       appStore.notifications.push(AppAction.payload.notification)
-      return { ...appStore, user: AppAction.payload.user }
+      appStore.user = AppAction.payload.user
+      isValidRedirectPath(
+        AppAction.payload.redirectTo,
+        AppAction.payload.user.role_id
+      ) &&
+        AppAction.payload.history &&
+        AppAction.payload.history.push(AppAction.payload.redirectTo)
+      return { ...appStore }
     case AllActions.LOGIN_FAILED:
       appStore.errors.push(AppAction.payload.error)
       return {
@@ -14,8 +22,11 @@ const AppReducer = (appStore, AppAction) => {
       }
     case AllActions.LOGOUT_USER:
       appStore.notifications.push(AppAction.payload.notification)
+      AppAction.payload.history &&
+        AppAction.payload.history.push(AppAction.payload.pathname)
       return {
         ...appStore,
+        user: null,
       }
     case AllActions.DISMISS_ERROR:
       appStore.errors.splice(AppAction.payload.index, 1)

@@ -177,6 +177,12 @@ export const useTimeout = (callback, delay) => {
   return { reset, clear }
 }
 
+export const useDebounce = (callback, delay, dependencies) => {
+  const { reset, clear } = useTimeout(callback, delay)
+  useEffect(reset, [...dependencies, reset])
+  useEffect(clear, [clear])
+}
+
 export const useToggle = defaultValue => {
   const [value, setValue] = useState(defaultValue),
     isMounted = useIsMounted(),

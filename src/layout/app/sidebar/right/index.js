@@ -1,8 +1,8 @@
 import React from 'react'
 
-const Header = () => {
+const SidebarRight = () => {
   return (
-    <div className={'right-sidebar'}>
+    <div className={'sidebar right'}>
       <div className={'header mb-4 mt-4 container-fluid'}>Icons</div>
       <div className={'content container-fluid'}>
         <span>Upcoming</span>
@@ -11,4 +11,4 @@ const Header = () => {
   )
 }
 
-export default Header
+export default SidebarRight

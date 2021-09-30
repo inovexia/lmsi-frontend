@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 
 import { AppContext } from 'src/AppContext'
-import { useLocalStorage } from 'src/hooks'
+import { useDebounce, useLocalStorage } from 'src/hooks'
 import { Button } from 'src/components/Buttons'
 import { isBrowser } from 'src/helpers/Utils'
 import { Icon, GoogleIcon } from 'src/components/Icon'
@@ -26,7 +26,7 @@ const SignIn = ({
       appStore: { apiURL, appRoot, user: loggedInUser },
       updateAppStore,
     } = useContext(AppContext),
-    [, setAppUser] = useLocalStorage(userStorageKey, null),
+    [appUser, setAppUser] = useLocalStorage(userStorageKey, null),
     [alowLogin, setAlowLogin] = useState(false),
     [email, setEmail] = useState(''),
     [password, setPassword] = useState(''),
@@ -82,18 +82,7 @@ const SignIn = ({
             if (data.API_STATUS) {
               const user = data.response
               isBrowser && setAppUser(user)
-              updateAppStore({
-                type: LOGIN_USER,
-                payload: {
-                  user,
-                  notification: {
-                    code: LOGIN_SUCCESS,
-                    color: 'success',
-                    message: data.message,
-                  },
-                },
-              })
-              history.push(redirectTo ? window.atob(redirectTo) : appRoot)
+              // history.push(redirectTo ? window.atob(redirectTo) : appRoot)
             } else {
               updateAppStore({
                 type: LOGIN_FAILED,
@@ -125,6 +114,26 @@ const SignIn = ({
         }
       }
     }
+
+  useDebounce(
+    () => {
+      updateAppStore({
+        type: LOGIN_USER,
+        payload: {
+          history,
+          notification: {
+            code: LOGIN_SUCCESS,
+            color: 'success',
+            message: 'Login Successful...',
+          },
+          redirectTo: redirectTo ? window.atob(redirectTo) : appRoot,
+          user: appUser,
+        },
+      })
+    },
+    100,
+    [appUser]
+  )
 
   useEffect(() => {
     if (loggedInUser) {

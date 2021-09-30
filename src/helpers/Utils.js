@@ -5,6 +5,7 @@ import {
   defaultLang,
   languageOptions,
   navMenus,
+  navMenusOld,
 } from 'src/constants/defaultValues'
 
 export const isBrowser = typeof window !== 'undefined'
@@ -243,6 +244,29 @@ export const getUserPath = RoleId => {
       return `learner`
     default:
       return `unauthorized`
+  }
+}
+
+export const isValidRedirectPath = (redirectTo, RoleId) => {
+  console.log(
+    redirectTo,
+    getUserPath(RoleId),
+    redirectTo.includes(getUserPath(RoleId))
+  )
+  return redirectTo.includes(getUserPath(RoleId))
+}
+
+export const getOldNavMenu = RoleId => {
+  switch (RoleId) {
+    case UserRole.super_admin:
+    case UserRole.admin:
+      return navMenusOld.admin
+    case UserRole.instructor:
+      return navMenusOld.instructor
+    case UserRole.learner:
+      return navMenusOld.learner
+    default:
+      return []
   }
 }
 
