@@ -1,6 +1,5 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import KeyboardBackspaceSharpIcon from '@material-ui/icons/KeyboardBackspaceSharp'
 
 const MyAppointment = () => {
   return (
@@ -11,7 +10,7 @@ const MyAppointment = () => {
             <div className={'mb-2 d-flex justify-content-between'}>
               <h3>
                 <NavLink exact to="/teacher-dashboard/slots">
-                  <KeyboardBackspaceSharpIcon className={'icon'} />
+                  Icon
                 </NavLink>
                 <span>My Appointments</span>
               </h3>

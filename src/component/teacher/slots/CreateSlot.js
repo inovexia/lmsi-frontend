@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import KeyboardBackspaceSharpIcon from '@material-ui/icons/KeyboardBackspaceSharp'
 
 const CreateSlot = () => {
   const [isChecked, setIsChecked] = useState(false)
@@ -17,7 +16,7 @@ const CreateSlot = () => {
             <div className={'mb-2 d-flex justify-content-between'}>
               <h3>
                 <NavLink exact to="/teacher-dashboard/slots">
-                  <KeyboardBackspaceSharpIcon className={'icon'} />
+                  Icon
                 </NavLink>
                 <span>Create Slots</span>
               </h3>

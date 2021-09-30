@@ -1,6 +1,5 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import KeyboardBackspaceSharpIcon from '@material-ui/icons/KeyboardBackspaceSharp'
 import UserCard from './UserCard'
 
 const EditUser = () => {
@@ -11,7 +10,7 @@ const EditUser = () => {
           <div className={'mb-2 d-flex justify-content-between'}>
             <h3>
               <NavLink exact to="/teacher-dashboard/users">
-                <KeyboardBackspaceSharpIcon className={'icon'} />
+                Icon
               </NavLink>
               <span>Edit Account</span>
             </h3>

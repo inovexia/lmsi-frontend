@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import KeyboardBackspaceSharpIcon from '@material-ui/icons/KeyboardBackspaceSharp'
 
 const Invite = () => {
   const [users, setUser] = useState([])
@@ -46,7 +45,7 @@ const Invite = () => {
           <div className={'mb-2 d-flex justify-content-between'}>
             <h3>
               <NavLink exact to={'/teacher-dashboard/users'}>
-                <KeyboardBackspaceSharpIcon className={'icon'} />
+                Icon
               </NavLink>
               <span>Invite Users</span>
             </h3>
