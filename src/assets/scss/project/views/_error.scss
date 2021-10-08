@@ -10,26 +10,11 @@
 }
 @media (min-width: map-get($grid-breakpoints, 'sm')) {
 }
-@media (min-width: 705px) {
-  .error-page {
-    background-attachment: fixed;
-    background-blend-mode: multiply;
-    background-image: url('../../../images/auth1.svg'),
-      url('../../../images/auth2.svg');
-    background-position: bottom left, bottom right;
-    background-repeat: no-repeat;
-    background-size: calc(((100vw - 400px) / 2) - 32px),
-      calc(((100vw - 400px) / 2) - 32px), cover;
-  }
-}
 @media (min-width: map-get($grid-breakpoints, 'md')) {
 }
 @media (min-width: map-get($grid-breakpoints, 'lg')) {
 }
 @media (min-width: map-get($grid-breakpoints, 'xl')) {
-  .error-page {
-    background-size: 368px auto;
-  }
 }
 @media (min-width: map-get($grid-breakpoints, 'xxl')) {
 }

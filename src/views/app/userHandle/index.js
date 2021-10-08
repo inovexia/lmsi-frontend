@@ -5,6 +5,7 @@ const User = React.lazy(() => import('./defaultView'))
 const BookingsView = React.lazy(() => import('./bookings'))
 const CartView = React.lazy(() => import('./cart'))
 const CheckoutView = React.lazy(() => import('./checkout'))
+const CreateUserView = React.lazy(() => import('./create-user'))
 const EditView = React.lazy(() => import('./edit'))
 const FollowingView = React.lazy(() => import('./following'))
 const FollowersView = React.lazy(() => import('./followers'))
@@ -14,52 +15,93 @@ const CreateInstituteView = React.lazy(() => import('./create-institute'))
 const InstituteHandleView = React.lazy(() => import('./instituteHandle'))
 
 const UserView = ({ match }) => {
+  console.log(match)
+
   return (
     <Switch>
       <Route
-        path={`${match.url}/:userHandle/bookings`}
-        render={props => <BookingsView {...props} />}
+        path={`${match.url}/bookings`}
+        render={props => {
+          props.match.params = { ...props.match.params, ...match.params }
+          return <BookingsView {...props} />
+        }}
       />
       <Route
-        path={`${match.url}/:userHandle/cart`}
-        render={props => <CartView {...props} />}
+        path={`${match.url}/cart`}
+        render={props => {
+          props.match.params = { ...props.match.params, ...match.params }
+          return <CartView {...props} />
+        }}
       />
       <Route
-        path={`${match.url}/:userHandle/checkout`}
-        render={props => <CheckoutView {...props} />}
+        path={`${match.url}/checkout`}
+        render={props => {
+          props.match.params = { ...props.match.params, ...match.params }
+          return <CheckoutView {...props} />
+        }}
       />
       <Route
-        path={`${match.url}/:userHandle/edit`}
-        render={props => <EditView {...props} />}
+        path={`${match.url}/create-user`}
+        render={props => {
+          props.match.params = { ...props.match.params, ...match.params }
+          return <CreateUserView {...props} />
+        }}
       />
       <Route
-        path={`${match.url}/:userHandle/followers`}
-        render={props => <FollowersView {...props} />}
+        path={`${match.url}/edit`}
+        render={props => {
+          props.match.params = { ...props.match.params, ...match.params }
+          return <EditView {...props} />
+        }}
       />
       <Route
-        path={`${match.url}/:userHandle/following`}
-        render={props => <FollowingView {...props} />}
+        path={`${match.url}/followers`}
+        render={props => {
+          props.match.params = { ...props.match.params, ...match.params }
+          return <FollowersView {...props} />
+        }}
       />
       <Route
-        path={`${match.url}/:userHandle/institutes`}
-        render={props => <InstitutesView {...props} />}
+        path={`${match.url}/following`}
+        render={props => {
+          props.match.params = { ...props.match.params, ...match.params }
+          return <FollowingView {...props} />
+        }}
       />
       <Route
-        path={`${match.url}/:userHandle/settings`}
-        render={props => <SettingsView {...props} />}
+        path={`${match.url}/institutes`}
+        render={props => {
+          props.match.params = { ...props.match.params, ...match.params }
+          return <InstitutesView {...props} />
+        }}
       />
       <Route
-        path={`${match.url}/:userHandle/create-institute`}
-        render={props => <CreateInstituteView {...props} />}
+        path={`${match.url}/settings`}
+        render={props => {
+          props.match.params = { ...props.match.params, ...match.params }
+          return <SettingsView {...props} />
+        }}
       />
       <Route
-        path={`${match.url}/:userHandle/:instituteHandle`}
-        render={props => <InstituteHandleView {...props} />}
+        path={`${match.url}/create-institute`}
+        render={props => {
+          props.match.params = { ...props.match.params, ...match.params }
+          return <CreateInstituteView {...props} />
+        }}
       />
       <Route
-        exact={true}
-        path={`${match.url}/:userHandle`}
-        render={props => <User {...props} />}
+        path={`${match.url}/:instituteHandle`}
+        render={props => {
+          props.match.params = { ...props.match.params, ...match.params }
+          return <InstituteHandleView {...props} />
+        }}
+      />
+      <Route
+        path={`${match.url}/`}
+        render={props => {
+          props.match.params = { ...props.match.params, ...match.params }
+          return <User {...props} />
+        }}
       />
       <Redirect to={'/error'} message={'page not exist'} />
     </Switch>

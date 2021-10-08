@@ -237,6 +237,10 @@ export const isAuthorized = (userRoleId, accessLevel) => {
   return userRoleId <= UserRole[accessLevel]
 }
 
+export const isAuthorizedByLevel = (userRoleId, accessLevel) => {
+  return userRoleId <= UserRole[accessLevel]
+}
+
 export const canAccess = (user, userHandle) => {
   return user.user_name
     ? user.user_name === userHandle

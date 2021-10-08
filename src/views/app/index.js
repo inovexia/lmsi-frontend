@@ -21,8 +21,10 @@ const App = ({ match }) => {
           to={`${match.url}/${redirectTo}`}
         />
         <Route
-          path={`${match.url}/`}
-          render={props => <UserHandleView {...props} />}
+          path={`${match.url}/:userHandle`}
+          render={props => {
+            return <UserHandleView {...props} />
+          }}
         />
         <Redirect to={'/error'} />
       </Switch>
