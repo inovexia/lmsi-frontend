@@ -2,18 +2,15 @@ import React, { useContext } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
 
 import { AppContext } from 'src/AppContext'
-import { getUserPath } from 'src/helpers/Utils'
 import AppLayout from 'src/layout/app'
 
-const AdminView = React.lazy(() => import('./admin'))
-const InstructorView = React.lazy(() => import('./instructor'))
-const LearnerView = React.lazy(() => import('./learner'))
+const UserHandleView = React.lazy(() => import('./userHandle'))
 
 const App = ({ match }) => {
   const {
       appStore: { user },
     } = useContext(AppContext),
-    redirectTo = getUserPath(user.role_id)
+    redirectTo = user.user_name ? user.user_name : user.serial_id
 
   return (
     <AppLayout>
@@ -21,23 +18,11 @@ const App = ({ match }) => {
         <Redirect
           exact
           from={`${match.url}/`}
-          to={
-            redirectTo !== 'unauthorized'
-              ? `${match.url}/${redirectTo}`
-              : `/unauthorized`
-          }
+          to={`${match.url}/${redirectTo}`}
         />
         <Route
-          path={`${match.url}/admin`}
-          render={props => <AdminView {...props} />}
-        />
-        <Route
-          path={`${match.url}/instructor`}
-          render={props => <InstructorView {...props} />}
-        />
-        <Route
-          path={`${match.url}/learner`}
-          render={props => <LearnerView {...props} />}
+          path={`${match.url}/`}
+          render={props => <UserHandleView {...props} />}
         />
         <Redirect to={'/error'} />
       </Switch>

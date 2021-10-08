@@ -5,7 +5,7 @@ import { NavDropdown } from 'react-bootstrap'
 import { AppContext } from 'src/AppContext'
 import { useDebounce, useIsMounted, useLocalStorage } from 'src/hooks'
 import { getNavMenu } from 'src/helpers/Utils'
-import { userStorageKey } from 'src/constants/defaultValues'
+import { appRoot, userStorageKey } from 'src/constants/defaultValues'
 import { LOGOUT_USER } from 'src/constants/actions'
 import Logo from 'src/assets/svg/logo'
 
@@ -47,14 +47,14 @@ const SidebarLeft = () => {
 
   return (
     <div className={'sidebar left'}>
-      <div className={'logo'}>
+      <Link to={appRoot} className={'logo'}>
         <Logo
           iconColor={'#ffffff'}
           textColor={'#ffffff'}
           width={104}
           height={74}
         />
-      </div>
+      </Link>
       <div className={'list'}>
         {navMenu.map(({ link, label, subMenu }, i) =>
           subMenu ? (

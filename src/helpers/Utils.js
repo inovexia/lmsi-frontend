@@ -233,6 +233,16 @@ export const isUnAuthorized = (userRoleId, authRoleId) => {
   return userRoleId !== authRoleId
 }
 
+export const isAuthorized = (userRoleId, accessLevel) => {
+  return userRoleId <= UserRole[accessLevel]
+}
+
+export const canAccess = (user, userHandle) => {
+  return user.user_name
+    ? user.user_name === userHandle
+    : user.serial_id === userHandle
+}
+
 export const getUserPath = RoleId => {
   switch (RoleId) {
     case UserRole.super_admin:
