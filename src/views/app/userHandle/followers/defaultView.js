@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 const Followers = ({ match }) => {
-  console.log(match)
+  false && console.log(match)
   return (
     <div>
       <h1>User Followers</h1>

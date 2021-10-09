@@ -4,7 +4,7 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 const Courses = React.lazy(() => import('./defaultView'))
 
 const InstituteCoursesView = ({ match }) => {
-  console.log(match)
+  false && console.log(match)
 
   return (
     <Switch>

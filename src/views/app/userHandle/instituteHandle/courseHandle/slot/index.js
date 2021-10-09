@@ -1,9 +1,9 @@
 import React from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
 
-const Checkout = React.lazy(() => import('./defaultView'))
+const CourseSlot = React.lazy(() => import('./defaultView'))
 
-const CheckoutView = ({ match }) => {
+const CourseSlotView = ({ match }) => {
   false && console.log(match)
 
   return (
@@ -12,7 +12,7 @@ const CheckoutView = ({ match }) => {
         path={`${match.url}/`}
         render={props => {
           props.match.params = { ...props.match.params, ...match.params }
-          return <Checkout {...props} />
+          return <CourseSlot {...props} />
         }}
       />
       <Redirect to={'/error'} message={'page not exist'} />
@@ -20,4 +20,4 @@ const CheckoutView = ({ match }) => {
   )
 }
 
-export default CheckoutView
+export default CourseSlotView

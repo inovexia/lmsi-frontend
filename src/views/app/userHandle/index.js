@@ -15,7 +15,7 @@ const CreateInstituteView = React.lazy(() => import('./create-institute'))
 const InstituteHandleView = React.lazy(() => import('./instituteHandle'))
 
 const UserView = ({ match }) => {
-  console.log(match)
+  false && console.log(match)
 
   return (
     <Switch>

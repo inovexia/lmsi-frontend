@@ -10,7 +10,7 @@ const CreateInstituteView = ({ match }) => {
   const {
     appStore: { user },
   } = useContext(AppContext)
-  console.log(match)
+  false && console.log(match)
 
   return (
     <Switch>

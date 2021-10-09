@@ -4,7 +4,7 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 const AllSlots = React.lazy(() => import('./defaultView'))
 
 const InstituteAllSlotsView = ({ match }) => {
-  console.log(match)
+  false && console.log(match)
 
   return (
     <Switch>

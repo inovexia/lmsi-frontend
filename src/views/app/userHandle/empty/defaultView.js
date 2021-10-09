@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Empty = ({ match }) => {
-  console.log(match)
+  false && console.log(match)
   return (
     <div>
       <h1>Empty</h1>

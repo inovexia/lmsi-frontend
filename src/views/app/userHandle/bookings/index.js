@@ -4,7 +4,7 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 const Bookings = React.lazy(() => import('./defaultView'))
 
 const BookingsView = ({ match }) => {
-  console.log(match)
+  false && console.log(match)
 
   return (
     <Switch>

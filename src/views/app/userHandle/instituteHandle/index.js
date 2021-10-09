@@ -11,7 +11,7 @@ const InstituteQuickSlotView = React.lazy(() => import('./quick-slot'))
 const InstituteHandle = React.lazy(() => import('./defaultView'))
 
 const InstituteHandleView = ({ match }) => {
-  console.log(match)
+  false && console.log(match)
 
   return (
     <Switch>

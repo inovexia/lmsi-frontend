@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
+import copy from 'copy-to-clipboard'
 
 export const useArray = defaultValue => {
   const [array, setArray] = useState(defaultValue),
@@ -194,4 +195,156 @@ export const useToggle = defaultValue => {
     }
 
   return [value, toggleValue]
+}
+
+export const useEventListener = (eventType, callback, element = window) => {
+  const callbackRef = useRef(callback)
+
+  useEffect(() => {
+    callbackRef.current = callback
+  }, [callback])
+
+  useEffect(() => {
+    if (element == null) return
+    const handler = e => callbackRef.current(e)
+    element.addEventListener(eventType, handler)
+
+    return () => element.removeEventListener(eventType, handler)
+  }, [eventType, element])
+}
+
+export const useOnScreen = (ref, rootMargin = '0px') => {
+  const [isVisible, setIsVisible] = useState(false)
+
+  useEffect(() => {
+    if (ref.current == null) return
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { rootMargin }
+    )
+    observer.observe(ref.current)
+    return () => {
+      if (ref == null) return
+      observer.unobserve(ref)
+    }
+  }, [ref, rootMargin])
+
+  return isVisible
+}
+
+export const useWindowSize = () => {
+  const [windowSize, setWindowSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  })
+
+  useEventListener('resize', () => {
+    setWindowSize({ width: window.innerWidth, height: window.innerHeight })
+  })
+
+  return windowSize
+}
+
+export const useMediaQuery = mediaQuery => {
+  const [isMatch, setIsMatch] = useState(false)
+  const [mediaQueryList, setMediaQueryList] = useState(null)
+
+  useEffect(() => {
+    const list = window.matchMedia(mediaQuery)
+    setMediaQueryList(list)
+    setIsMatch(list.matches)
+  }, [mediaQuery])
+
+  useEventListener('change', e => setIsMatch(e.matches), mediaQueryList)
+
+  return isMatch
+}
+
+export const useGeolocation = options => {
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState()
+  const [data, setData] = useState({})
+
+  useEffect(() => {
+    const successHandler = e => {
+      setLoading(false)
+      setError(null)
+      setData(e.coords)
+    }
+    const errorHandler = e => {
+      setError(e)
+      setLoading(false)
+    }
+    navigator.geolocation.getCurrentPosition(
+      successHandler,
+      errorHandler,
+      options
+    )
+    const id = navigator.geolocation.watchPosition(
+      successHandler,
+      errorHandler,
+      options
+    )
+    return () => navigator.geolocation.clearWatch(id)
+  }, [options])
+
+  return { loading, error, data }
+}
+
+export const useStateWithValidation = (validationFunc, initialValue) => {
+  const [state, setState] = useState(initialValue)
+  const [isValid, setIsValid] = useState(() => validationFunc(state))
+
+  const onChange = useCallback(
+    nextState => {
+      const value =
+        typeof nextState === 'function' ? nextState(state) : nextState
+      setState(value)
+      setIsValid(validationFunc(value))
+    },
+    [state, validationFunc]
+  )
+
+  return [state, onChange, isValid]
+}
+
+export const useSize = ref => {
+  const [size, setSize] = useState({})
+
+  useEffect(() => {
+    if (ref.current == null) return
+    const observer = new ResizeObserver(([entry]) => setSize(entry.contentRect))
+    observer.observe(ref.current)
+    return () => observer.disconnect()
+  }, [ref])
+
+  return size
+}
+
+export const useEffectOnce = callback => {
+  useEffect(callback)
+}
+
+export const useClickOutside = (ref, callback) => {
+  useEventListener(
+    'click',
+    e => {
+      if (ref.current == null || ref.current.contains(e.target)) return
+      callback(e)
+    },
+    document
+  )
+}
+
+export const useCopyToClipboard = () => {
+  const [value, setValue] = useState()
+  const [success, setSuccess] = useState()
+
+  const copyToClipboard = (text, options) => {
+    const result = copy(text, options)
+    if (result) setValue(text)
+    setSuccess(result)
+  }
+
+  return [copyToClipboard, { value, success }]
 }

@@ -10,7 +10,7 @@ const Empty = ({ match }) => {
     } = useContext(AppContext),
     allowedAccess = canAccess(user, match.params.userHandle)
 
-  console.log(match)
+  false && console.log(match)
 
   return (
     <div>

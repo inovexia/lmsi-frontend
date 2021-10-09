@@ -4,7 +4,7 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 const QuickSlot = React.lazy(() => import('./defaultView'))
 
 const InstituteQuickSlotView = ({ match }) => {
-  console.log(match)
+  false && console.log(match)
 
   return (
     <Switch>

@@ -4,7 +4,7 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 const Cart = React.lazy(() => import('./defaultView'))
 
 const CartView = ({ match }) => {
-  console.log(match)
+  false && console.log(match)
 
   return (
     <Switch>

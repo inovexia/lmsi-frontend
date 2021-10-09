@@ -9,7 +9,7 @@ const Institute = ({ match }) => {
     appStore: { user },
   } = useContext(AppContext)
 
-  console.log(match)
+  false && console.log(match)
   return (
     <div>
       <h1>Institute</h1>

@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 const AllSlots = ({ match }) => {
-  console.log(match)
+  false && console.log(match)
   return (
     <div>
       <h1>Institute All Slots</h1>

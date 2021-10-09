@@ -1,5 +1,5 @@
 import * as AllActions from 'src/constants/actions'
-import { isValidRedirectPath, decrypt } from 'src/helpers/Utils'
+import { decrypt } from 'src/helpers/Utils'
 
 const AppReducer = (appStore, AppAction) => {
   switch (AppAction.type) {
@@ -8,11 +8,7 @@ const AppReducer = (appStore, AppAction) => {
     case AllActions.LOGIN_USER:
       appStore.notifications.push(AppAction.payload.notification)
       appStore.user = decrypt(AppAction.payload.user)
-      isValidRedirectPath(
-        AppAction.payload.redirectTo,
-        appStore.user.role_id
-      ) &&
-        AppAction.payload.history &&
+      AppAction.payload.history &&
         AppAction.payload.history.push(AppAction.payload.redirectTo)
       return { ...appStore }
     case AllActions.LOGIN_FAILED:
@@ -47,6 +43,9 @@ const AppReducer = (appStore, AppAction) => {
       return { ...appStore }
     case AllActions.REGISTER_USER_EXIST:
       appStore.errors.push(AppAction.payload.error)
+      return { ...appStore }
+    case AllActions.PASSWORD_COPY_TO_CLIPBOARD:
+      appStore.notifications.push(AppAction.payload.notification)
       return { ...appStore }
     case AllActions.FORGOT_PASSWORD_SUCCESS:
       appStore.notifications.push(AppAction.payload.notification)

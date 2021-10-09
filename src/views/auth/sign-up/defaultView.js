@@ -7,11 +7,13 @@ import { Icon, GoogleIcon } from 'src/components/Icon'
 import { generatePassword } from 'src/helpers/Utils'
 
 import { AppContext } from 'src/AppContext'
+import { useCopyToClipboard, useDebounce } from 'src/hooks'
 import {
   REGISTER_USER_SUCCESS,
   REGISTER_USER_ERROR,
   UNEXPECTED_ERROR,
   REGISTER_USER_EXIST,
+  PASSWORD_COPY_TO_CLIPBOARD,
 } from 'src/constants/actions'
 
 const SignUp = ({
@@ -30,19 +32,16 @@ const SignUp = ({
     [lastName, setLastName] = useState(''),
     [password, setPassword] = useState(''),
     [institutionId, setInstitutionId] = useState(null),
-    copyPassword = () => {
-      const newPasswordField = document.getElementById('new-password')
-      newPasswordField.select()
-      document.execCommand('copy')
-      newPasswordField.type = 'password'
-      setTimeout(() => {
-        alert('Password copied to clipboard')
-      }, 1000)
-    },
+    [copyToClipboard, { value: oldGenPassword, success: copySuccess }] =
+      useCopyToClipboard(),
     generateNewPassword = () => {
-      const newPasswordField = document.getElementById('new-password')
-      setPassword(generatePassword(15))
+      const newPasswordField = document.getElementById('new-password'),
+        generatedPassword = generatePassword(15)
+      setPassword(generatedPassword)
       newPasswordField.type = 'text'
+      if (oldGenPassword !== generatedPassword) {
+        copyToClipboard(generatedPassword)
+      }
     },
     setFullName = value => {
       if (value.includes(' ')) {
@@ -158,6 +157,15 @@ const SignUp = ({
       }
     }
 
+  useDebounce(
+    () => {
+      const newPasswordField = document.querySelector('#new-password')
+      newPasswordField.type = 'password'
+    },
+    5000,
+    [password]
+  )
+
   useEffect(() => {
     if (Method === 'email') {
       setEmail(MethodValue)
@@ -165,7 +173,27 @@ const SignUp = ({
     if (InstituteId) {
       setInstitutionId(InstituteId)
     }
-  }, [Method, MethodValue, InstituteId])
+    if (copySuccess || (oldGenPassword && oldGenPassword === password)) {
+      updateAppStore({
+        type: PASSWORD_COPY_TO_CLIPBOARD,
+        payload: {
+          notification: {
+            code: PASSWORD_COPY_TO_CLIPBOARD,
+            color: 'info',
+            message: 'Your Password copied to your clipboard.',
+          },
+        },
+      })
+    }
+  }, [
+    Method,
+    MethodValue,
+    InstituteId,
+    password,
+    oldGenPassword,
+    copySuccess,
+    updateAppStore,
+  ])
 
   return (
     <>
@@ -206,13 +234,9 @@ const SignUp = ({
               id={'new-password'}
               name={'new-password'}
               autoComplete={'new-password'}
-              onFocus={({ target, target: { type } }) => {
-                if (type !== 'password') {
-                  copyPassword()
-                  target.blur()
-                }
+              onChange={({ target: { value } }) => {
+                setPassword(value)
               }}
-              onChange={({ target: { value } }) => setPassword(value)}
               value={password}
               placeholder={'Enter your password'}
               required={true}

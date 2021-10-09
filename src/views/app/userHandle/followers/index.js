@@ -4,7 +4,7 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 const Followers = React.lazy(() => import('./defaultView'))
 
 const FollowersView = ({ match }) => {
-  console.log(match)
+  false && console.log(match)
 
   return (
     <Switch>

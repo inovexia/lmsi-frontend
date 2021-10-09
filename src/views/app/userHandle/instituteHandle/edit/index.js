@@ -4,7 +4,7 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 const InstituteHandleEdit = React.lazy(() => import('./defaultView'))
 
 const InstituteHandleEditView = ({ match }) => {
-  console.log(match)
+  false && console.log(match)
 
   return (
     <Switch>

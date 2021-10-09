@@ -4,7 +4,7 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 const Empty = React.lazy(() => import('./defaultView'))
 
 const EmptyView = ({ match }) => {
-  console.log(match)
+  false && console.log(match)
 
   return (
     <Switch>

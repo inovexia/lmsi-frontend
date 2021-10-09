@@ -10,7 +10,7 @@ const Bookings = ({ match }) => {
     } = useContext(AppContext),
     allowedAccess = canAccess(user, match.params.userHandle)
 
-  console.log(match)
+  false && console.log(match)
   return (
     <div>
       <h1>{`${allowedAccess ? 'My' : 'Users'} Bookings`}</h1>
