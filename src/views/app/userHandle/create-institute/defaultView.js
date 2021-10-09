@@ -8,7 +8,7 @@ const Institutes = ({ match }) => {
       <h1>Create Institute</h1>
       <p>This page will be used for create institute.</p>
       <Link
-        className={'btn btn-app me-3'}
+        className={'btn btn-app me-3 mb-3'}
         to={`/app/${match.params.userHandle}`}
       >
         Back

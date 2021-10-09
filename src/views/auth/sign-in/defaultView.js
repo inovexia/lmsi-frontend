@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom'
 import { AppContext } from 'src/AppContext'
 import { useDebounce, useLocalStorage } from 'src/hooks'
 import { Button } from 'src/components/Buttons'
-import { isBrowser } from 'src/helpers/Utils'
+import { encrypt, isBrowser } from 'src/helpers/Utils'
 import { Icon, GoogleIcon } from 'src/components/Icon'
 import { userStorageKey } from 'src/constants/defaultValues'
 import {
@@ -80,7 +80,7 @@ const SignIn = ({
           if (loginRequest.ok) {
             const data = await loginRequest.json()
             if (data.API_STATUS) {
-              const user = data.response
+              const user = encrypt(data.response)
               isBrowser && setAppUser(user)
               // history.push(redirectTo ? window.atob(redirectTo) : appRoot)
             } else {
@@ -165,6 +165,7 @@ const SignIn = ({
               onChange={({ target: { value } }) => setEmail(value)}
               placeholder={'Enter your email address'}
               defaultValue={email}
+              disabled={btnDisable || alowLogin}
               required
             />
           </div>
@@ -175,6 +176,7 @@ const SignIn = ({
                 type={'password'}
                 onChange={({ target: { value } }) => setPassword(value)}
                 defaultValue={password}
+                disabled={btnDisable}
                 placeholder={'Enter your password'}
               />
             </div>

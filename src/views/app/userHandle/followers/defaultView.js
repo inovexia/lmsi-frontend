@@ -8,7 +8,7 @@ const Followers = ({ match }) => {
       <h1>User Followers</h1>
       <p>This page will be used for displaying user followers.</p>
       <Link
-        className={'btn btn-app me-3'}
+        className={'btn btn-app me-3 mb-3'}
         to={`/app/${match.params.userHandle}`}
       >
         Back

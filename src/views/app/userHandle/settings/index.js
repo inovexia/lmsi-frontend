@@ -11,7 +11,7 @@ const SettingsView = ({ match }) => {
       <Route
         path={`${match.url}/`}
         render={props => {
-          props.match = { ...props.match, ...match }
+          props.match.params = { ...props.match.params, ...match.params }
           return <Settings {...props} />
         }}
       />

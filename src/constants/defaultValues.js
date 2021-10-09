@@ -13,6 +13,8 @@ export const languageOptions = [
   { id: 'hi', name: 'Hindi', direction: 'ltr' },
 ]
 
+export const encryptionSalt = 'QcoF9wH50&2VR5HNWzePz&Dkc@K7D2'
+
 export const api = {
   URL: 'https://lmsi-api.herokuapp.com',
   path: '/api',

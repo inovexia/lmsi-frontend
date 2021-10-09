@@ -8,7 +8,7 @@ const CreateUser = ({ match }) => {
       <h1>Create User</h1>
       <p>This page will be used for create User.</p>
       <Link
-        className={'btn btn-app me-3'}
+        className={'btn btn-app me-3 mb-3'}
         to={`/app/${match.params.userHandle}`}
       >
         Back

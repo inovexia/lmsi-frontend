@@ -8,7 +8,7 @@ const Checkout = ({ match }) => {
       <h1>Checkout</h1>
       <p>This page will be used for slots checkout.</p>
       <Link
-        className={'btn btn-app me-3'}
+        className={'btn btn-app me-3 mb-3'}
         to={`/app/${match.params.userHandle}`}
       >
         Back

@@ -8,6 +8,7 @@ import {
   isAuthGuardActive,
   userStorageKey,
 } from 'src/constants/defaultValues'
+import { decrypt } from 'src/helpers/Utils'
 import { useLocalStorage } from 'src/hooks'
 import { LOAD_USER } from 'src/constants/actions'
 
@@ -39,7 +40,7 @@ export const AppStore = ({ children }) => {
           if (!isRemoved.current) {
             updateAppStore({
               type: LOAD_USER,
-              payload: { user: appUser },
+              payload: { user: decrypt(appUser) },
             })
           }
         } catch (e) {

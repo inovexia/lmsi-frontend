@@ -11,6 +11,7 @@ const App = ({ match }) => {
       appStore: { user },
     } = useContext(AppContext),
     redirectTo = user.user_name ? user.user_name : user.serial_id
+  // console.log(user)
 
   return (
     <AppLayout>

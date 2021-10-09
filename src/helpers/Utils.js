@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { AES, enc } from 'crypto-js'
 import {
   UserRole,
   defaultDirection,
@@ -6,6 +7,7 @@ import {
   languageOptions,
   navMenus,
   navMenusOld,
+  encryptionSalt,
 } from 'src/constants/defaultValues'
 
 export const isBrowser = typeof window !== 'undefined'
@@ -35,6 +37,14 @@ export const doCapitalize = input => {
     .split(' ')
     .map(s => ucFirst(s))
     .join(' ')
+}
+
+export const encrypt = (message, salt = encryptionSalt) => {
+  return AES.encrypt(JSON.stringify(message), salt).toString()
+}
+
+export const decrypt = (encrypted, salt = encryptionSalt) => {
+  return JSON.parse(AES.decrypt(encrypted, salt).toString(enc.Utf8))
 }
 
 export const formatDate = (date, patternStr) => {
