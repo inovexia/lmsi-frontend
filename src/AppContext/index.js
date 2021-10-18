@@ -22,6 +22,7 @@ export const initialStoreState = {
   isAuthGuardActive,
   userProps,
   UserRole,
+  userStorageKey,
   user: null,
   errors: [],
   notifications: [],
