@@ -1,6 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+import EditForm from './editForm'
+
 const Edit = ({ match }) => {
   false && console.log(match)
   return (
@@ -13,6 +15,8 @@ const Edit = ({ match }) => {
       >
         Back
       </Link>
+
+      <EditForm />
     </div>
   )
 }
