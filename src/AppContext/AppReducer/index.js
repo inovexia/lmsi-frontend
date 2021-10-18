@@ -66,6 +66,13 @@ const AppReducer = (appStore, AppAction) => {
     case AllActions.UNEXPECTED_ERROR:
       appStore.errors.push(AppAction.payload.error)
       return { ...appStore }
+    case AllActions.PROFILE_NAME_UPDATED:
+      appStore.notifications.push(AppAction.payload.notification)
+      appStore.user = decrypt(AppAction.payload.user)
+      return { ...appStore }
+    case AllActions.PROFILE_UPDATE_FAILED:
+      appStore.errors.push(AppAction.payload.error)
+      return { ...appStore }
     default:
       return appStore
   }

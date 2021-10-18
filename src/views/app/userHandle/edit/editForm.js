@@ -2,13 +2,20 @@ import React, { useContext, useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
 
 import { AppContext } from 'src/AppContext'
-import { UNEXPECTED_ERROR } from 'src/constants/actions'
+import { useLocalStorage } from 'src/hooks'
+import { decrypt, encrypt } from 'src/helpers/Utils'
+import {
+  PROFILE_NAME_UPDATED,
+  PROFILE_UPDATE_FAILED,
+  UNEXPECTED_ERROR,
+} from 'src/constants/actions'
 
 const EditForm = () => {
   const {
-      appStore: { user, apiURL },
+      appStore: { user, userStorageKey, apiURL },
       updateAppStore,
     } = useContext(AppContext),
+    [appUser, setAppUser] = useLocalStorage(userStorageKey, encrypt(user)),
     [firstName, setFirstName] = useState(user.first_name),
     [lastName, setLastName] = useState(user.last_name),
     setFullName = value => {
@@ -22,52 +29,54 @@ const EditForm = () => {
     },
     handleSubmit = async event => {
       event.preventDefault()
-
       try {
-        const nameRequest = await fetch(
-          `${apiURL}/member/profile-name/update`,
-          {
+        const updateData = {
+            first_name: firstName,
+            last_name: lastName,
+          },
+          nameRequest = await fetch(`${apiURL}/member/profile-name/update`, {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json',
               language: 'en',
               Authorization: `Bearer ${user.accessToken}`,
             },
-            body: JSON.stringify({
-              first_name: firstName,
-              last_name: lastName,
-            }),
-          }
-        )
+            body: JSON.stringify(updateData),
+          })
         // Request Access Token From API
 
         if (nameRequest.ok) {
           const data = await nameRequest.json()
-          console.log(data)
-          // if (data.API_STATUS) {
-          //   updateAppStore({
-          //     type: REGISTER_USER_SUCCESS,
-          //     payload: {
-          //       notification: {
-          //         code: REGISTER_USER_SUCCESS,
-          //         color: 'success',
-          //         message: data.message,
-          //       },
-          //       history,
-          //     },
-          //   })
-          // } else {
-          //   updateAppStore({
-          //     type: REGISTER_USER_ERROR,
-          //     payload: {
-          //       error: {
-          //         code: REGISTER_USER_ERROR,
-          //         color: 'danger',
-          //         message: data.message,
-          //       },
-          //     },
-          //   })
-          // }
+          if (data.API_STATUS) {
+            const appUserData = decrypt(appUser),
+              updatedUser = encrypt({
+                ...appUserData,
+                ...updateData,
+              })
+            setAppUser(updatedUser)
+            updateAppStore({
+              type: PROFILE_NAME_UPDATED,
+              payload: {
+                notification: {
+                  code: PROFILE_NAME_UPDATED,
+                  color: 'success',
+                  message: data.message,
+                },
+                user: updatedUser,
+              },
+            })
+          } else {
+            updateAppStore({
+              type: PROFILE_UPDATE_FAILED,
+              payload: {
+                error: {
+                  code: PROFILE_UPDATE_FAILED,
+                  color: 'danger',
+                  message: data.message,
+                },
+              },
+            })
+          }
         } else {
           throw new Error('Unexpected Error')
         }
@@ -85,7 +94,7 @@ const EditForm = () => {
       }
     }
 
-  console.log(user)
+  false && console.log(user)
   return (
     <div>
       <Form onSubmit={event => handleSubmit(event)}>

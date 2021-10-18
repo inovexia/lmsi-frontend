@@ -71,6 +71,18 @@ const Empty = ({ match }) => {
           Settings
         </Link>
       )}
+      <p>
+        <strong>Name: </strong>
+        {`${user.first_name} ${user.last_name}`}
+      </p>
+      <p>
+        <strong>Username: </strong>
+        {user.user_name ? user.user_name : ''}
+      </p>
+      <p>
+        <strong>Email: </strong>
+        {user.email}
+      </p>
     </div>
   )
 }
