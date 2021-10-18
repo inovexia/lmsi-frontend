@@ -12,21 +12,22 @@ const EditUser = () => {
       event.preventDefault()
     }
 
-  console.log(user)
+  !false && console.log(user, userName)
   return (
     <div>
       <Form onSubmit={event => handleSubmit(event)}>
         <Form.Group className="mb-3" controlId="formBasicUserName">
-          <Form.Label>Name</Form.Label>
+          <Form.Label>Username</Form.Label>
           <Form.Control
             type="text"
             placeholder="Enter User Name"
             defaultValue={`${userName}`}
+            onChange={({ target: { value } }) => setUserName(value)}
           />
         </Form.Group>
 
         <Button variant="primary" type="submit">
-          Submit
+          Save
         </Button>
       </Form>
     </div>
