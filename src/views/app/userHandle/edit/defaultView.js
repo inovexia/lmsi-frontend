@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 import EditForm from './editForm'
+import EditUser from './userEdit'
 
 const Edit = ({ match }) => {
   false && console.log(match)
@@ -17,6 +18,7 @@ const Edit = ({ match }) => {
       </Link>
 
       <EditForm />
+      <EditUser />
     </div>
   )
 }
