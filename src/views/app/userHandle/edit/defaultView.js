@@ -1,13 +1,16 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import EditForm from './editForm'
-import EditUser from './userEdit'
+import About from './About'
+import Account from './Account'
+import Legalities from './Legalities'
+import Profile from './Profile'
+import Security from './Security'
 
 const Edit = ({ match }) => {
   false && console.log(match)
   return (
-    <div>
+    <section>
       <h1>User Profile Edit</h1>
       <p>This page will be used for edit profile information.</p>
       <Link
@@ -16,10 +19,12 @@ const Edit = ({ match }) => {
       >
         Back
       </Link>
-
-      <EditForm />
-      <EditUser />
-    </div>
+      <Profile />
+      <About />
+      <Legalities />
+      <Account />
+      <Security />
+    </section>
   )
 }
 

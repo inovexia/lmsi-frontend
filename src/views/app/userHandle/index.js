@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
 
-const User = React.lazy(() => import('./defaultView'))
+const UserView = React.lazy(() => import('./defaultView'))
 const BookingsView = React.lazy(() => import('./bookings'))
 const CartView = React.lazy(() => import('./cart'))
 const CheckoutView = React.lazy(() => import('./checkout'))
@@ -14,7 +14,7 @@ const SettingsView = React.lazy(() => import('./settings'))
 const CreateInstituteView = React.lazy(() => import('./create-institute'))
 const InstituteHandleView = React.lazy(() => import('./instituteHandle'))
 
-const UserView = ({ match }) => {
+const UserHandleView = ({ match }) => {
   false && console.log(match)
 
   return (
@@ -100,7 +100,7 @@ const UserView = ({ match }) => {
         path={`${match.url}/`}
         render={props => {
           props.match.params = { ...props.match.params, ...match.params }
-          return <User {...props} />
+          return <UserView {...props} />
         }}
       />
       <Redirect to={'/error'} message={'page not exist'} />
@@ -108,4 +108,4 @@ const UserView = ({ match }) => {
   )
 }
 
-export default UserView
+export default UserHandleView

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { AppContext } from 'src/AppContext'
 import { isAuthorized, canAccess } from 'src/helpers/Utils'
 
-const Empty = ({ match }) => {
+const UserView = ({ match }) => {
   const {
       appStore: { user },
     } = useContext(AppContext),
@@ -75,10 +75,12 @@ const Empty = ({ match }) => {
         <strong>Name: </strong>
         {`${user.first_name} ${user.last_name}`}
       </p>
-      <p>
-        <strong>Username: </strong>
-        {user.user_name ? user.user_name : ''}
-      </p>
+      {user.user_name && (
+        <p>
+          <strong>Username: </strong>
+          {user.user_name}
+        </p>
+      )}
       <p>
         <strong>Email: </strong>
         {user.email}
@@ -87,4 +89,4 @@ const Empty = ({ match }) => {
   )
 }
 
-export default Empty
+export default UserView

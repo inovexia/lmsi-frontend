@@ -69,7 +69,13 @@ const AppReducer = (appStore, AppAction) => {
     case AllActions.PROFILE_NAME_UPDATED:
       appStore.notifications.push(AppAction.payload.notification)
       appStore.user = decrypt(AppAction.payload.user)
+      AppAction.payload.history &&
+        AppAction.payload.history.push(AppAction.payload.redirectTo)
       return { ...appStore }
+    case AllActions.PASSWORD_UPDATED:
+      appStore.notifications.push(AppAction.payload.notification)
+      return { ...appStore }
+    case AllActions.PASSWORD_UPDATE_FAILED:
     case AllActions.PROFILE_UPDATE_FAILED:
       appStore.errors.push(AppAction.payload.error)
       return { ...appStore }

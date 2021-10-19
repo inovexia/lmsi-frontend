@@ -3,7 +3,6 @@ import ReactHtmlParser from 'html-react-parser'
 
 import { AppContext } from 'src/AppContext'
 import { useToggle } from 'src/hooks'
-import { ucFirst } from 'src/helpers/Utils'
 
 import { DISMISS_ERROR, DISMISS_NOTIFICATION } from 'src/constants/actions'
 
@@ -37,9 +36,7 @@ export const Notification = ({
     >
       <div className={'d-flex'}>
         <div className={'toast-body my-auto flex-grow-1'}>
-          {ReactHtmlParser(
-            ucFirst(error ? error.message : notification.message)
-          )}
+          {ReactHtmlParser(error ? error.message : notification.message)}
         </div>
         <button
           type={'button'}
