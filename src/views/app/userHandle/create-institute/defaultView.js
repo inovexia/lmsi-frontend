@@ -1,12 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+import Institute from './Institute'
+
 const Institutes = ({ match }) => {
   false && console.log(match)
   return (
     <div>
-      <h1>Create Institute</h1>
-      <p>This page will be used for create institute.</p>
+      <Institute />
       <Link
         className={'btn btn-app me-3 mb-3'}
         to={`/app/${match.params.userHandle}`}
