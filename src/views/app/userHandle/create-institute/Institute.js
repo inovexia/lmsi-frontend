@@ -2,13 +2,14 @@ import React, { useState, useContext } from 'react'
 import { Form, Button } from 'react-bootstrap'
 
 import { AppContext } from 'src/AppContext'
+import { isBrowser } from 'src/helpers/Utils'
 import {
   INSTITUTE_CREATED,
   INSTITUTE_CREATION_FAILED,
   UNEXPECTED_ERROR,
 } from 'src/constants/actions'
 
-const Institute = () => {
+const Institute = ({ userHandle }) => {
   const {
       appStore: { user, apiURL },
       updateAppStore,
@@ -79,7 +80,7 @@ const Institute = () => {
     <Form className={'mb-3'} onSubmit={event => handleSubmit(event)}>
       <fieldset className={'border border-success p-2'}>
         <legend className={'w-auto float-none mb-0 px-3'}>
-          CreateInstitute
+          Create New Institute
         </legend>
         <Form.Group className="mb-3" controlId="instituteName">
           <Form.Label>Institute Name</Form.Label>
@@ -98,6 +99,18 @@ const Institute = () => {
             value={instituteHandleName}
             onChange={({ target: { value } }) => setInstituteHandleName(value)}
           />
+          <Form.Text>
+            {isBrowser && <span>{window.location.origin}</span>}
+            <span>{`/app/`}</span>
+            <strong>{userHandle}</strong>
+            <span>{`/{`}</span>
+            <strong>
+              {instituteHandleName !== ''
+                ? instituteHandleName
+                : '____________'}
+            </strong>
+            <span>{`}`}</span>
+          </Form.Text>
         </Form.Group>
         <Button variant="primary" type="submit">
           submit

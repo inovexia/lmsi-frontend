@@ -79,6 +79,12 @@ const AppReducer = (appStore, AppAction) => {
     case AllActions.PROFILE_UPDATE_FAILED:
       appStore.errors.push(AppAction.payload.error)
       return { ...appStore }
+    case AllActions.INSTITUTE_CREATED:
+      appStore.notifications.push(AppAction.payload.notification)
+      return { ...appStore }
+    case AllActions.INSTITUTE_CREATION_FAILED:
+      appStore.errors.push(AppAction.payload.error)
+      return { ...appStore }
     default:
       return appStore
   }
