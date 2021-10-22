@@ -1,5 +1,7 @@
 @import './bootstrap/functions';
 @import './overrides/variables';
+@import './project/fonts';
+@import './project/icons';
 @import './bootstrap/mixins';
 @import './overrides/utilities';
 
@@ -46,7 +48,6 @@
 // Custom CSS
 
 @import './project/loading';
-@import './project/lmsi-icon';
 @import './project/views/auth';
 @import './project/views/error';
 @import './project/views/app';

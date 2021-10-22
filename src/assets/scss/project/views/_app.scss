@@ -8,14 +8,13 @@
       &.left {
         display: flex;
         flex-direction: column;
-        background-image: $appGradient;
+        // background-image: $appGradient;
         width: 100%;
         max-width: 250px;
         height: 100%;
         box-shadow: 0px -5px 4px rgba(0, 0, 0, 0.25);
 
         .logo {
-          color: #ffffff;
           font-size: 25px;
           text-align: center;
           margin: 30px 0;
@@ -23,8 +22,7 @@
 
         .list {
           .nav-link {
-            color: #ffffff;
-            margin-left: 60px;
+            display: flex;
 
             &.nav-link:hover {
               color: #000;
@@ -35,7 +33,6 @@
         .logout-button {
           background: transparent;
           border: none;
-          color: #ffffff;
           margin-top: auto;
           margin-left: -40px;
           margin-bottom: 20px;
@@ -52,7 +49,7 @@
       .content {
         flex-grow: 1;
         padding: 0 24px;
-        background: #e5e5e5;
+        background: $gray-150;
         overflow: auto;
       }
     }

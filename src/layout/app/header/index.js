@@ -9,15 +9,15 @@ const Header = () => {
   } = useContext(AppContext)
 
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar bg="light" expand={'lg'} className={'shadow-none'}>
       <div className={'container-fluid'}>
         <h1>{pageHeading}</h1>
-        <Form className="d-flex">
+        <Form className={'d-flex'}>
           <FormControl
-            type="search"
-            placeholder="Search"
-            className="me-2"
-            aria-label="Search"
+            type={'search'}
+            placeholder={'Search'}
+            className={'me-2'}
+            aria-label={'Search'}
           />
         </Form>
       </div>

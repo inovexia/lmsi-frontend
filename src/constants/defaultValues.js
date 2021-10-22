@@ -42,7 +42,11 @@ export const userProps = {
 
 export const navMenus = {
   instructor: [
-    { label: `Dashboard`, link: `/app/instructor/dashboard` },
+    {
+      label: `Dashboard`,
+      link: `/app/instructor/dashboard`,
+      icon: `layout-grid`,
+    },
     {
       label: `Institute`,
       link: `/app/instructor/institute`,
