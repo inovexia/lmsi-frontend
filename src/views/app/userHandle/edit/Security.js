@@ -34,7 +34,6 @@ const Security = () => {
               body: JSON.stringify(updateData),
             })
           // Request Access Token From API
-
           if (changeRequest.ok) {
             const data = await changeRequest.json()
             if (data.API_STATUS) {
