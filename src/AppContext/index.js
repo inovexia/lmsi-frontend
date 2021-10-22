@@ -23,6 +23,7 @@ export const initialStoreState = {
   userProps,
   UserRole,
   userStorageKey,
+  pageHeading: `LMSi`,
   user: null,
   errors: [],
   notifications: [],

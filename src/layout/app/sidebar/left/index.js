@@ -46,7 +46,7 @@ const SidebarLeft = () => {
   )
 
   return (
-    <div className={'sidebar left'}>
+    <aside className={'sidebar left'}>
       <Link to={appRoot} className={'logo'}>
         <Logo
           iconColor={'#ffffff'}
@@ -82,7 +82,7 @@ const SidebarLeft = () => {
       <button className={'logout-button'} onClick={() => doLogOut()}>
         Logout
       </button>
-    </div>
+    </aside>
   )
 }
 

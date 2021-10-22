@@ -1,15 +1,19 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import Header from './header'
 import SidebarLeft from './sidebar/left'
-import SidebarRight from './sidebar/right'
 
 const AppLayout = ({ children }) => {
   return (
     <div className={'app'}>
       <SidebarLeft />
-      <main>{children}</main>
-      <SidebarRight />
+      <main>
+        <header>
+          <Header />
+        </header>
+        <section className={'content'}>{children}</section>
+      </main>
     </div>
   )
 }
