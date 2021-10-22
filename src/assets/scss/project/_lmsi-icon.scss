@@ -13,13 +13,18 @@
   }
 
   .lmsi {
-    /* use !important to prevent issues with browser extensions that change fonts */
-    font-family: 'lms-icon' !important;
+    align-items: center;
+    display: inline-flex;
+    justify-content: center;
+    font-family: 'lms-icon';
+    font-size: 18.22px;
     font-style: normal;
-    font-weight: normal;
     font-variant: normal;
-    text-transform: none;
+    font-weight: normal;
+    height: 24px;
     line-height: 1;
+    text-transform: none;
+    width: 24px;
 
     /* Better Font Rendering =========== */
     -webkit-font-smoothing: antialiased;
