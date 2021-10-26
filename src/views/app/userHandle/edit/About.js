@@ -20,6 +20,9 @@ const About = () => {
     [appUser, setAppUser] = useLocalStorage(userStorageKey, encrypt(user)),
     [firstName, setFirstName] = useState(user.first_name),
     [lastName, setLastName] = useState(user.last_name),
+    [Occupation, setOccupation] = useState(''),
+    [VideoLink, setVideoLink] = useState(''),
+    [DOB, setDOB] = useState(''),
     pickerCallback = useCallback((callback, value, meta) => {
       if (meta.filetype === 'image') {
         var input = document.createElement('input')
@@ -117,7 +120,9 @@ const About = () => {
   return (
     <Form onSubmit={event => handleSubmit(event)} className={'mb-3'}>
       <fieldset className={'border p-2'}>
-        <legend className={'w-auto float-none mb-0 px-3'}>About</legend>
+        <legend className={'w-auto float-none mb-0 px-3'}>
+          Personal Information
+        </legend>
         <Form.Group className={'mb-3'}>
           <Form.Label>Full name</Form.Label>
           <Form.Control
@@ -164,6 +169,43 @@ const About = () => {
             }}
           />
         </Form.Group>
+        <div className={'row'}>
+          <Form.Group className={'mb-3 col-6'} controlId="Occupation">
+            <Form.Label>Occupation</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Occupation"
+              value={Occupation}
+              onChange={({ target: { value } }) => setOccupation(value)}
+            />
+          </Form.Group>
+          <Form.Group className={'mb-3 col-6'} controlId="VideoLink">
+            <Form.Label>Intro Video Link (Optional)</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="VideoLink"
+              value={VideoLink}
+              onChange={({ target: { value } }) => setVideoLink(value)}
+            />
+          </Form.Group>
+          <Form.Group className={'mb-3 col-6'}>
+            <Form.Label>Gender</Form.Label>
+            <Form.Select aria-label="Gender">
+              <option>Male</option>
+              <option>Female</option>
+              <option>Others</option>
+            </Form.Select>
+          </Form.Group>
+          <Form.Group className={'mb-3 col-6'} controlId="DOB">
+            <Form.Label>Date of birth</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Date of birth"
+              value={DOB}
+              onChange={({ target: { value } }) => setDOB(value)}
+            />
+          </Form.Group>
+        </div>
         <Form.Group className={'mb-3'}>
           <Form.Label>Highest Qualification</Form.Label>
           <Form.Select aria-label="Highest Qualification">

@@ -6,6 +6,8 @@ import Account from './Account'
 import Legalities from './Legalities'
 import Profile from './Profile'
 import Security from './Security'
+import Address from './Address'
+import Qualification from './Qualification'
 
 const Edit = ({ match }) => {
   false && console.log(match)
@@ -23,6 +25,8 @@ const Edit = ({ match }) => {
       <About />
       <Legalities />
       <Account />
+      <Qualification />
+      <Address />
       <Security />
     </section>
   )
