@@ -193,7 +193,7 @@ const About = () => {
             <Form.Select aria-label="Gender">
               <option>Male</option>
               <option>Female</option>
-              <option>Others</option>
+              <option>Rather Not Say</option>
             </Form.Select>
           </Form.Group>
           <Form.Group className={'mb-3 col-6'} controlId="DOB">
