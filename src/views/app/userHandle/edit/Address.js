@@ -138,7 +138,7 @@ const Address = () => {
     }
 
     getAddress()
-  }, [])
+  }, [apiURL, user.accessToken, updateAppStore])
 
   return (
     <Form className={'mb-3'} onSubmit={event => handleSubmit(event)}>
