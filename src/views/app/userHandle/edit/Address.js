@@ -1,8 +1,19 @@
-import React, { useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { Form, Button } from 'react-bootstrap'
 
+import { AppContext } from 'src/AppContext'
+import {
+  UNEXPECTED_ERROR,
+  ADDRESS_UPDATE_FAILED,
+  ADDRESS_UPDATED,
+} from 'src/constants/actions'
+
 const Address = () => {
-  const [Address1, setAddress1] = useState(''),
+  const {
+      appStore: { user, apiURL },
+      updateAppStore,
+    } = useContext(AppContext),
+    [Address1, setAddress1] = useState(''),
     [Address2, setAddress2] = useState(''),
     [Country, setCountry] = useState(''),
     [State, setState] = useState(''),
@@ -10,9 +21,124 @@ const Address = () => {
     [AddressType, setAddressType] = useState(''),
     [City, setCity] = useState(''),
     [ZipCode, setZipCode] = useState(''),
+    [addressId, setAddressId] = useState(''),
     handleSubmit = async event => {
       event.preventDefault()
+      try {
+        const updateData = {
+            address_line1: Address1,
+            address_line2: Address2,
+            country: Country,
+            state: State,
+            city: City,
+            landmark: Landmark,
+            address_type: AddressType,
+            zip_code: ZipCode,
+          },
+          changeRequest = await fetch(
+            `${apiURL}/instructor/address/update/${addressId}`,
+            {
+              method: 'PUT',
+              headers: {
+                'Content-Type': 'application/json',
+                language: 'en',
+                Authorization: `Bearer ${user.accessToken}`,
+              },
+              body: JSON.stringify(updateData),
+            }
+          )
+        // Request Access Token From API
+        if (changeRequest.ok) {
+          const data = await changeRequest.json()
+          if (data.API_STATUS) {
+            updateAppStore({
+              type: ADDRESS_UPDATED,
+              payload: {
+                notification: {
+                  code: ADDRESS_UPDATED,
+                  color: 'success',
+                  message: data.message,
+                },
+              },
+            })
+          } else {
+            updateAppStore({
+              type: ADDRESS_UPDATE_FAILED,
+              payload: {
+                error: {
+                  code: ADDRESS_UPDATE_FAILED,
+                  color: 'danger',
+                  message: data.message,
+                },
+              },
+            })
+          }
+        } else {
+          throw new Error('Unexpected Error')
+        }
+      } catch (err) {
+        updateAppStore({
+          type: UNEXPECTED_ERROR,
+          payload: {
+            error: {
+              code: UNEXPECTED_ERROR,
+              color: 'warning',
+              message: err.message,
+            },
+          },
+        })
+      }
     }
+
+  useEffect(() => {
+    const getAddress = async () => {
+      try {
+        const fetchAddress = await fetch(`${apiURL}/instructor/address/get`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            language: 'en',
+            Authorization: `Bearer ${user.accessToken}`,
+          },
+          body: JSON.stringify(),
+        })
+
+        // Request Access Token From API
+        if (fetchAddress.ok) {
+          const data = await fetchAddress.json()
+          if (data.API_STATUS) {
+            const address = data.response
+            setAddress1(address.address_line1)
+            setAddress2(address.address_line2)
+            setCountry(address.country)
+            setState(address.state)
+            setLandmark(address.landmark)
+            setAddressType(address.address_type)
+            setCity(address.city)
+            setZipCode(address.zip_code)
+            setAddressId(address.address_id)
+          } else {
+            throw new Error('Unexpected Error')
+          }
+        } else {
+          throw new Error('Unexpected Error')
+        }
+      } catch (err) {
+        updateAppStore({
+          type: UNEXPECTED_ERROR,
+          payload: {
+            error: {
+              code: UNEXPECTED_ERROR,
+              color: 'warning',
+              message: err.message,
+            },
+          },
+        })
+      }
+    }
+
+    getAddress()
+  }, [])
 
   return (
     <Form className={'mb-3'} onSubmit={event => handleSubmit(event)}>
