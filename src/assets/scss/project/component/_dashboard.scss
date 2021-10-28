@@ -1,0 +1,65 @@
+@media (min-width: map-get($grid-breakpoints, 'xs')) {
+  .dashboard {
+    .welcome-card {
+      background: #ffffff;
+      border-radius: 10px;
+      margin-bottom: 40px;
+
+      .welcome-card-content {
+        padding: 50px 0 50px 40px;
+
+        h2 {
+          font-weight: 500;
+          font-size: 24px;
+          line-height: 28px;
+          color: #000000;
+        }
+
+        p {
+          font-size: 14px;
+          line-height: 20px;
+          color: #000000;
+          max-width: 70%;
+        }
+      }
+    }
+
+    .add-info {
+      margin-bottom: 40px;
+      .info-card {
+        .info-card-content {
+          background: #ffffff;
+          border-radius: 10px;
+          padding: 40px 0 40px 40px;
+
+          h2 {
+            font-weight: 500;
+            font-size: 24px;
+            line-height: 28px;
+            color: #000000;
+          }
+
+          p {
+            font-size: 14px;
+            line-height: 20px;
+            color: #000000;
+          }
+
+          .btn {
+            margin-top: 24px;
+          }
+        }
+      }
+    }
+  }
+}
+@media (min-width: map-get($grid-breakpoints, 'sm')) {
+}
+@media (min-width: map-get($grid-breakpoints, 'md')) {
+}
+@media (min-width: map-get($grid-breakpoints, 'lg')) {
+}
+@media (min-width: map-get($grid-breakpoints, 'xl')) {
+}
+@media (min-width: map-get($grid-breakpoints, 'xxl')) {
+}

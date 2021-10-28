@@ -5,17 +5,14 @@ import { NavDropdown } from 'react-bootstrap'
 import { AppContext } from 'src/AppContext'
 import { useDebounce, useIsMounted, useLocalStorage } from 'src/hooks'
 import { Icon } from 'src/components/Icon'
-import { getNavMenu } from 'src/helpers/Utils'
+import { getNavMenu } from 'src/constants/defaultValues'
 import { appRoot, userStorageKey } from 'src/constants/defaultValues'
 import { LOGOUT_USER } from 'src/constants/actions'
 import Logo from 'src/assets/svg/logo'
 
 const SidebarLeft = () => {
-  const {
-      appStore: { user },
-      updateAppStore,
-    } = useContext(AppContext),
-    navMenu = getNavMenu(user.role_id),
+  const { appStore: updateAppStore } = useContext(AppContext),
+    navMenu = getNavMenu,
     isMounted = useIsMounted(),
     history = useHistory(),
     [redirectTo, setRedirect] = useState(''),

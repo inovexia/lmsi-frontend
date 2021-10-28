@@ -23,9 +23,14 @@
         .list {
           .nav-link {
             display: flex;
+            margin-left: 40px;
 
             &.nav-link:hover {
               color: #000;
+            }
+
+            i {
+              margin-right: 20px;
             }
           }
         }

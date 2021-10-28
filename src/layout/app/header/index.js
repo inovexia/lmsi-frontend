@@ -9,11 +9,16 @@ const Header = () => {
   } = useContext(AppContext)
 
   return (
-    <Navbar bg="light" expand={'lg'} className={'shadow-none'}>
+    <Navbar
+      style={{ background: '#E5E5E5' }}
+      expand={'lg'}
+      className={'shadow-none'}
+    >
       <div className={'container-fluid'}>
         <h1>{pageHeading}</h1>
         <Form className={'d-flex'}>
           <FormControl
+            style={{ borderRadius: '15px' }}
             type={'search'}
             placeholder={'Search'}
             className={'me-2'}

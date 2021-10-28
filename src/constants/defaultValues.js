@@ -63,26 +63,46 @@ export const navMenus = {
     },
   ],
   learner: [
-    { label: `Dashboard`, link: `/app/learner/dashboard` },
-    {
-      label: `Profile`,
-      link: `#`,
-      subMenu: [
-        { label: `View`, link: `/app/learner/profile` },
-        { label: `Edit`, link: `/app/learner/profile/edit` },
-      ],
-    },
-    {
-      label: `Courses`,
-      link: `#`,
-      subMenu: [
-        { label: `List`, link: `/app/learner/courses` },
-        { label: `Slots`, link: `/app/learner/courses/slots` },
-      ],
-    },
+    { label: `Dashboard`, link: `/app/dashboard`, icon: `layout-grid` },
+    { label: `Courses`, link: `/app/dashboard` },
+    { label: `Slots`, link: `/app/dashboard` },
+    { label: `Exam`, link: `/app/dashboard` },
+    { label: `Results`, link: `/app/dashboard` },
+    { label: `Students`, link: `/app/dashboard` },
+    { label: `Message`, link: `/app/dashboard` },
+    { label: `Notice Board`, link: `/app/dashboard` },
+    { label: `Live Class`, link: `/app/dashboard` },
+    // {
+    //   label: `Profile`,
+    //   link: `#`,
+    //   subMenu: [
+    //     { label: `View`, link: `/app/learner/profile` },
+    //     { label: `Edit`, link: `/app/learner/profile/edit` },
+    //   ],
+    // },
+    // {
+    //   label: `Courses`,
+    //   link: `#`,
+    //   subMenu: [
+    //     { label: `List`, link: `/app/learner/courses` },
+    //     { label: `Slots`, link: `/app/learner/courses/slots` },
+    //   ],
+    // },
   ],
   admin: [],
 }
+
+export const getNavMenu = [
+  { label: `Dashboard`, link: `/app/dashboard`, icon: `layout-grid` },
+  { label: `Courses`, link: `/app/dashboard`, icon: `book-open` },
+  { label: `Slots`, link: `/app/dashboard`, icon: `calendar` },
+  { label: `Exam`, link: `/app/dashboard`, icon: `calendar` },
+  { label: `Results`, link: `/app/dashboard`, icon: `calendar` },
+  { label: `Students`, link: `/app/dashboard`, icon: `users` },
+  { label: `Message`, link: `/app/dashboard`, icon: `calendar` },
+  { label: `Notice Board`, link: `/app/dashboard`, icon: `blackboard` },
+  { label: `Live Class`, link: `/app/dashboard`, icon: `calendar` },
+]
 
 export const navMenusOld = {
   instructor: [
