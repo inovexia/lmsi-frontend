@@ -12,7 +12,7 @@ const AppLayout = ({ children }) => {
         <header>
           <Header />
         </header>
-        <section className={'content'}>{children}</section>
+        <section className={'content container-fluid'}>{children}</section>
       </main>
     </div>
   )

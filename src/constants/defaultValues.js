@@ -98,7 +98,7 @@ export const getNavMenu = [
   { label: `Slots`, link: `/app/dashboard`, icon: `calendar` },
   { label: `Exam`, link: `/app/dashboard`, icon: `calendar` },
   { label: `Results`, link: `/app/dashboard`, icon: `calendar` },
-  { label: `Students`, link: `/app/dashboard`, icon: `users` },
+  { label: `Students`, link: `/app/students`, icon: `users` },
   { label: `Message`, link: `/app/dashboard`, icon: `calendar` },
   { label: `Notice Board`, link: `/app/dashboard`, icon: `blackboard` },
   { label: `Live Class`, link: `/app/dashboard`, icon: `calendar` },

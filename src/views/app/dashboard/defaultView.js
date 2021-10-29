@@ -1,12 +1,17 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 
+import { AppContext } from 'src/AppContext'
+
 const Dashboard = ({ match }) => {
+  const {
+    appStore: { user },
+  } = useContext(AppContext)
   return (
     <div className={'dashboard'}>
       <div className={'welcome-card'}>
         <div className={'welcome-card-content'}>
-          <h2>Welcome, UserName</h2>
+          <h2>Welcome, {`${user.first_name}`}</h2>
           <p>
             Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet
             sint. Velit officia consequat duis enim velit mollit. Exercitation

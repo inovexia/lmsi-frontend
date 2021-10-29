@@ -11,10 +11,14 @@ import { LOGOUT_USER } from 'src/constants/actions'
 import Logo from 'src/assets/svg/logo'
 
 const SidebarLeft = () => {
-  const { appStore: updateAppStore } = useContext(AppContext),
+  const {
+      appStore: { user },
+      updateAppStore,
+    } = useContext(AppContext),
     navMenu = getNavMenu,
     isMounted = useIsMounted(),
     history = useHistory(),
+    userPath = user.user_name ? user.user_name : user.serial_id,
     [redirectTo, setRedirect] = useState(''),
     [appUser, setAppUser] = useLocalStorage(userStorageKey, null),
     doLogOut = () => {
@@ -23,6 +27,8 @@ const SidebarLeft = () => {
         isMounted.current && setRedirect(window.btoa(window.location.pathname))
       }
     }
+
+  console.log(user)
 
   useDebounce(
     () => {
@@ -84,9 +90,23 @@ const SidebarLeft = () => {
           )
         )}
       </div>
-      <button className={'logout-button'} onClick={() => doLogOut()}>
-        Logout
-      </button>
+      <div className={'user-profile'}>
+        <div className={'img'}></div>
+        <h5>{`${user.first_name} ${user.last_name}`}</h5>
+        <p>FrontEnd Developer</p>
+        <p>UI/UX Designer</p>
+        <button className={'logout-button'} onClick={() => doLogOut()}>
+          Logout
+        </button>
+        <div className={'d-flex justify-content-center send-invite'}>
+          <Link
+            className={'btn btn-app text-white'}
+            to={`${appRoot}/${userPath}`}
+          >
+            View Profile
+          </Link>
+        </div>
+      </div>
     </aside>
   )
 }

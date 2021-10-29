@@ -1,0 +1,90 @@
+@media (min-width: map-get($grid-breakpoints, 'xs')) {
+  .students {
+    background-color: #fafbfc;
+    padding: 20px;
+    .list-heading {
+      h3 {
+        font-size: 14px;
+      }
+
+      p {
+        margin: 25px 0 0 0;
+      }
+    }
+  }
+
+  .invite {
+    .img {
+      background-color: #363636;
+      height: 300px;
+    }
+
+    .invite-detail {
+      margin: 0 auto;
+      width: 700px;
+      background-color: #fafbfc;
+      border-radius: 10px;
+      margin-top: -70px;
+      margin-bottom: 50px;
+      box-shadow: 0px 4px 54px rgba(0, 0, 0, 0.06);
+
+      .invite-input {
+        input {
+          padding: 15px 0 15px 20px;
+          width: 300px;
+          margin: 30px 30px;
+          border: 1px solid #d3d3d3;
+          border-radius: 5px;
+        }
+
+        span {
+          margin-top: 50px;
+        }
+      }
+
+      .send-invite {
+        border-bottom: 1px solid #d3d3d3;
+        padding-bottom: 20px;
+      }
+
+      .invite-link {
+        h3 {
+          font-weight: 500;
+          font-size: 20px;
+          letter-spacing: 0.0041em;
+          margin: 30px 0 20px 30px;
+          color: #000000;
+        }
+
+        input {
+          padding: 10px 0;
+          width: 400px;
+          margin-left: 30px;
+          border: 1px solid #d3d3d3;
+          border-radius: 5px;
+        }
+      }
+      .invite-list {
+        margin: 50px 0 0 22px;
+        h3 {
+          font-size: 14px;
+          margin-bottom: 16px;
+        }
+
+        p {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}
+@media (min-width: map-get($grid-breakpoints, 'sm')) {
+}
+@media (min-width: map-get($grid-breakpoints, 'md')) {
+}
+@media (min-width: map-get($grid-breakpoints, 'lg')) {
+}
+@media (min-width: map-get($grid-breakpoints, 'xl')) {
+}
+@media (min-width: map-get($grid-breakpoints, 'xxl')) {
+}

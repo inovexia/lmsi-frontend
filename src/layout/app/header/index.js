@@ -12,7 +12,7 @@ const Header = () => {
     <Navbar
       style={{ background: '#E5E5E5' }}
       expand={'lg'}
-      className={'shadow-none'}
+      className={'shadow-none py-0'}
     >
       <div className={'container-fluid'}>
         <h1>{pageHeading}</h1>
