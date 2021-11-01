@@ -2,6 +2,8 @@ import React, { useContext, useState, useEffect } from 'react'
 import { Form, Button } from 'react-bootstrap'
 
 import { AppContext } from 'src/AppContext'
+import Qualification from './Qualification'
+import PersonalInfo from './PersonalInfo'
 import {
   UNEXPECTED_ERROR,
   ADDRESS_UPDATE_FAILED,
@@ -140,92 +142,124 @@ const Address = () => {
     getAddress()
   }, [apiURL, user.accessToken, updateAppStore])
 
-  return (
-    <Form className={'mb-3'} onSubmit={event => handleSubmit(event)}>
-      <fieldset className={'border border-success p-2'}>
-        <legend className={'w-auto float-none mb-0 px-3'}>
-          Address Information
-        </legend>
-        <div className={'row'}>
-          <Form.Group className={'mb-3 col-6'} controlId="Address1">
-            <Form.Label>Address Line 1</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Address Line 1"
-              value={Address1}
-              onChange={({ target: { value } }) => setAddress1(value)}
-            />
-          </Form.Group>
-          <Form.Group className={'mb-3 col-6'} controlId="Address2">
-            <Form.Label>Address Line 2</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Address Line 2"
-              value={Address2}
-              onChange={({ target: { value } }) => setAddress2(value)}
-            />
-          </Form.Group>
-          <Form.Group className={'mb-3 col-6'} controlId="Country">
-            <Form.Label>Country</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Country"
-              value={Country}
-              onChange={({ target: { value } }) => setCountry(value)}
-            />
-          </Form.Group>
-          <Form.Group className={'mb-3 col-6'} controlId="State">
-            <Form.Label>State</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="State"
-              value={State}
-              onChange={({ target: { value } }) => setState(value)}
-            />
-          </Form.Group>
-          <Form.Group className={'mb-3 col-6'} controlId="Landmark">
-            <Form.Label>Landmark</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Landmark"
-              value={Landmark}
-              onChange={({ target: { value } }) => setLandmark(value)}
-            />
-          </Form.Group>
-          <Form.Group className={'mb-3 col-6'} controlId="AddressType">
-            <Form.Label>AddressType</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="AddressType"
-              value={AddressType}
-              onChange={({ target: { value } }) => setAddressType(value)}
-            />
-          </Form.Group>
-          <Form.Group className={'mb-3 col-6'} controlId="City">
-            <Form.Label>City</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="City"
-              value={City}
-              onChange={({ target: { value } }) => setCity(value)}
-            />
-          </Form.Group>
-          <Form.Group className={'mb-3 col-6'} controlId="ZipCode">
-            <Form.Label>ZipCode</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="ZipCode"
-              value={ZipCode}
-              onChange={({ target: { value } }) => setZipCode(value)}
-            />
-          </Form.Group>
-        </div>
+  const [qualification, setQualification] = useState(false)
+  const [personalInfo, setPersonalInfo] = useState(false)
 
-        <Button variant="primary" type="submit">
-          Update
-        </Button>
-      </fieldset>
-    </Form>
+  const changeQualification = () => {
+    setQualification(true)
+  }
+
+  const changePersonalInfo = () => {
+    setPersonalInfo(true)
+  }
+
+  return (
+    <>
+      {qualification ? (
+        <Qualification />
+      ) : personalInfo ? (
+        <PersonalInfo />
+      ) : (
+        <Form className={'mb-3'} onSubmit={event => handleSubmit(event)}>
+          <fieldset className={'border border-success p-2'}>
+            <legend className={'w-auto float-none mb-0 px-3'}>
+              Address Information
+            </legend>
+            <div className={'row'}>
+              <Form.Group className={'mb-3 col-6'} controlId="Address1">
+                <Form.Label>Address Line 1</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Address Line 1"
+                  value={Address1}
+                  onChange={({ target: { value } }) => setAddress1(value)}
+                />
+              </Form.Group>
+              <Form.Group className={'mb-3 col-6'} controlId="Address2">
+                <Form.Label>Address Line 2</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Address Line 2"
+                  value={Address2}
+                  onChange={({ target: { value } }) => setAddress2(value)}
+                />
+              </Form.Group>
+              <Form.Group className={'mb-3 col-6'} controlId="Country">
+                <Form.Label>Country</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Country"
+                  value={Country}
+                  onChange={({ target: { value } }) => setCountry(value)}
+                />
+              </Form.Group>
+              <Form.Group className={'mb-3 col-6'} controlId="State">
+                <Form.Label>State</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="State"
+                  value={State}
+                  onChange={({ target: { value } }) => setState(value)}
+                />
+              </Form.Group>
+              <Form.Group className={'mb-3 col-6'} controlId="Landmark">
+                <Form.Label>Landmark</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Landmark"
+                  value={Landmark}
+                  onChange={({ target: { value } }) => setLandmark(value)}
+                />
+              </Form.Group>
+              <Form.Group className={'mb-3 col-6'} controlId="AddressType">
+                <Form.Label>AddressType</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="AddressType"
+                  value={AddressType}
+                  onChange={({ target: { value } }) => setAddressType(value)}
+                />
+              </Form.Group>
+              <Form.Group className={'mb-3 col-6'} controlId="City">
+                <Form.Label>City</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="City"
+                  value={City}
+                  onChange={({ target: { value } }) => setCity(value)}
+                />
+              </Form.Group>
+              <Form.Group className={'mb-3 col-6'} controlId="ZipCode">
+                <Form.Label>ZipCode</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="ZipCode"
+                  value={ZipCode}
+                  onChange={({ target: { value } }) => setZipCode(value)}
+                />
+              </Form.Group>
+            </div>
+
+            <div className={'d-flex justify-content-end'}>
+              <Button
+                onClick={changePersonalInfo}
+                className={'text-white me-3'}
+                variant="app"
+              >
+                Back
+              </Button>
+              <Button
+                onClick={changeQualification}
+                className={'text-white'}
+                variant="app"
+              >
+                Next
+              </Button>
+            </div>
+          </fieldset>
+        </Form>
+      )}
+    </>
   )
 }
 

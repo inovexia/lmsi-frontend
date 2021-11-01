@@ -11,6 +11,7 @@ const FollowingView = React.lazy(() => import('./following'))
 const FollowersView = React.lazy(() => import('./followers'))
 const InstitutesView = React.lazy(() => import('./institutes'))
 const SettingsView = React.lazy(() => import('./settings'))
+const ProfileView = React.lazy(() => import('./display-profile'))
 const CreateInstituteView = React.lazy(() => import('./create-institute'))
 const InstituteHandleView = React.lazy(() => import('./instituteHandle'))
 
@@ -73,6 +74,13 @@ const UserHandleView = ({ match }) => {
         render={props => {
           props.match.params = { ...props.match.params, ...match.params }
           return <InstitutesView {...props} />
+        }}
+      />
+      <Route
+        path={`${match.url}/display-profile`}
+        render={props => {
+          props.match.params = { ...props.match.params, ...match.params }
+          return <ProfileView {...props} />
         }}
       />
       <Route

@@ -67,6 +67,14 @@ const UserView = ({ match }) => {
         Following
       </Link>
       {allowedAccess && (
+        <Link
+          className={'btn btn-app me-3 mb-3'}
+          to={`${match.url}/display-profile`}
+        >
+          Display Profile
+        </Link>
+      )}
+      {allowedAccess && (
         <Link className={'btn btn-app me-3 mb-3'} to={`${match.url}/settings`}>
           Settings
         </Link>
