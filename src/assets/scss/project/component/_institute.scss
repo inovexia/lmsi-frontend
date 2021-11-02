@@ -1,0 +1,54 @@
+@media (min-width: map-get($grid-breakpoints, 'xs')) {
+  .institute {
+    background: #ffffff;
+    border-radius: 10px;
+
+    .institute-header {
+      background-color: blueviolet;
+      height: 250px;
+      box-shadow: 0px 4px 54px rgba(165, 170, 181, 0.1);
+      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+
+      .user {
+        height: 150px;
+        width: 150px;
+        background: linear-gradient(90deg, #eb3349 0%, #f45c43 100%);
+        border-radius: 10px;
+        margin-top: 120px;
+      }
+    }
+
+    .institute-form {
+      padding: 50px 96px;
+
+      .input-field {
+        background: #fffefe;
+        border: 2px solid #b4b4b4;
+        box-sizing: border-box;
+        border-radius: 10px;
+      }
+
+      .form-label {
+        font-size: 16px;
+        letter-spacing: 0.0041em;
+        color: #364f65;
+      }
+    }
+
+    .institute-detail {
+      padding: 50px 20px;
+    }
+  }
+}
+@media (min-width: map-get($grid-breakpoints, 'sm')) {
+}
+@media (min-width: map-get($grid-breakpoints, 'md')) {
+}
+@media (min-width: map-get($grid-breakpoints, 'lg')) {
+}
+@media (min-width: map-get($grid-breakpoints, 'xl')) {
+}
+@media (min-width: map-get($grid-breakpoints, 'xxl')) {
+}

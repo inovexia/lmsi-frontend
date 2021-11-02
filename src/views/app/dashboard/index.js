@@ -13,7 +13,6 @@ const DashboardView = ({ match }) => {
         render={props => <Dashboard {...props} />}
       />
       <Route
-        exact
         path={`${match.url}/add-info`}
         render={props => <AddInfo {...props} />}
       />

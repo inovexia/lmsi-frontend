@@ -72,7 +72,7 @@ const Dashboard = ({ match }) => {
           <Link
             style={{ float: 'right', margin: '-40px 40px 0 0' }}
             className={'btn btn-app text-white'}
-            to={`#`}
+            to={`create-institute`}
           >
             Create Institute
           </Link>

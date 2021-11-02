@@ -7,6 +7,7 @@ import AppLayout from 'src/layout/app'
 const UserHandleView = React.lazy(() => import('./userHandle'))
 const DashboardView = React.lazy(() => import('./dashboard'))
 const StudentView = React.lazy(() => import('./students'))
+const InstituteView = React.lazy(() => import('./institute'))
 
 const App = ({ match }) => {
   const {
@@ -33,6 +34,12 @@ const App = ({ match }) => {
           path={`${match.url}/students`}
           render={props => {
             return <StudentView {...props} />
+          }}
+        />
+        <Route
+          path={`${match.url}/create-institute`}
+          render={props => {
+            return <InstituteView {...props} />
           }}
         />
         <Route
