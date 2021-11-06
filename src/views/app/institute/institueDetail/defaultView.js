@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import { Icon } from 'src/components/Icon'
+import addEvent from 'src/assets/images/addEvent.png'
 
 const InstituteDetail = () => {
   return (
@@ -22,7 +22,11 @@ const InstituteDetail = () => {
       </div>
 
       <div className={'d-flex justify-content-center mb-3'}>
-        <Icon icon={'calendar'} className={'icon'} />
+        <img
+          src={addEvent}
+          alt={'Add Event Calendar'}
+          className={'icon mb-3'}
+        />
       </div>
 
       <div className={'d-flex justify-content-center pb-5'}>

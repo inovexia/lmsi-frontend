@@ -1,0 +1,35 @@
+@media (min-width: map-get($grid-breakpoints, 'xs')) {
+  .slots {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+
+    h3 {
+      font-weight: 500;
+      font-size: 48px;
+      line-height: 56px;
+      text-transform: capitalize;
+      color: #000000;
+    }
+
+    p {
+      max-width: 480px;
+      font-size: 18px;
+      line-height: 21px;
+      text-align: center;
+      color: #000000;
+    }
+  }
+}
+@media (min-width: map-get($grid-breakpoints, 'sm')) {
+}
+@media (min-width: map-get($grid-breakpoints, 'md')) {
+}
+@media (min-width: map-get($grid-breakpoints, 'lg')) {
+}
+@media (min-width: map-get($grid-breakpoints, 'xl')) {
+}
+@media (min-width: map-get($grid-breakpoints, 'xxl')) {
+}

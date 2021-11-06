@@ -95,7 +95,7 @@ export const navMenus = {
 export const getNavMenu = [
   { label: `Dashboard`, link: `/app/dashboard`, icon: `layout-grid` },
   { label: `Courses`, link: `/app/dashboard`, icon: `book-open` },
-  { label: `Slots`, link: `/app/dashboard`, icon: `calendar` },
+  { label: `Slots`, link: `/app/slots`, icon: `calendar` },
   { label: `Exam`, link: `/app/dashboard`, icon: `calendar` },
   { label: `Results`, link: `/app/dashboard`, icon: `calendar` },
   { label: `Students`, link: `/app/students`, icon: `users` },
