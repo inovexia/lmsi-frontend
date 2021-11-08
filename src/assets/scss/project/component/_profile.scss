@@ -11,7 +11,6 @@
         margin: 22px 22px 0 0;
       }
     }
-
     .profile-content {
       height: 190px;
       background: #ffffff;
@@ -62,18 +61,185 @@
 
     .profile-details {
       margin: 20px 50px 0 50px;
-
       .personal-information {
         height: 298px;
         background: #ffffff;
         box-shadow: 0px 4px 54px rgba(165, 170, 181, 0.1);
         border-radius: 10px;
-
-        h3 {
+        .header {
+          border-bottom: 1px solid #e1e1e1;
+          h3 {
+            font-weight: bold;
+            font-size: 20px;
+            letter-spacing: 0.0041em;
+            color: #203b54;
+            margin: 20px 0 0 20px;
+            padding-bottom: 20px;
+          }
+          .icon {
+            margin: 20px 20px 0 0;
+          }
+        }
+        .about-me {
+          margin: 20px 0 8px 20px;
+        }
+        .heading {
+          font-family: Roboto;
+          font-style: normal;
           font-weight: bold;
           font-size: 20px;
+          line-height: 140%;
           letter-spacing: 0.0041em;
           color: #203b54;
+        }
+        .content-heading {
+          font-family: Roboto;
+          font-style: normal;
+          font-weight: normal;
+          font-size: 18px;
+          line-height: 140%;
+          letter-spacing: 0.0041em;
+          color: #203b54;
+        }
+        .aboutme-content {
+          margin: 0px 40px 16px 20px;
+        }
+        .dob {
+          margin: 0px 0px 30px 0px;
+        }
+        .dob-date {
+          margin: 0px 30px 0px 30px;
+        }
+      }
+      .address-information {
+        margin-top: 20px;
+        height: 217px;
+        background: #ffffff;
+        box-shadow: 0px 4px 54px rgba(165, 170, 181, 0.1);
+        border-radius: 10px;
+        .header {
+          border-bottom: 1px solid #e1e1e1;
+          h3 {
+            font-weight: bold;
+            font-size: 20px;
+            letter-spacing: 0.0041em;
+            color: #203b54;
+            margin: 20px 0 0 20px;
+            padding-bottom: 20px;
+          }
+          .icon {
+            margin: 20px 20px 0 0;
+          }
+        }
+        .address-attributes {
+          h6 {
+            margin: 10px 0 5px 8px;
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 18px;
+            line-height: 140%;
+            letter-spacing: 0.0041em;
+            color: #203b54;
+          }
+          span {
+            margin: 10px 0 10px 1px;
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 18px;
+            line-height: 140%;
+            letter-spacing: 0.0041em;
+            color: #203b54;
+          }
+          p {
+            margin: 2px 0 5px 8px;
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 18px;
+            line-height: 140%;
+            letter-spacing: 0.0041em;
+            color: #203b54;
+          }
+        }
+      }
+      .institute-information {
+        height: 415px;
+        background: #ffffff;
+        box-shadow: 0px 4px 54px rgba(165, 170, 181, 0.1);
+        border-radius: 10px;
+        .header {
+          border-bottom: 1px solid #e1e1e1;
+          h3 {
+            font-weight: bold;
+            font-size: 20px;
+            letter-spacing: 0.0041em;
+            color: #203b54;
+            margin: 20px 0 0 20px;
+            padding-bottom: 20px;
+          }
+          .icon {
+            margin: 20px 20px 0 0;
+          }
+        }
+        .institute-name {
+          margin: 20px 54px 16px 20px;
+          h3 {
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 20px;
+            line-height: 140%;
+            letter-spacing: 0.0041em;
+            color: #203b54;
+          }
+          .institute-description {
+            p {
+              margin-right: 198px;
+              font-family: Roboto;
+              font-style: normal;
+              font-weight: normal;
+              font-size: 18px;
+              line-height: 140%;
+              letter-spacing: 0.0041em;
+              color: #203b54;
+            }
+          }
+        }
+      }
+      .expertise-information {
+        margin-top: 20px;
+        height: 100px;
+        background: #ffffff;
+        box-shadow: 0px 4px 54px rgba(165, 170, 181, 0.1);
+        border-radius: 10px;
+        .header {
+          border-bottom: 1px solid #e1e1e1;
+          h3 {
+            font-weight: bold;
+            font-size: 20px;
+            letter-spacing: 0.0041em;
+            color: #203b54;
+            margin: 20px 0 0 20px;
+            padding-bottom: 5px;
+          }
+          .icon {
+            margin: 20px 20px 0 0;
+          }
+        }
+        p {
+          margin: 8px 0;
+          font-family: Roboto;
+          font-style: normal;
+          font-weight: normal;
+          font-size: 14px;
+          line-height: 140%;
+          letter-spacing: 0.0041em;
+          color: #364f65;
+          border: 2px solid #000;
+          border-radius: 50px;
+          padding: 5px 10px;
         }
       }
     }
