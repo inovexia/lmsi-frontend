@@ -1,10 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { Form, Button } from 'react-bootstrap'
 
 import Address from './Address'
+import { AppContext } from 'src/AppContext'
+import { TITLE_UPDATE } from 'src/constants/actions'
 
 const Qualification = () => {
-  const [Qualification, setQualification] = useState(''),
+  const pageHeading = 'Qualification Information',
+    { updateAppStore } = useContext(AppContext),
+    [Qualification, setQualification] = useState(''),
     [University, setUniversity] = useState(''),
     [Certification, setCertification] = useState(''),
     [CertificationUrl, setCertificationUrl] = useState(''),
@@ -13,6 +17,15 @@ const Qualification = () => {
     handleSubmit = async event => {
       event.preventDefault()
     }
+
+  useEffect(() => {
+    updateAppStore({
+      type: TITLE_UPDATE,
+      payload: {
+        pageHeading,
+      },
+    })
+  }, [updateAppStore])
 
   const [address, setAddress] = useState(false)
 

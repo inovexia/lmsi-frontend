@@ -3,6 +3,8 @@ import { decrypt } from 'src/helpers/Utils'
 
 const AppReducer = (appStore, AppAction) => {
   switch (AppAction.type) {
+    case AllActions.TITLE_UPDATE:
+      return { ...appStore, pageHeading: AppAction.payload.pageHeading }
     case AllActions.LOAD_USER:
       return { ...appStore, user: AppAction.payload.user }
     case AllActions.LOGIN_USER:

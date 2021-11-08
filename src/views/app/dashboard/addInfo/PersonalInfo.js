@@ -1,4 +1,10 @@
-import React, { useCallback, useContext, useRef, useState } from 'react'
+import React, {
+  useCallback,
+  useContext,
+  useRef,
+  useState,
+  useEffect,
+} from 'react'
 import { Link } from 'react-router-dom'
 import { Form, Button } from 'react-bootstrap'
 import { Editor } from '@tinymce/tinymce-react'
@@ -7,6 +13,7 @@ import { AppContext } from 'src/AppContext'
 import { useLocalStorage } from 'src/hooks'
 import { decrypt, encrypt } from 'src/helpers/Utils'
 import Address from './Address'
+import { TITLE_UPDATE } from 'src/constants/actions'
 import {
   PROFILE_NAME_UPDATED,
   PROFILE_UPDATE_FAILED,
@@ -14,7 +21,8 @@ import {
 } from 'src/constants/actions'
 
 const PersonalInfo = () => {
-  const {
+  const pageHeading = 'Personal Information',
+    {
       appStore: { user, userStorageKey, apiURL },
       updateAppStore,
     } = useContext(AppContext),
@@ -117,6 +125,15 @@ const PersonalInfo = () => {
         })
       }
     }
+
+  useEffect(() => {
+    updateAppStore({
+      type: TITLE_UPDATE,
+      payload: {
+        pageHeading,
+      },
+    })
+  }, [updateAppStore])
 
   const [address, setAddress] = useState(false)
 

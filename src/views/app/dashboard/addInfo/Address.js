@@ -4,6 +4,7 @@ import { Form, Button } from 'react-bootstrap'
 import { AppContext } from 'src/AppContext'
 import Qualification from './Qualification'
 import PersonalInfo from './PersonalInfo'
+import { TITLE_UPDATE } from 'src/constants/actions'
 import {
   UNEXPECTED_ERROR,
   ADDRESS_UPDATE_FAILED,
@@ -11,7 +12,8 @@ import {
 } from 'src/constants/actions'
 
 const Address = () => {
-  const {
+  const pageHeading = 'Address Information',
+    {
       appStore: { user, apiURL },
       updateAppStore,
     } = useContext(AppContext),
@@ -141,6 +143,15 @@ const Address = () => {
 
     getAddress()
   }, [apiURL, user.accessToken, updateAppStore])
+
+  useEffect(() => {
+    updateAppStore({
+      type: TITLE_UPDATE,
+      payload: {
+        pageHeading,
+      },
+    })
+  }, [updateAppStore])
 
   const [qualification, setQualification] = useState(false)
   const [personalInfo, setPersonalInfo] = useState(false)

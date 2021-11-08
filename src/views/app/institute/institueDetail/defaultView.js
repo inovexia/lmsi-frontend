@@ -1,9 +1,23 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 import addEvent from 'src/assets/images/addEvent.png'
+import { AppContext } from 'src/AppContext'
+import { TITLE_UPDATE } from 'src/constants/actions'
 
 const InstituteDetail = () => {
+  const pageHeading = 'Institute Name',
+    { updateAppStore } = useContext(AppContext)
+
+  useEffect(() => {
+    updateAppStore({
+      type: TITLE_UPDATE,
+      payload: {
+        pageHeading,
+      },
+    })
+  }, [updateAppStore])
+
   return (
     <div className={'institute'}>
       <div className={'institute-header'}>

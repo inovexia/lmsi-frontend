@@ -1,8 +1,22 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 
 import { Icon } from 'src/components/Icon'
+import { AppContext } from 'src/AppContext'
+import { TITLE_UPDATE } from 'src/constants/actions'
 
 const Profile = ({ match }) => {
+  const pageHeading = 'My Profile',
+    { updateAppStore } = useContext(AppContext)
+
+  useEffect(() => {
+    updateAppStore({
+      type: TITLE_UPDATE,
+      payload: {
+        pageHeading,
+      },
+    })
+  }, [updateAppStore])
+
   false && console.log(match)
   return (
     <div className={'display-profile'}>
@@ -46,7 +60,7 @@ const Profile = ({ match }) => {
         </div>
       </div>
       <div className={'profile-details row'}>
-        <div className={'col-5'}>
+        <div className={'col-5 p-0 pe-3'}>
           <div className={'personal-information'}>
             <div className={'d-flex justify-content-between header'}>
               <h3>Personal Information</h3>
@@ -71,20 +85,20 @@ const Profile = ({ match }) => {
               <Icon icon={'pencil'} className={'icon'} />
             </div>
             <div className="address-attributes">
-              <div className={'d-flex justify-content-start'}>
-                <h6>Country:</h6>
-                <span>Canada</span>
-                <h6>State:</h6>
-                <span>Toronto</span>
-                <h6>City:</h6>
-                <span>Vancouver</span>
-              </div>
-              <div className={'d-flex justify-space-around'}>
-                <h6>Zip Code:</h6>
-                <span> 283206</span>
-                <h6>Address type:</h6>
-                <span>Work</span>
-              </div>
+              <p>
+                <strong>Country:</strong>
+                <span>Canada </span>
+                <strong>State:</strong>
+                <span>Toronto </span>
+                <strong>City:</strong>
+                <span>Vancouver </span>
+              </p>
+              <p>
+                <strong>Zip Code:</strong>
+                <span> 283206 </span>
+                <strong>Address type:</strong>
+                <span>Work </span>
+              </p>
               <p>
                 2972 estheimer Rd. Santa Ana, Illinois 85486 sector N1 aliganj
                 lucknow
@@ -92,7 +106,7 @@ const Profile = ({ match }) => {
             </div>
           </div>
         </div>
-        <div className={'col-7'}>
+        <div className={'col-7 p-0'}>
           <div className={'institute-information'}>
             <div className={'d-flex justify-content-between header'}>
               <h3>Institute Details</h3>

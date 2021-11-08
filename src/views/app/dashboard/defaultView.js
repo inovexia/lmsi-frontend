@@ -1,12 +1,25 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 import { AppContext } from 'src/AppContext'
+import { TITLE_UPDATE } from 'src/constants/actions'
 
 const Dashboard = ({ match }) => {
-  const {
-    appStore: { user },
-  } = useContext(AppContext)
+  const pageHeading = 'Dashboard',
+    {
+      appStore: { user },
+      updateAppStore,
+    } = useContext(AppContext)
+
+  useEffect(() => {
+    updateAppStore({
+      type: TITLE_UPDATE,
+      payload: {
+        pageHeading,
+      },
+    })
+  }, [updateAppStore])
+
   return (
     <div className={'dashboard'}>
       <div className={'welcome-card'}>

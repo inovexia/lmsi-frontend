@@ -1,6 +1,21 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
+
+import { AppContext } from 'src/AppContext'
+import { TITLE_UPDATE } from 'src/constants/actions'
 
 const StudentList = () => {
+  const pageHeading = 'Student list',
+    { updateAppStore } = useContext(AppContext)
+
+  useEffect(() => {
+    updateAppStore({
+      type: TITLE_UPDATE,
+      payload: {
+        pageHeading,
+      },
+    })
+  }, [updateAppStore])
+
   return (
     <div className={'students'}>
       <div className={'list-heading row'}>

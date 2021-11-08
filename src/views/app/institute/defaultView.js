@@ -1,11 +1,25 @@
-import React, { useState } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { Form } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
+import { AppContext } from 'src/AppContext'
+import { TITLE_UPDATE } from 'src/constants/actions'
+
 const Institute = () => {
-  const [instituteName, setInstituteName] = useState(''),
+  const pageHeading = 'Add Institute',
+    { updateAppStore } = useContext(AppContext),
+    [instituteName, setInstituteName] = useState(''),
     [userName, setUserName] = useState(''),
     [description, setDescription] = useState('')
+
+  useEffect(() => {
+    updateAppStore({
+      type: TITLE_UPDATE,
+      payload: {
+        pageHeading,
+      },
+    })
+  }, [updateAppStore])
 
   return (
     <div className={'institute'}>

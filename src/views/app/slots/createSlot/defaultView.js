@@ -1,6 +1,21 @@
-import React, { useState } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
+
+import { AppContext } from 'src/AppContext'
+import { TITLE_UPDATE } from 'src/constants/actions'
 
 const CreateSlot = () => {
+  const pageHeading = 'Create Slot',
+    { updateAppStore } = useContext(AppContext)
+
+  useEffect(() => {
+    updateAppStore({
+      type: TITLE_UPDATE,
+      payload: {
+        pageHeading,
+      },
+    })
+  }, [updateAppStore])
+
   const [isChecked, setIsChecked] = useState(false)
 
   const handleOnChange = () => {

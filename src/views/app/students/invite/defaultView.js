@@ -1,7 +1,22 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
+import { AppContext } from 'src/AppContext'
+import { TITLE_UPDATE } from 'src/constants/actions'
+
 const Invite = () => {
+  const pageHeading = 'Invite Students',
+    { updateAppStore } = useContext(AppContext)
+
+  useEffect(() => {
+    updateAppStore({
+      type: TITLE_UPDATE,
+      payload: {
+        pageHeading,
+      },
+    })
+  }, [updateAppStore])
+
   return (
     <div className={'invite'}>
       <div className={'img'}></div>
