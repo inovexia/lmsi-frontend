@@ -31,7 +31,8 @@ const Slot = ({ match }) => {
       setStartDateTime(start)
       setEndDateTime(end)
     },
-    addSlots = () => {
+    addSlots = event => {
+      event.preventDefault()
       setSLots(storedSlots => {
         return [
           ...storedSlots,
@@ -124,7 +125,7 @@ const Slot = ({ match }) => {
         className={'slot-modal'}
         size={'lg'}
       >
-        <Form onSubmit={() => addSlots()}>
+        <Form onSubmit={event => addSlots(event)}>
           <Modal.Header closeButton>
             <Modal.Title>New Slot</Modal.Title>
           </Modal.Header>
