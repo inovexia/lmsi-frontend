@@ -21,12 +21,15 @@ const Slot = ({ match }) => {
     [startDateTime, setStartDateTime] = useState(new Date()),
     [endDateTime, setEndDateTime] = useState(new Date()),
     [slotTitle, setSlotTitle] = useState(''),
+    [allDay, setAllDay] = useState(false),
+    [slotDescription, setSlotDescription] = useState(''),
     [slotColor, setSlotColor] = useState('app'),
     parseDate = s => {
       var b = s.split(/\D+/)
       return new Date(b[0], --b[1], b[2], b[3], b[4], b[5] || 0, b[6] || 0)
     },
     openSlotModal = ({ start, end }) => {
+      setAllDay(moment(end).diff(moment(start), 'days') === 1 ? true : false)
       toggleSlotModal(true)
       setStartDateTime(start)
       setEndDateTime(end)
@@ -43,14 +46,16 @@ const Slot = ({ match }) => {
             id: storedSlots.length + 1,
             courseId: 656,
             instituteId: 454,
-            description: 'this is description',
-            allDay: false,
+            description: slotDescription,
+            allDay: allDay,
             bgColor: slotColor,
             color: '#ffffff',
           },
         ]
       })
       setSlotTitle('')
+      setAllDay(false)
+      setSlotDescription('')
       setSlotColor('app')
       toggleSlotModal(false)
     },
@@ -208,7 +213,18 @@ const Slot = ({ match }) => {
               </Form.Group>
             </Row>
             <Form.Group className={'mb-3'} controlId={'allday'}>
-              <Form.Check type={'checkbox'} label={'All Day'} />
+              <Form.Check
+                type={'checkbox'}
+                label={'All Day'}
+                defaultChecked={allDay}
+                onChange={({ target }) => {
+                  console.log(
+                    '🚀 ~ file: defaultView.js ~ line 217 ~ Slot ~ target',
+                    target
+                  )
+                  setAllDay(true)
+                }}
+              />
             </Form.Group>
             <Row className={'mb-3'}>
               <Form.Group as={Col} md={6} controlId={'repeat'}>
@@ -274,6 +290,7 @@ const Slot = ({ match }) => {
                 placeholder={'Description'}
                 rows={3}
                 style={{ resize: 'none' }}
+                onChange={({ target: { value } }) => setSlotDescription(value)}
               />
             </Form.Group>
           </Modal.Body>
