@@ -103,6 +103,9 @@ const Slot = ({ match }) => {
           Create Slot
         </Link>
       </div> */}
+      <Button variant={'app'} onClick={() => toggleSlotModal(true)}>
+        Add New Slot
+      </Button>
       <div className={'card w-100 h-100'}>
         <div className={'card-body h-100'}>
           <Calendar

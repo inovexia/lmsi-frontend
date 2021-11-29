@@ -97,10 +97,7 @@ const SidebarLeft = () => {
           Logout
         </button>
         <div className={'d-flex justify-content-center send-invite'}>
-          <Link
-            className={'btn btn-app text-white'}
-            to={`${appRoot}/${userPath}`}
-          >
+          <Link className={'btn btn-app'} to={`${appRoot}/${userPath}`}>
             View Profile
           </Link>
         </div>
