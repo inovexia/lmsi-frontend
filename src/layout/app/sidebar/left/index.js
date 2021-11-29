@@ -28,8 +28,6 @@ const SidebarLeft = () => {
       }
     }
 
-  console.log(user)
-
   useDebounce(
     () => {
       updateAppStore({
