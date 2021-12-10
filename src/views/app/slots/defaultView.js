@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 // import { Link } from 'react-router-dom'
 import { Calendar, momentLocalizer } from 'react-big-calendar'
 import moment from 'moment'
@@ -14,50 +14,113 @@ import { TITLE_UPDATE } from 'src/constants/actions'
 const localizer = momentLocalizer(moment)
 
 const Slot = ({ match }) => {
-  const pageHeading = 'Slots list',
-    { updateAppStore } = useContext(AppContext),
+  const pageHeading = 'Slots',
+    {
+      appStore: { user, apiURL },
+      updateAppStore,
+    } = useContext(AppContext),
     [slotModal, toggleSlotModal] = useState(false),
     [slots, setSLots] = useState([]),
+    [startDate, setStartDate] = useState(
+      moment(new Date()).format('YYYY/MM/DD')
+    ),
     [startDateTime, setStartDateTime] = useState(new Date()),
     [endDateTime, setEndDateTime] = useState(new Date()),
     [slotTitle, setSlotTitle] = useState(''),
+    [slotType, setSlotType] = useState('Select Slot Type'),
+    [learningMode, setLearningMode] = useState('Online'),
+    [slotPrice, setSlotPrice] = useState(0),
+    [slotDay, setSlotDay] = useState(null),
+    [slotLimit, setSlotLimit] = useState(10),
     [allDay, setAllDay] = useState(false),
     [slotDescription, setSlotDescription] = useState(''),
     [slotColor, setSlotColor] = useState('app'),
+    [slotCreating, setSlotCreating] = useState(false),
     parseDate = s => {
-      var b = s.split(/\D+/)
+      const b = s.split(/\D+/)
       return new Date(b[0], --b[1], b[2], b[3], b[4], b[5] || 0, b[6] || 0)
+    },
+    closeSlotModal = () => {
+      setAllDay(false)
+      setSlotDay(null)
+      setStartDate(moment(new Date()).format('YYYY/MM/DD'))
+      setStartDateTime(new Date())
+      setEndDateTime(new Date())
+      setSlotCreating(false)
+      toggleSlotModal(false)
     },
     openSlotModal = ({ start, end }) => {
       setAllDay(moment(end).diff(moment(start), 'days') === 1 ? true : false)
-      toggleSlotModal(true)
+      setSlotDay(moment(start).format('dddd'))
+      setStartDate(moment(start).format('YYYY/MM/DD'))
       setStartDateTime(start)
       setEndDateTime(end)
+      toggleSlotModal(true)
     },
-    addSlots = event => {
-      event.preventDefault()
-      setSLots(storedSlots => {
-        return [
-          ...storedSlots,
-          {
-            start: startDateTime,
-            end: endDateTime,
-            title: slotTitle,
-            id: storedSlots.length + 1,
-            courseId: 656,
-            instituteId: 454,
-            description: slotDescription,
-            allDay: allDay,
-            bgColor: slotColor,
-            color: '#ffffff',
+    addSlots = async event => {
+      try {
+        event.preventDefault()
+        setSlotCreating(true)
+        const slotData = {
+            slot_date: startDate,
+            start_time: moment(startDateTime).format('hh:mm:ss A'),
+            end_time: moment(endDateTime).format('hh:mm:ss A'),
+            slot_title: slotTitle,
+            slot_price: slotPrice,
+            slot_limit: slotLimit,
+            slot_type: slotType,
+            learning_mode: learningMode,
+            slot_day: slotDay,
+            slot_description: slotDescription,
           },
-        ]
-      })
-      setSlotTitle('')
-      setAllDay(false)
-      setSlotDescription('')
-      setSlotColor('app')
-      toggleSlotModal(false)
+          addSlotReq = await fetch(`${apiURL}/instructor/slot/create`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              language: 'en',
+              Authorization: `Bearer ${user.accessToken}`,
+            },
+            body: JSON.stringify(slotData),
+          })
+        if (addSlotReq.ok) {
+          const data = await addSlotReq.json()
+          console.log(data)
+          if (data.API_STATUS) {
+            setSLots(storedSlots => {
+              return [
+                ...storedSlots,
+                {
+                  start: startDateTime,
+                  end: endDateTime,
+                  title: slotTitle,
+                  id: data.id,
+                  courseId: 656,
+                  instituteId: 454,
+                  slotDay,
+                  description: slotDescription,
+                  allDay: allDay,
+                  bgColor: slotColor,
+                  color: '#ffffff',
+                },
+              ]
+            })
+          } else {
+            throw new Error('Bad Request')
+          }
+        } else {
+          throw new Error('Unexpected Error')
+        }
+      } catch (error) {
+        console.error(error)
+      } finally {
+        setSlotTitle('')
+        setAllDay(false)
+        setSlotDescription('')
+        setSlotDay(null)
+        setSlotColor('app')
+        setSlotCreating(false)
+        toggleSlotModal(false)
+      }
     },
     slotSelected = slot => {
       console.log(slot)
@@ -71,42 +134,66 @@ const Slot = ({ match }) => {
         },
         className: `bg-${slot.bgColor}`,
       }
-    }
+    },
+    fetchSlots = useCallback(async () => {
+      const slotsRequest = await fetch(`${apiURL}/instructor/slots`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          language: 'en',
+        },
+      })
+      try {
+        const data = await slotsRequest.json()
+        console.log(data)
+        /* if (data.API_STATUS) {
+      } else {
+        console.error(data.message)
+      } */
+      } catch (err) {
+        console.error(err.message)
+      }
+    }, [apiURL])
 
   useEffect(() => {
+    fetchSlots()
     updateAppStore({
       type: TITLE_UPDATE,
       payload: {
         pageHeading,
       },
     })
-  }, [updateAppStore])
+  }, [fetchSlots, updateAppStore])
 
   return (
     <>
       {/* <div className={'slots'}>
-        <h3>CreateSlot</h3>
-        <p>
-          Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco
-          cillum dolor. Voluptate exercitation incididunt aliquip deserunt
-          reprehenderit elit laborum.
-        </p>
-        <img
-          src={addEvent}
-          alt={'Add Event Calendar'}
-          className={'icon mb-3'}
-        />
-        <Link
-          className={'btn btn-app text-white'}
-          to={`${match.url}/create-slot`}
-        >
-          Create Slot
-        </Link>
-      </div> */}
-      <Button variant={'app'} onClick={() => toggleSlotModal(true)}>
+      <h3>CreateSlot</h3>
+      <p>
+        Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco
+        cillum dolor. Voluptate exercitation incididunt aliquip deserunt
+        reprehenderit elit laborum.
+      </p>
+      <img
+        src={addEvent}
+        alt={'Add Event Calendar'}
+        className={'icon mb-3'}
+      />
+      <Link
+        className={'btn btn-app text-white'}
+        to={`${match.url}/create-slot`}
+      >
+        Create Slot
+      </Link>
+    </div> */}
+      <Button
+        variant={'app'}
+        className={'my-3'}
+        onClick={() => toggleSlotModal(true)}
+      >
         Add New Slot
       </Button>
-      <div className={'card w-100 h-100'}>
+      <div className={'card w-100 h-100 slot-card'}>
         <div className={'card-body h-100'}>
           <Calendar
             localizer={localizer}
@@ -129,8 +216,9 @@ const Slot = ({ match }) => {
       <Modal
         centered={true}
         show={slotModal}
-        onHide={() => toggleSlotModal(false)}
+        onHide={() => closeSlotModal()}
         className={'slot-modal'}
+        contentClassName={'border'}
         size={'lg'}
       >
         <Form onSubmit={event => addSlots(event)}>
@@ -149,17 +237,21 @@ const Slot = ({ match }) => {
                   required={true}
                 />
               </Form.Group>
-              <Form.Group as={Col} md={6} controlId={'location'}>
+              <Form.Group as={Col} md={6} controlId={'price'}>
                 <Form.Control
-                  type={'text'}
-                  placeholder={'Location'}
-                  aria-label={'Location'}
+                  type={'number'}
+                  placeholder={'Price'}
+                  aria-label={'Price'}
+                  onChange={({ target: { value } }) =>
+                    setSlotPrice(parseFloat(value))
+                  }
                 />
               </Form.Group>
             </Row>
             <Row className={'mb-3'}>
               <Form.Group as={Col} md={6} controlId={'start'}>
                 <InputGroup>
+                  <InputGroup.Text className={'mb-0'}>Start</InputGroup.Text>
                   <Form.Control
                     type={'datetime-local'}
                     placeholder={'Start'}
@@ -178,16 +270,11 @@ const Slot = ({ match }) => {
                       setStartDateTime(parseDate(value))
                     }
                   />
-                  {/* <OutlineButton variant={'secondary'} className={'px-1'}>
-                  <Icon icon={'calendar'} />
-                </OutlineButton>
-                <OutlineButton variant={'secondary'} className={'px-1'}>
-                  <Icon icon={'hourglass'} />
-                </OutlineButton> */}
                 </InputGroup>
               </Form.Group>
               <Form.Group as={Col} md={6} controlId="end">
                 <InputGroup>
+                  <InputGroup.Text className={'mb-0'}>End</InputGroup.Text>
                   <Form.Control
                     type={'datetime-local'}
                     placeholder={'End'}
@@ -206,29 +293,52 @@ const Slot = ({ match }) => {
                       setEndDateTime(parseDate(value))
                     }
                   />
-                  {/* <OutlineButton variant={'secondary'} className={'px-1'}>
-                  <Icon icon={'calendar'} />
-                </OutlineButton>
-                <OutlineButton variant={'secondary'} className={'px-1'}>
-                  <Icon icon={'hourglass'} />
-                </OutlineButton> */}
                 </InputGroup>
               </Form.Group>
             </Row>
-            <Form.Group className={'mb-3'} controlId={'allday'}>
-              <Form.Check
-                type={'checkbox'}
-                label={'All Day'}
-                defaultChecked={allDay}
-                onChange={({ target }) => {
-                  console.log(
-                    '🚀 ~ file: defaultView.js ~ line 217 ~ Slot ~ target',
-                    target
-                  )
-                  setAllDay(true)
-                }}
-              />
-            </Form.Group>
+            <Row className={'mb-3'}>
+              <Form.Group as={Col} md={6} controlId={'allday'}>
+                <Form.Check
+                  type={'checkbox'}
+                  label={'All Day'}
+                  defaultChecked={allDay}
+                  onChange={({ target: { checked } }) => {
+                    setAllDay(checked)
+                  }}
+                />
+              </Form.Group>
+              <Form.Group as={Col} md={6}>
+                <div className={'d-flex align-items-center h-100'}>
+                  <Form.Label className={'mb-0'}>Learning Mode</Form.Label>
+                  <div className={'d-flex flex-grow-1 justify-content-evenly'}>
+                    <Form.Check
+                      inline
+                      className={'mb-0'}
+                      defaultChecked={learningMode === 'Online'}
+                      onChange={({ target: { checked } }) =>
+                        checked && setLearningMode('Online')
+                      }
+                      label={'Online'}
+                      name={'learningMode'}
+                      type={'radio'}
+                      id={'learningModeOnline'}
+                    />
+                    <Form.Check
+                      inline
+                      className={'mb-0'}
+                      label={'Offline'}
+                      defaultChecked={learningMode === 'Offline'}
+                      onChange={({ target: { checked } }) =>
+                        checked && setLearningMode('Offline')
+                      }
+                      name={'learningMode'}
+                      type={'radio'}
+                      id={'learningModeOffline'}
+                    />
+                  </div>
+                </div>
+              </Form.Group>
+            </Row>
             <Row className={'mb-3'}>
               <Form.Group as={Col} md={6} controlId={'repeat'}>
                 <Form.Select defaultValue={'Repeat'}>
@@ -243,68 +353,111 @@ const Slot = ({ match }) => {
               <Form.Group as={Col} md={6} controlId={'color'}>
                 <Form.Select
                   value={slotColor}
-                  className={`bg-${slotColor} text-white`}
+                  className={`bg-${slotColor} text-white slot-color`}
                   onChange={({ target: { value } }) => setSlotColor(value)}
                 >
                   <option value={'app'} className={'bg-app text-white py-2'}>
-                    App
+                    Forest
                   </option>
                   <option
                     value={'primary'}
                     className={'bg-primary text-white py-2'}
                   >
-                    Primary
+                    Cool
                   </option>
                   <option
                     value={'success'}
                     className={'bg-success text-white py-2'}
                   >
-                    Success
+                    Nature
                   </option>
                   <option value={'info'} className={'bg-info text-white py-2'}>
-                    Info
+                    Ice
                   </option>
                   <option
                     value={'danger'}
                     className={'bg-danger text-white py-2'}
                   >
-                    Danger
+                    Heat
                   </option>
                   <option
                     value={'warning'}
                     className={'bg-warning text-white py-2'}
                   >
-                    Warning
+                    Warm
                   </option>
                 </Form.Select>
               </Form.Group>
             </Row>
-            <Form.Group className="mb-3" controlId="select-course">
-              <Form.Select defaultValue={'Select Course'}>
-                <option>Select Course</option>
-                <option value={1}>Course 1</option>
-                <option value={2}>Course 2</option>
-                <option value={3}>Course 3</option>
-              </Form.Select>
-            </Form.Group>
-            <Form.Group className={'mb-3'} controlId={'description'}>
-              <Form.Control
-                as={'textarea'}
-                placeholder={'Description'}
-                rows={3}
-                style={{ resize: 'none' }}
-                onChange={({ target: { value } }) => setSlotDescription(value)}
-              />
-            </Form.Group>
+            <Row className={'mb-3'}>
+              <Form.Group as={Col} md={6} controlId={'slot-type'}>
+                <Form.Select
+                  onChange={({ target: { value } }) => {
+                    setSlotType(value)
+                  }}
+                  required={true}
+                >
+                  <option>Select Slot Type</option>
+                  <option value={'Common'}>Common</option>
+                  <option value={'Course'}>Course</option>
+                </Form.Select>
+              </Form.Group>
+              <Form.Group as={Col} md={6} controlId={'select-course'}>
+                <Form.Select defaultValue={'Select Course'}>
+                  <option>Select Course</option>
+                  <option value={1}>Course 1</option>
+                  <option value={2}>Course 2</option>
+                  <option value={3}>Course 3</option>
+                </Form.Select>
+              </Form.Group>
+            </Row>
+            <Row>
+              <Form.Group
+                as={Col}
+                md={12}
+                className={'mb-3'}
+                controlId={'select-course'}
+              >
+                <div className={'d-flex align-items-center h-100'}>
+                  <Form.Label className={'mb-0 me-3'}>
+                    Slot Limit: <strong>{slotLimit}</strong>
+                  </Form.Label>
+                  <div className={'d-flex flex-grow-1 justify-content-around'}>
+                    <Form.Range
+                      max={100}
+                      min={1}
+                      step={1}
+                      defaultValue={slotLimit}
+                      onChange={({ target: { value } }) => {
+                        setSlotLimit(parseInt(value))
+                      }}
+                    />
+                  </div>
+                </div>
+              </Form.Group>
+              <Form.Group
+                as={Col}
+                md={12}
+                className={'mb-3'}
+                controlId={'description'}
+              >
+                <Form.Control
+                  as={'textarea'}
+                  placeholder={'Description'}
+                  rows={3}
+                  style={{ resize: 'none' }}
+                  onChange={({ target: { value } }) =>
+                    setSlotDescription(value)
+                  }
+                />
+              </Form.Group>
+            </Row>
           </Modal.Body>
-          <Modal.Footer>
-            <Button variant={'primary'} type={'submit'}>
+          <Modal.Footer className={'justify-content-between'}>
+            <Button variant={'app'} type={'submit'} disabled={slotCreating}>
               Submit
             </Button>
-            <Button
-              variant={'secondary'}
-              onClick={() => toggleSlotModal(false)}
-            >
+            <Button variant={'secondary'} onClick={() => closeSlotModal()}>
               Cancel
             </Button>
           </Modal.Footer>

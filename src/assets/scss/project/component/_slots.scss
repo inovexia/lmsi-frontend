@@ -22,6 +22,12 @@
       color: #000000;
     }
   }
+  .slot-card {
+    .rbc-events-container,
+    .rbc-row-content {
+      cursor: pointer;
+    }
+  }
 }
 @media (min-width: map-get($grid-breakpoints, 'sm')) {
 }
