@@ -46,3 +46,9 @@ export const INSTITUTE_CREATION_FAILED = 'INSTITUTE_CREATION_FAILED'
 
 /* PAGES */
 export const TITLE_UPDATE = 'TITLE_UPDATE'
+
+/* Slots */
+export const SLOT_CREATED = 'SLOT_CREATED'
+export const SLOT_DELETED = 'SLOT_DELETED'
+export const SLOT_UPDATED = 'SLOT_UPDATED'
+export const SLOT_ERROR = 'SLOT_ERROR'

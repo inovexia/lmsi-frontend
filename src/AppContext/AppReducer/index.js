@@ -93,6 +93,10 @@ const AppReducer = (appStore, AppAction) => {
     case AllActions.INSTITUTE_CREATION_FAILED:
       appStore.errors.push(AppAction.payload.error)
       return { ...appStore }
+    case AllActions.SLOT_CREATED:
+      appStore.notifications.push(AppAction.payload.notification)
+      return { ...appStore }
+
     default:
       return appStore
   }

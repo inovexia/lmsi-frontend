@@ -9,7 +9,11 @@ import { Form, InputGroup, Modal, Row, Col } from 'react-bootstrap'
 
 import { Button /* OutlineButton */ } from 'src/components/Buttons'
 import { AppContext } from 'src/AppContext'
-import { TITLE_UPDATE } from 'src/constants/actions'
+import {
+  TITLE_UPDATE,
+  SLOT_CREATED,
+  UNEXPECTED_ERROR,
+} from 'src/constants/actions'
 
 const localizer = momentLocalizer(moment)
 
@@ -20,7 +24,7 @@ const Slot = ({ match }) => {
       updateAppStore,
     } = useContext(AppContext),
     [slotModal, toggleSlotModal] = useState(false),
-    [slots, setSLots] = useState([]),
+    [slots, setSlots] = useState([]),
     [startDate, setStartDate] = useState(
       moment(new Date()).format('YYYY/MM/DD')
     ),
@@ -30,7 +34,6 @@ const Slot = ({ match }) => {
     [slotType, setSlotType] = useState('Select Slot Type'),
     [learningMode, setLearningMode] = useState('Online'),
     [slotPrice, setSlotPrice] = useState(0),
-    [slotDay, setSlotDay] = useState(null),
     [slotLimit, setSlotLimit] = useState(10),
     [allDay, setAllDay] = useState(false),
     [slotDescription, setSlotDescription] = useState(''),
@@ -42,20 +45,20 @@ const Slot = ({ match }) => {
     },
     closeSlotModal = () => {
       setAllDay(false)
-      setSlotDay(null)
       setStartDate(moment(new Date()).format('YYYY/MM/DD'))
       setStartDateTime(new Date())
       setEndDateTime(new Date())
       setSlotCreating(false)
       toggleSlotModal(false)
     },
-    openSlotModal = ({ start, end }) => {
-      setAllDay(moment(end).diff(moment(start), 'days') === 1 ? true : false)
-      setSlotDay(moment(start).format('dddd'))
-      setStartDate(moment(start).format('YYYY/MM/DD'))
-      setStartDateTime(start)
-      setEndDateTime(end)
-      toggleSlotModal(true)
+    openSlotModal = ({ start, end, ...rest }) => {
+      if (moment(end).diff(moment(start), 'days') < 1) {
+        setAllDay(moment(end).diff(moment(start), 'days') === 1 ? true : false)
+        setStartDate(moment(start).format('YYYY/MM/DD'))
+        setStartDateTime(start)
+        setEndDateTime(end)
+        toggleSlotModal(true)
+      }
     },
     addSlots = async event => {
       try {
@@ -63,14 +66,13 @@ const Slot = ({ match }) => {
         setSlotCreating(true)
         const slotData = {
             slot_date: startDate,
-            start_time: moment(startDateTime).format('hh:mm:ss A'),
-            end_time: moment(endDateTime).format('hh:mm:ss A'),
+            start: moment.utc(startDateTime).unix(),
+            end: moment.utc(endDateTime).unix(),
             slot_title: slotTitle,
             slot_price: slotPrice,
             slot_limit: slotLimit,
             slot_type: slotType,
             learning_mode: learningMode,
-            slot_day: slotDay,
             slot_description: slotDescription,
           },
           addSlotReq = await fetch(`${apiURL}/instructor/slot/create`, {
@@ -86,7 +88,7 @@ const Slot = ({ match }) => {
           const data = await addSlotReq.json()
           console.log(data)
           if (data.API_STATUS) {
-            setSLots(storedSlots => {
+            setSlots(storedSlots => {
               return [
                 ...storedSlots,
                 {
@@ -96,13 +98,26 @@ const Slot = ({ match }) => {
                   id: data.id,
                   courseId: 656,
                   instituteId: 454,
-                  slotDay,
                   description: slotDescription,
                   allDay: allDay,
                   bgColor: slotColor,
                   color: '#ffffff',
+                  slotType,
+                  status: '1',
+                  limit: slotLimit,
+                  price: slotPrice,
                 },
               ]
+            })
+            updateAppStore({
+              type: SLOT_CREATED,
+              payload: {
+                notification: {
+                  code: SLOT_CREATED,
+                  color: 'success',
+                  message: data.message,
+                },
+              },
             })
           } else {
             throw new Error('Bad Request')
@@ -111,12 +126,20 @@ const Slot = ({ match }) => {
           throw new Error('Unexpected Error')
         }
       } catch (error) {
-        console.error(error)
+        updateAppStore({
+          type: UNEXPECTED_ERROR,
+          payload: {
+            error: {
+              code: UNEXPECTED_ERROR,
+              color: 'warning',
+              message: error.message,
+            },
+          },
+        })
       } finally {
         setSlotTitle('')
         setAllDay(false)
         setSlotDescription('')
-        setSlotDay(null)
         setSlotColor('app')
         setSlotCreating(false)
         toggleSlotModal(false)
@@ -136,24 +159,67 @@ const Slot = ({ match }) => {
       }
     },
     fetchSlots = useCallback(async () => {
-      const slotsRequest = await fetch(`${apiURL}/instructor/slots`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          language: 'en',
-        },
-      })
       try {
-        const data = await slotsRequest.json()
-        console.log(data)
-        /* if (data.API_STATUS) {
-      } else {
-        console.error(data.message)
-      } */
-      } catch (err) {
-        console.error(err.message)
+        const slotsRequest = await fetch(`${apiURL}/instructor/slot/get/list`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            language: 'en',
+            Authorization: `Bearer ${user.accessToken}`,
+          },
+        })
+        if (slotsRequest.ok) {
+          const data = await slotsRequest.json()
+          console.log(data)
+          if (data.API_STATUS) {
+            if (data.HTTP_STATUS === 204) {
+              throw new Error(data.message)
+            }
+            const slotsData = data.response.map(slot => {
+              console.log(
+                moment(moment.unix(slot.end).utc().toDate()).diff(
+                  moment(moment.unix(slot.start).utc().toDate()),
+                  'minutes'
+                )
+              )
+              return {
+                allDay: false,
+                bgColor: 'app',
+                color: '#ffffff',
+                courseId: slot.slot_type === '' ? null : 656,
+                description: slot.slot_description,
+                end: moment.unix(slot.end).utc().toDate(),
+                id: slot.slot_id,
+                instituteId: slot.institute_id,
+                slotType: slot.slot_type,
+                start: moment.unix(slot.start).utc().toDate(),
+                title: slot.slot_title,
+                status: slot.slot_status,
+                limit: slot.slot_limit,
+                price: slot.slot_price,
+                createdBy: slot.created_by,
+              }
+            })
+            setSlots(slotsData)
+          } else {
+            throw new Error('Bad Request')
+          }
+        } else {
+          throw new Error('Unexpected Error')
+        }
+      } catch (error) {
+        updateAppStore({
+          type: UNEXPECTED_ERROR,
+          payload: {
+            error: {
+              code: UNEXPECTED_ERROR,
+              color: 'warning',
+              message: error.message,
+            },
+          },
+        })
       }
-    }, [apiURL])
+    }, [apiURL, updateAppStore, user])
 
   useEffect(() => {
     fetchSlots()
@@ -164,6 +230,8 @@ const Slot = ({ match }) => {
       },
     })
   }, [fetchSlots, updateAppStore])
+
+  false && console.log(slots)
 
   return (
     <>
