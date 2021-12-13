@@ -27,6 +27,15 @@
     .rbc-row-content {
       cursor: pointer;
     }
+
+    .rbc-day-slot {
+      .rbc-event-content {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        text-align: center;
+      }
+    }
   }
 }
 @media (min-width: map-get($grid-breakpoints, 'sm')) {
