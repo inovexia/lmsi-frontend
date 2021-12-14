@@ -13,6 +13,9 @@ const NotificationCenter = () => {
       className={
         'toast-container position-fixed p-3 bottom-0 start-50 translate-middle-x'
       }
+      style={{
+        zIndex: 1500,
+      }}
     >
       {errors.length > 0 &&
         errors

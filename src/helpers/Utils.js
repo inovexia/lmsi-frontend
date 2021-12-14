@@ -327,3 +327,15 @@ export const generatePassword = (
     ? retVal
     : generatePassword(length)
 }
+
+export const apiRequest = (method, url, token, body) => {
+  return fetch(url, {
+    method: method,
+    headers: {
+      'Content-Type': 'application/json',
+      language: 'en',
+      Authorization: `Bearer ${token}`,
+    },
+    body: body ? JSON.stringify(body) : undefined,
+  })
+}

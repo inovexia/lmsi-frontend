@@ -96,7 +96,9 @@ const AppReducer = (appStore, AppAction) => {
     case AllActions.SLOT_CREATED:
       appStore.notifications.push(AppAction.payload.notification)
       return { ...appStore }
-
+    case AllActions.SLOT_UPDATED:
+      appStore.notifications.push(AppAction.payload.notification)
+      return { ...appStore }
     default:
       return appStore
   }

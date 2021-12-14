@@ -8,10 +8,12 @@ import { Form, InputGroup, Modal, Row, Col } from 'react-bootstrap'
 // import addEvent from 'src/assets/images/addEvent.png'
 
 import { Button /* OutlineButton */ } from 'src/components/Buttons'
+import { apiRequest } from 'src/helpers/Utils'
 import { AppContext } from 'src/AppContext'
 import {
   TITLE_UPDATE,
   SLOT_CREATED,
+  SLOT_UPDATED,
   UNEXPECTED_ERROR,
 } from 'src/constants/actions'
 
@@ -25,11 +27,9 @@ const Slot = ({ match }) => {
     } = useContext(AppContext),
     [slotModal, toggleSlotModal] = useState(false),
     [slots, setSlots] = useState([]),
-    [startDate, setStartDate] = useState(
-      moment(new Date()).format('YYYY/MM/DD')
-    ),
     [startDateTime, setStartDateTime] = useState(new Date()),
     [endDateTime, setEndDateTime] = useState(new Date()),
+    [slotID, setSlotID] = useState(null),
     [slotTitle, setSlotTitle] = useState(''),
     [slotType, setSlotType] = useState('Select Slot Type'),
     [learningMode, setLearningMode] = useState('Online'),
@@ -38,23 +38,29 @@ const Slot = ({ match }) => {
     [allDay, setAllDay] = useState(false),
     [slotDescription, setSlotDescription] = useState(''),
     [slotColor, setSlotColor] = useState('app'),
-    [slotCreating, setSlotCreating] = useState(false),
+    [slotProcessing, setSlotProcessing] = useState(false),
     parseDate = s => {
       const b = s.split(/\D+/)
       return new Date(b[0], --b[1], b[2], b[3], b[4], b[5] || 0, b[6] || 0)
     },
     closeSlotModal = () => {
+      setSlotID(null)
       setAllDay(false)
-      setStartDate(moment(new Date()).format('YYYY/MM/DD'))
+      setSlotTitle('')
+      setSlotDescription('')
+      setSlotColor('app')
+      setSlotType('Select Slot Type')
+      setLearningMode('Online')
+      setSlotPrice(0)
+      setSlotLimit(10)
       setStartDateTime(new Date())
       setEndDateTime(new Date())
-      setSlotCreating(false)
+      setSlotProcessing(false)
       toggleSlotModal(false)
     },
-    openSlotModal = ({ start, end, ...rest }) => {
+    openSlotModal = ({ start, end }) => {
       if (moment(end).diff(moment(start), 'days') < 1) {
         setAllDay(moment(end).diff(moment(start), 'days') === 1 ? true : false)
-        setStartDate(moment(start).format('YYYY/MM/DD'))
         setStartDateTime(start)
         setEndDateTime(end)
         toggleSlotModal(true)
@@ -63,9 +69,8 @@ const Slot = ({ match }) => {
     addSlots = async event => {
       try {
         event.preventDefault()
-        setSlotCreating(true)
+        setSlotProcessing(true)
         const slotData = {
-            slot_date: startDate,
             start: moment.utc(startDateTime).unix(),
             end: moment.utc(endDateTime).unix(),
             slot_title: slotTitle,
@@ -75,15 +80,12 @@ const Slot = ({ match }) => {
             learning_mode: learningMode,
             slot_description: slotDescription,
           },
-          addSlotReq = await fetch(`${apiURL}/instructor/slot/create`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              language: 'en',
-              Authorization: `Bearer ${user.accessToken}`,
-            },
-            body: JSON.stringify(slotData),
-          })
+          addSlotReq = await apiRequest(
+            'POST',
+            `${apiURL}/instructor/slot/create`,
+            user.accessToken,
+            slotData
+          )
         if (addSlotReq.ok) {
           const data = await addSlotReq.json()
           console.log(data)
@@ -103,6 +105,7 @@ const Slot = ({ match }) => {
                   bgColor: slotColor,
                   color: '#ffffff',
                   slotType,
+                  learningMode,
                   status: '1',
                   limit: slotLimit,
                   price: slotPrice,
@@ -141,12 +144,120 @@ const Slot = ({ match }) => {
         setAllDay(false)
         setSlotDescription('')
         setSlotColor('app')
-        setSlotCreating(false)
+        setSlotProcessing(false)
         toggleSlotModal(false)
       }
     },
-    slotSelected = slot => {
-      console.log(slot)
+    updateSlot = async event => {
+      try {
+        event.preventDefault()
+        setSlotProcessing(true)
+        const slotData = {
+            start: moment.utc(startDateTime).unix(),
+            end: moment.utc(endDateTime).unix(),
+            slot_title: slotTitle,
+            slot_price: slotPrice,
+            slot_limit: slotLimit,
+            slot_type: slotType,
+            learning_mode: learningMode,
+            slot_description: slotDescription,
+          },
+          updateSlotReq = await apiRequest(
+            'PUT',
+            `${apiURL}/instructor/slot/detail/update/${slotID}`,
+            user.accessToken,
+            slotData
+          )
+        if (updateSlotReq.ok) {
+          const data = await updateSlotReq.json()
+          if (data.API_STATUS) {
+            setSlots(storedSlots => {
+              return storedSlots.map(slot =>
+                slot.id !== slotID
+                  ? slot
+                  : {
+                      start: startDateTime,
+                      end: endDateTime,
+                      title: slotTitle,
+                      id: data.id,
+                      courseId: 656,
+                      instituteId: 454,
+                      description: slotDescription,
+                      allDay: allDay,
+                      bgColor: slotColor,
+                      color: '#ffffff',
+                      slotType,
+                      learningMode,
+                      status: '1',
+                      limit: slotLimit,
+                      price: slotPrice,
+                    }
+              )
+            })
+            updateAppStore({
+              type: SLOT_UPDATED,
+              payload: {
+                notification: {
+                  code: SLOT_UPDATED,
+                  color: 'success',
+                  message: data.message,
+                },
+              },
+            })
+          } else {
+            throw new Error('Bad Request')
+          }
+        } else {
+          throw new Error('Unexpected Error')
+        }
+      } catch (error) {
+        updateAppStore({
+          type: UNEXPECTED_ERROR,
+          payload: {
+            error: {
+              code: UNEXPECTED_ERROR,
+              color: 'warning',
+              message: error.message,
+            },
+          },
+        })
+      } finally {
+        setSlotID(null)
+        setSlotTitle('')
+        setAllDay(false)
+        setSlotDescription('')
+        setSlotColor('app')
+        setSlotProcessing(false)
+        toggleSlotModal(false)
+      }
+    },
+    slotSelected = ({
+      allDay,
+      bgColor,
+      color,
+      description,
+      end,
+      id,
+      learningMode,
+      limit,
+      price,
+      slotType,
+      start,
+      title,
+    }) => {
+      openSlotModal({
+        start,
+        end,
+      })
+      setSlotID(id)
+      setSlotTitle(title)
+      setAllDay(allDay)
+      setSlotColor(bgColor)
+      setSlotDescription(description)
+      setSlotType(slotType)
+      setSlotPrice(parseFloat(price))
+      setSlotLimit(limit)
+      setLearningMode(learningMode)
     },
     slotStyleGetter = slot => {
       return {
@@ -160,14 +271,11 @@ const Slot = ({ match }) => {
     },
     fetchSlots = useCallback(async () => {
       try {
-        const slotsRequest = await fetch(`${apiURL}/instructor/slot/get/list`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            language: 'en',
-            Authorization: `Bearer ${user.accessToken}`,
-          },
-        })
+        const slotsRequest = await apiRequest(
+          'GET',
+          `${apiURL}/instructor/slot/get/list`,
+          user.accessToken
+        )
         if (slotsRequest.ok) {
           const data = await slotsRequest.json()
           console.log(data)
@@ -191,6 +299,7 @@ const Slot = ({ match }) => {
                 end: moment.unix(slot.end).utc().toDate(),
                 id: slot.slot_id,
                 instituteId: slot.institute_id,
+                learningMode: slot.learning_mode,
                 slotType: slot.slot_type,
                 start: moment.unix(slot.start).utc().toDate(),
                 title: slot.slot_title,
@@ -289,9 +398,15 @@ const Slot = ({ match }) => {
         contentClassName={'border'}
         size={'lg'}
       >
-        <Form onSubmit={event => addSlots(event)}>
+        <Form
+          onSubmit={event => {
+            slotID === null ? addSlots(event) : updateSlot(event)
+          }}
+        >
           <Modal.Header closeButton>
-            <Modal.Title>New Slot</Modal.Title>
+            <Modal.Title>
+              {slotID === null ? 'New Slot' : `Edit Slot: ${slotTitle}`}
+            </Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Row className={'mb-3'}>
@@ -313,6 +428,7 @@ const Slot = ({ match }) => {
                   onChange={({ target: { value } }) =>
                     setSlotPrice(parseFloat(value))
                   }
+                  value={slotPrice}
                 />
               </Form.Group>
             </Row>
@@ -464,10 +580,11 @@ const Slot = ({ match }) => {
                     setSlotType(value)
                   }}
                   required={true}
+                  defaultValue={slotType}
                 >
                   <option>Select Slot Type</option>
                   <option value={'Common'}>Common</option>
-                  <option value={'Course'}>Course</option>
+                  <option value={'Specific'}>Specific</option>
                 </Form.Select>
               </Form.Group>
               <Form.Group as={Col} md={6} controlId={'select-course'}>
@@ -517,12 +634,13 @@ const Slot = ({ match }) => {
                   onChange={({ target: { value } }) =>
                     setSlotDescription(value)
                   }
+                  value={slotDescription}
                 />
               </Form.Group>
             </Row>
           </Modal.Body>
           <Modal.Footer className={'justify-content-between'}>
-            <Button variant={'app'} type={'submit'} disabled={slotCreating}>
+            <Button variant={'app'} type={'submit'} disabled={slotProcessing}>
               Submit
             </Button>
             <Button variant={'secondary'} onClick={() => closeSlotModal()}>
