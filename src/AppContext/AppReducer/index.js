@@ -94,9 +94,8 @@ const AppReducer = (appStore, AppAction) => {
       appStore.errors.push(AppAction.payload.error)
       return { ...appStore }
     case AllActions.SLOT_CREATED:
-      appStore.notifications.push(AppAction.payload.notification)
-      return { ...appStore }
     case AllActions.SLOT_UPDATED:
+    case AllActions.SLOT_DELETED:
       appStore.notifications.push(AppAction.payload.notification)
       return { ...appStore }
     default:

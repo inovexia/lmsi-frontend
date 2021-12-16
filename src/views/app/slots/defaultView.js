@@ -14,6 +14,7 @@ import {
   TITLE_UPDATE,
   SLOT_CREATED,
   SLOT_UPDATED,
+  SLOT_DELETED,
   UNEXPECTED_ERROR,
 } from 'src/constants/actions'
 
@@ -79,6 +80,7 @@ const Slot = ({ match }) => {
             slot_type: slotType,
             learning_mode: learningMode,
             slot_description: slotDescription,
+            color: slotColor,
           },
           addSlotReq = await apiRequest(
             'POST',
@@ -140,12 +142,7 @@ const Slot = ({ match }) => {
           },
         })
       } finally {
-        setSlotTitle('')
-        setAllDay(false)
-        setSlotDescription('')
-        setSlotColor('app')
-        setSlotProcessing(false)
-        toggleSlotModal(false)
+        closeSlotModal()
       }
     },
     updateSlot = async event => {
@@ -161,10 +158,11 @@ const Slot = ({ match }) => {
             slot_type: slotType,
             learning_mode: learningMode,
             slot_description: slotDescription,
+            color: slotColor,
           },
           updateSlotReq = await apiRequest(
             'PUT',
-            `${apiURL}/instructor/slot/detail/update/${slotID}`,
+            `${apiURL}/instructor/slot/update/${slotID}`,
             user.accessToken,
             slotData
           )
@@ -222,13 +220,53 @@ const Slot = ({ match }) => {
           },
         })
       } finally {
-        setSlotID(null)
-        setSlotTitle('')
-        setAllDay(false)
-        setSlotDescription('')
-        setSlotColor('app')
-        setSlotProcessing(false)
-        toggleSlotModal(false)
+        closeSlotModal()
+      }
+    },
+    deleteSlot = async () => {
+      try {
+        setSlotProcessing(true)
+        const deleteSlotReq = await apiRequest(
+          'DELETE',
+          `${apiURL}/instructor/slot/terminate/${slotID}`,
+          user.accessToken
+        )
+        if (deleteSlotReq.ok) {
+          const data = await deleteSlotReq.json()
+          console.log(data, slotID)
+          if (data.API_STATUS) {
+            setSlots(storedSlots =>
+              storedSlots.filter(slot => slot.id !== slotID)
+            )
+            updateAppStore({
+              type: SLOT_DELETED,
+              payload: {
+                notification: {
+                  code: SLOT_DELETED,
+                  color: 'success',
+                  message: data.message,
+                },
+              },
+            })
+          } else {
+            throw new Error('Bad Request')
+          }
+        } else {
+          throw new Error('Unexpected Error')
+        }
+      } catch (error) {
+        updateAppStore({
+          type: UNEXPECTED_ERROR,
+          payload: {
+            error: {
+              code: UNEXPECTED_ERROR,
+              color: 'warning',
+              message: error.message,
+            },
+          },
+        })
+      } finally {
+        closeSlotModal()
       }
     },
     slotSelected = ({
@@ -292,7 +330,7 @@ const Slot = ({ match }) => {
               )
               return {
                 allDay: false,
-                bgColor: 'app',
+                bgColor: slot.color ? slot.color : 'app',
                 color: '#ffffff',
                 courseId: slot.slot_type === '' ? null : 656,
                 description: slot.slot_description,
@@ -426,9 +464,10 @@ const Slot = ({ match }) => {
                   placeholder={'Price'}
                   aria-label={'Price'}
                   onChange={({ target: { value } }) =>
-                    setSlotPrice(parseFloat(value))
+                    setSlotPrice(value ? parseFloat(value) : 0)
                   }
                   value={slotPrice}
+                  min={0}
                 />
               </Form.Group>
             </Row>
@@ -543,11 +582,14 @@ const Slot = ({ match }) => {
                   <option value={'app'} className={'bg-app text-white py-2'}>
                     Forest
                   </option>
+                  <option value={'dark'} className={'bg-dark text-white py-2'}>
+                    Night
+                  </option>
                   <option
                     value={'primary'}
                     className={'bg-primary text-white py-2'}
                   >
-                    Cool
+                    Water
                   </option>
                   <option
                     value={'success'}
@@ -556,7 +598,7 @@ const Slot = ({ match }) => {
                     Nature
                   </option>
                   <option value={'info'} className={'bg-info text-white py-2'}>
-                    Ice
+                    Sky
                   </option>
                   <option
                     value={'danger'}
@@ -643,9 +685,17 @@ const Slot = ({ match }) => {
             <Button variant={'app'} type={'submit'} disabled={slotProcessing}>
               Submit
             </Button>
-            <Button variant={'secondary'} onClick={() => closeSlotModal()}>
-              Cancel
-            </Button>
+            {slotID !== null && (
+              <Button
+                variant={'danger'}
+                onClick={() => {
+                  deleteSlot()
+                }}
+                disabled={slotProcessing}
+              >
+                Delete
+              </Button>
+            )}
           </Modal.Footer>
         </Form>
       </Modal>
