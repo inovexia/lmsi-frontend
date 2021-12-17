@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { NavDropdown } from 'react-bootstrap'
 
@@ -6,6 +6,7 @@ import { AppContext } from 'src/AppContext'
 import { useDebounce, useIsMounted, useLocalStorage } from 'src/hooks'
 import { Icon } from 'src/components/Icon'
 import { getNavMenu } from 'src/constants/defaultValues'
+import { isBrowser } from 'src/helpers/Utils'
 import { appRoot, userStorageKey } from 'src/constants/defaultValues'
 import { LOGOUT_USER } from 'src/constants/actions'
 import Logo from 'src/assets/svg/logo'
@@ -13,7 +14,7 @@ import Logo from 'src/assets/svg/logo'
 const SidebarLeft = () => {
   const {
       appStore: { user },
-      updateAppStore,
+      updateAppStore
     } = useContext(AppContext),
     navMenu = getNavMenu,
     isMounted = useIsMounted(),
@@ -38,14 +39,30 @@ const SidebarLeft = () => {
           notification: {
             code: LOGOUT_USER,
             color: 'app',
-            message: 'User logged out.',
-          },
-        },
+            message: 'User logged out.'
+          }
+        }
       })
     },
     100,
     [appUser, redirectTo]
   )
+
+  useEffect(() => {
+    if (isBrowser) {
+      document.querySelectorAll('.list .nav-link').forEach(navLink => {
+        if (window.location.pathname === navLink.getAttribute('href')) {
+          navLink.classList.add('active')
+        }
+
+        navLink.addEventListener('click', event => {
+          const activeNavLink = document.querySelector('.list .nav-link.active')
+          activeNavLink?.classList.remove('active')
+          event.target.closest('.nav-link').classList.add('active')
+        })
+      })
+    }
+  }, [])
 
   return (
     <aside className={'sidebar left'}>

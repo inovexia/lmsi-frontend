@@ -2,7 +2,7 @@ export const UserRole = {
   super_admin: 1,
   admin: 2,
   instructor: 3,
-  learner: 4,
+  learner: 4
 }
 
 export const defaultLang = 'en'
@@ -10,14 +10,14 @@ export const defaultDirection = 'ltr'
 export const languageOptions = [
   { id: 'ar', name: 'Arabic', direction: 'rtl' },
   { id: 'en', name: 'English', direction: 'ltr' },
-  { id: 'hi', name: 'Hindi', direction: 'ltr' },
+  { id: 'hi', name: 'Hindi', direction: 'ltr' }
 ]
 
 export const encryptionSalt = 'QcoF9wH50&2VR5HNWzePz&Dkc@K7D2'
 
 export const api = {
   URL: 'https://lmsi-api.herokuapp.com',
-  path: '/api',
+  path: '/api'
 }
 
 export const apiURL = `${api.URL}${api.path}`
@@ -37,7 +37,7 @@ export const userProps = {
   email: String,
   checksum: String,
   accessToken: String,
-  refreshToken: String,
+  refreshToken: String
 }
 
 export const navMenus = {
@@ -45,22 +45,22 @@ export const navMenus = {
     {
       label: `Dashboard`,
       link: `/app/instructor/dashboard`,
-      icon: `layout-grid`,
+      icon: `layout-grid`
     },
     {
       label: `Institute`,
-      link: `/app/instructor/institute`,
+      link: `/app/instructor/institute`
     },
 
     {
       label: `Slots`,
-      link: `/app/instructor/slots`,
+      link: `/app/instructor/slots`
     },
     { label: `Messages`, link: `#` },
     {
       label: `Users`,
-      link: `/app/instructor/users`,
-    },
+      link: `/app/instructor/users`
+    }
   ],
   learner: [
     { label: `Dashboard`, link: `/app/dashboard`, icon: `layout-grid` },
@@ -71,7 +71,7 @@ export const navMenus = {
     { label: `Students`, link: `/app/dashboard` },
     { label: `Message`, link: `/app/dashboard` },
     { label: `Notice Board`, link: `/app/dashboard` },
-    { label: `Live Class`, link: `/app/dashboard` },
+    { label: `Live Class`, link: `/app/dashboard` }
     // {
     //   label: `Profile`,
     //   link: `#`,
@@ -89,19 +89,19 @@ export const navMenus = {
     //   ],
     // },
   ],
-  admin: [],
+  admin: []
 }
 
 export const getNavMenu = [
   { label: `Dashboard`, link: `/app/dashboard`, icon: `layout-grid` },
-  { label: `Courses`, link: `/app/dashboard`, icon: `book-open` },
+  { label: `Courses`, link: `/app/courses`, icon: `book-open` },
   { label: `Slots`, link: `/app/slots`, icon: `calendar` },
-  { label: `Exam`, link: `/app/dashboard`, icon: `calendar` },
-  { label: `Results`, link: `/app/dashboard`, icon: `calendar` },
+  { label: `Exam`, link: `/app/exams`, icon: `calendar` },
+  { label: `Results`, link: `/app/results`, icon: `calendar` },
   { label: `Students`, link: `/app/students`, icon: `users` },
-  { label: `Message`, link: `/app/dashboard`, icon: `calendar` },
-  { label: `Notice Board`, link: `/app/dashboard`, icon: `blackboard` },
-  { label: `Live Class`, link: `/app/dashboard`, icon: `calendar` },
+  { label: `Message`, link: `/app/message`, icon: `calendar` },
+  { label: `Notice Board`, link: `/app/notice`, icon: `blackboard` },
+  { label: `Live Class`, link: `/app/live-class`, icon: `calendar` }
 ]
 
 export const navMenusOld = {
@@ -113,16 +113,16 @@ export const navMenusOld = {
       subMenu: [
         { label: `Info`, link: `/app/instructor/institute` },
         { label: `Create`, link: `/app/instructor/institute/create` },
-        { label: `Edit`, link: `/app/instructor/institute/edit` },
-      ],
+        { label: `Edit`, link: `/app/instructor/institute/edit` }
+      ]
     },
     {
       label: `Profile`,
       link: `#`,
       subMenu: [
         { label: `View`, link: `/app/instructor/profile` },
-        { label: `Edit`, link: `/app/instructor/profile/edit` },
-      ],
+        { label: `Edit`, link: `/app/instructor/profile/edit` }
+      ]
     },
     {
       label: `Slots`,
@@ -133,18 +133,18 @@ export const navMenusOld = {
         { label: `Edit`, link: `/app/instructor/slots/edit` },
         {
           label: `My Appointment`,
-          link: `/app/instructor/slots/my-appointment`,
-        },
-      ],
+          link: `/app/instructor/slots/my-appointment`
+        }
+      ]
     },
     {
       label: `Users`,
       link: `#`,
       subMenu: [
         { label: `List`, link: `/app/instructor/users` },
-        { label: `Invite`, link: `/app/instructor/users/invite` },
-      ],
-    },
+        { label: `Invite`, link: `/app/instructor/users/invite` }
+      ]
+    }
   ],
   learner: [
     { label: `Dashboard`, link: `/app/learner/dashboard` },
@@ -153,17 +153,17 @@ export const navMenusOld = {
       link: `#`,
       subMenu: [
         { label: `View`, link: `/app/learner/profile` },
-        { label: `Edit`, link: `/app/learner/profile/edit` },
-      ],
+        { label: `Edit`, link: `/app/learner/profile/edit` }
+      ]
     },
     {
       label: `Courses`,
       link: `#`,
       subMenu: [
         { label: `List`, link: `/app/learner/courses` },
-        { label: `Slots`, link: `/app/learner/courses/slots` },
-      ],
-    },
+        { label: `Slots`, link: `/app/learner/courses/slots` }
+      ]
+    }
   ],
-  admin: [],
+  admin: []
 }

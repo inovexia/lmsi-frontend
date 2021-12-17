@@ -23,17 +23,166 @@
     }
   }
   .slot-card {
+    .rbc-events-container {
+      border-color: #f2f4f8;
+    }
+
     .rbc-events-container,
     .rbc-row-content {
       cursor: pointer;
     }
 
+    .rbc-time-view {
+      background-color: #f2f4f8;
+      border-color: #f2f4f8;
+    }
+
+    .rbc-time-header {
+      border-color: #f2f4f8;
+
+      .rbc-time-header-content {
+        border-color: #f2f4f8;
+
+        .rbc-time-header-cell {
+          height: 80px;
+
+          .rbc-header {
+            align-items: center;
+            border-bottom: none;
+            border-color: #f2f4f8;
+            display: flex;
+            height: 100%;
+            justify-content: center;
+
+            &.rbc-today {
+              background-color: initial;
+
+              a {
+                color: #049478;
+              }
+            }
+
+            a {
+              span {
+                font-size: 20px;
+                display: inline-block;
+                white-space: break-spaces;
+              }
+            }
+
+            &:nth-child(1) {
+              a {
+                span {
+                  max-width: 70px;
+                }
+              }
+            }
+
+            &:nth-child(2) {
+              a {
+                span {
+                  max-width: 75px;
+                }
+              }
+            }
+
+            &:nth-child(3) {
+              a {
+                span {
+                  max-width: 80px;
+                }
+              }
+            }
+
+            &:nth-child(4) {
+              a {
+                span {
+                  max-width: 110px;
+                }
+              }
+            }
+
+            &:nth-child(5) {
+              a {
+                span {
+                  max-width: 95px;
+                }
+              }
+            }
+
+            &:nth-child(6) {
+              a {
+                span {
+                  max-width: 80px;
+                }
+              }
+            }
+
+            &:nth-child(7) {
+              a {
+                span {
+                  max-width: 90px;
+                }
+              }
+            }
+          }
+        }
+
+        .rbc-allday-cell {
+          display: none;
+        }
+      }
+    }
+
+    .rbc-time-content {
+      background-color: #ffffff;
+      border-color: #f2f4f8;
+
+      .rbc-today {
+        background-color: initial;
+      }
+
+      .rbc-time-column {
+        &:first-child {
+          .rbc-timeslot-group {
+            border-bottom: none;
+
+            &:first-child {
+              .rbc-time-slot {
+                .rbc-label {
+                  display: none;
+                }
+              }
+            }
+
+            .rbc-time-slot {
+              .rbc-label {
+                display: inline-block;
+                transform: translateY(-50%);
+              }
+            }
+          }
+        }
+      }
+
+      .rbc-timeslot-group {
+        border-color: #f2f4f8;
+        min-height: 56px;
+      }
+    }
+
     .rbc-day-slot {
-      .rbc-event-content {
-        align-items: center;
-        display: flex;
-        justify-content: center;
-        text-align: center;
+      .rbc-event {
+        &::before {
+          content: '';
+        }
+
+        .rbc-event-content {
+          align-items: center;
+          display: flex;
+          justify-content: center;
+          text-align: center;
+        }
       }
     }
   }

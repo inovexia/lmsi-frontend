@@ -15,7 +15,7 @@ import {
   SLOT_CREATED,
   SLOT_UPDATED,
   SLOT_DELETED,
-  UNEXPECTED_ERROR,
+  UNEXPECTED_ERROR
 } from 'src/constants/actions'
 
 const localizer = momentLocalizer(moment)
@@ -24,7 +24,7 @@ const Slot = ({ match }) => {
   const pageHeading = 'Slots',
     {
       appStore: { user, apiURL },
-      updateAppStore,
+      updateAppStore
     } = useContext(AppContext),
     [slotModal, toggleSlotModal] = useState(false),
     [slots, setSlots] = useState([]),
@@ -80,7 +80,7 @@ const Slot = ({ match }) => {
             slot_type: slotType,
             learning_mode: learningMode,
             slot_description: slotDescription,
-            color: slotColor,
+            color: slotColor
           },
           addSlotReq = await apiRequest(
             'POST',
@@ -105,13 +105,13 @@ const Slot = ({ match }) => {
                   description: slotDescription,
                   allDay: allDay,
                   bgColor: slotColor,
-                  color: '#ffffff',
+                  color: 'white',
                   slotType,
                   learningMode,
                   status: '1',
                   limit: slotLimit,
-                  price: slotPrice,
-                },
+                  price: slotPrice
+                }
               ]
             })
             updateAppStore({
@@ -120,9 +120,9 @@ const Slot = ({ match }) => {
                 notification: {
                   code: SLOT_CREATED,
                   color: 'success',
-                  message: data.message,
-                },
-              },
+                  message: data.message
+                }
+              }
             })
           } else {
             throw new Error('Bad Request')
@@ -137,9 +137,9 @@ const Slot = ({ match }) => {
             error: {
               code: UNEXPECTED_ERROR,
               color: 'warning',
-              message: error.message,
-            },
-          },
+              message: error.message
+            }
+          }
         })
       } finally {
         closeSlotModal()
@@ -158,7 +158,7 @@ const Slot = ({ match }) => {
             slot_type: slotType,
             learning_mode: learningMode,
             slot_description: slotDescription,
-            color: slotColor,
+            color: slotColor
           },
           updateSlotReq = await apiRequest(
             'PUT',
@@ -183,12 +183,12 @@ const Slot = ({ match }) => {
                       description: slotDescription,
                       allDay: allDay,
                       bgColor: slotColor,
-                      color: '#ffffff',
+                      color: 'white',
                       slotType,
                       learningMode,
                       status: '1',
                       limit: slotLimit,
-                      price: slotPrice,
+                      price: slotPrice
                     }
               )
             })
@@ -198,9 +198,9 @@ const Slot = ({ match }) => {
                 notification: {
                   code: SLOT_UPDATED,
                   color: 'success',
-                  message: data.message,
-                },
-              },
+                  message: data.message
+                }
+              }
             })
           } else {
             throw new Error('Bad Request')
@@ -215,15 +215,18 @@ const Slot = ({ match }) => {
             error: {
               code: UNEXPECTED_ERROR,
               color: 'warning',
-              message: error.message,
-            },
-          },
+              message: error.message
+            }
+          }
         })
       } finally {
         closeSlotModal()
       }
     },
     deleteSlot = async () => {
+      if (window.confirm('Are you sure you want to delete?') === false) {
+        return
+      }
       try {
         setSlotProcessing(true)
         const deleteSlotReq = await apiRequest(
@@ -244,9 +247,9 @@ const Slot = ({ match }) => {
                 notification: {
                   code: SLOT_DELETED,
                   color: 'success',
-                  message: data.message,
-                },
-              },
+                  message: data.message
+                }
+              }
             })
           } else {
             throw new Error('Bad Request')
@@ -261,9 +264,9 @@ const Slot = ({ match }) => {
             error: {
               code: UNEXPECTED_ERROR,
               color: 'warning',
-              message: error.message,
-            },
-          },
+              message: error.message
+            }
+          }
         })
       } finally {
         closeSlotModal()
@@ -281,30 +284,39 @@ const Slot = ({ match }) => {
       price,
       slotType,
       start,
-      title,
+      title
     }) => {
-      openSlotModal({
-        start,
-        end,
-      })
       setSlotID(id)
       setSlotTitle(title)
+      setSlotPrice(parseFloat(price))
       setAllDay(allDay)
       setSlotColor(bgColor)
-      setSlotDescription(description)
-      setSlotType(slotType)
-      setSlotPrice(parseFloat(price))
-      setSlotLimit(limit)
       setLearningMode(learningMode)
+      setSlotType(slotType)
+      setSlotLimit(limit)
+      setSlotDescription(description)
+      openSlotModal({
+        start,
+        end
+      })
     },
     slotStyleGetter = slot => {
       return {
+        className: [
+          `bg-${slot.bgColor}`,
+          `border-${slot.bgColor}`,
+          `text-${slot.color}`,
+          `border-start`,
+          `border-top-0`,
+          `border-end-0`,
+          `border-bottom-0`,
+          `border-4`,
+          `rounded-0`,
+          `rounded-end`
+        ].join(' '),
         style: {
-          borderRadius: '0px',
-          border: '0px',
-          color: slot.color,
-        },
-        className: `bg-${slot.bgColor}`,
+          '--bs-bg-opacity': 0.5
+        }
       }
     },
     fetchSlots = useCallback(async () => {
@@ -322,33 +334,52 @@ const Slot = ({ match }) => {
               throw new Error(data.message)
             }
             const slotsData = data.response.map(slot => {
-              console.log(
-                moment(moment.unix(slot.end).utc().toDate()).diff(
-                  moment(moment.unix(slot.start).utc().toDate()),
-                  'minutes'
-                )
-              )
+              // console.log(
+              //   moment(
+              //     moment
+              //       .unix(slot.end)
+              //       .utc()
+              //       .toDate()
+              //   ).diff(
+              //     moment(
+              //       moment
+              //         .unix(slot.start)
+              //         .utc()
+              //         .toDate()
+              //     ),
+              //     'minutes'
+              //   )
+              // )
               return {
                 allDay: false,
                 bgColor: slot.color ? slot.color : 'app',
-                color: '#ffffff',
+                color: 'white',
                 courseId: slot.slot_type === '' ? null : 656,
                 description: slot.slot_description,
-                end: moment.unix(slot.end).utc().toDate(),
+                end: moment
+                  .unix(slot.end)
+                  .utc()
+                  .toDate(),
                 id: slot.slot_id,
                 instituteId: slot.institute_id,
                 learningMode: slot.learning_mode,
                 slotType: slot.slot_type,
-                start: moment.unix(slot.start).utc().toDate(),
+                start: moment
+                  .unix(slot.start)
+                  .utc()
+                  .toDate(),
                 title: slot.slot_title,
                 status: slot.slot_status,
                 limit: slot.slot_limit,
                 price: slot.slot_price,
-                createdBy: slot.created_by,
+                createdBy: slot.created_by
               }
             })
             setSlots(slotsData)
           } else {
+            if (data.HTTP_STATUS === 400) {
+              throw new Error(data.message)
+            }
             throw new Error('Bad Request')
           }
         } else {
@@ -361,9 +392,9 @@ const Slot = ({ match }) => {
             error: {
               code: UNEXPECTED_ERROR,
               color: 'warning',
-              message: error.message,
-            },
-          },
+              message: error.message
+            }
+          }
         })
       }
     }, [apiURL, updateAppStore, user])
@@ -373,8 +404,8 @@ const Slot = ({ match }) => {
     updateAppStore({
       type: TITLE_UPDATE,
       payload: {
-        pageHeading,
-      },
+        pageHeading
+      }
     })
   }, [fetchSlots, updateAppStore])
 
@@ -401,31 +432,41 @@ const Slot = ({ match }) => {
         Create Slot
       </Link>
     </div> */}
-      <Button
-        variant={'app'}
-        className={'my-3'}
-        onClick={() => toggleSlotModal(true)}
-      >
-        Add New Slot
-      </Button>
-      <div className={'card w-100 h-100 slot-card'}>
-        <div className={'card-body h-100'}>
-          <Calendar
-            localizer={localizer}
-            events={slots}
-            messages={{}}
-            startAccessor={'start'}
-            endAccessor={'end'}
-            views={['month', 'week', 'day']}
-            defaultView={'week'}
-            selectable
-            popup
-            onSelectSlot={openSlotModal}
-            onSelectEvent={slotSelected}
-            eventPropGetter={slotStyleGetter}
-            step={30}
-            // timeslots={1}
-          />
+      <div className={'d-flex h-100 flex-column'}>
+        <div className={'flex-shrink-1'}>
+          <Button
+            variant={'app'}
+            className={'my-3'}
+            onClick={() => toggleSlotModal(true)}
+          >
+            Add New Slot
+          </Button>
+        </div>
+        <div className={'flex-grow-1 overflow-auto'}>
+          <div className={'card w-100 h-100 slot-card'}>
+            <div className={'card-body h-100'}>
+              <Calendar
+                localizer={localizer}
+                events={slots}
+                messages={{}}
+                startAccessor={'start'}
+                endAccessor={'end'}
+                views={['month', 'week', 'day']}
+                defaultView={'week'}
+                selectable={'ignoreEvents'}
+                popup
+                onSelectSlot={openSlotModal}
+                onSelectEvent={slotSelected}
+                eventPropGetter={slotStyleGetter}
+                step={60}
+                timeslots={1}
+                formats={{
+                  dayFormat: 'DD dddd',
+                  timeGutterFormat: 'hh:ss a'
+                }}
+              />
+            </div>
+          </div>
         </div>
       </div>
       <Modal

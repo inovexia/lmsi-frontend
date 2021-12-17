@@ -1,34 +1,93 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { Form } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
 
 import { AppContext } from 'src/AppContext'
-import { TITLE_UPDATE } from 'src/constants/actions'
+import { Button } from 'src/components/Buttons'
+import { apiRequest } from 'src/helpers/Utils'
+import { TITLE_UPDATE, UNEXPECTED_ERROR } from 'src/constants/actions'
 
 const Institute = () => {
-  const pageHeading = 'Add Institute',
-    { updateAppStore } = useContext(AppContext),
+  const pageHeading = 'Create Institute',
+    {
+      appStore: { user, apiURL },
+      updateAppStore
+    } = useContext(AppContext),
     [instituteName, setInstituteName] = useState(''),
     [userName, setUserName] = useState(''),
-    [description, setDescription] = useState('')
+    [description, setDescription] = useState(''),
+    [creating, setCreating] = useState(false),
+    createNewInstitute = async event => {
+      try {
+        event.preventDefault()
+        setCreating(true)
+        const reqData = {
+            institute_name: instituteName,
+            institute_handle_name: userName,
+            institute_description: description
+          },
+          createInstituteReq = await apiRequest(
+            'POST',
+            `${apiURL}/instructor/institute/create`,
+            user.accessToken,
+            reqData
+          )
+        if (createInstituteReq.ok) {
+          const data = await createInstituteReq.json()
+          console.log(data)
+          if (data.API_STATUS) {
+            // updateAppStore({
+            //   type: SLOT_CREATED,
+            //   payload: {
+            //     notification: {
+            //       code: SLOT_CREATED,
+            //       color: 'success',
+            //       message: data.message,
+            //     },
+            //   },
+            // })
+          } else {
+            throw new Error('Bad Request')
+          }
+        } else {
+          throw new Error('Unexpected Error')
+        }
+      } catch (error) {
+        updateAppStore({
+          type: UNEXPECTED_ERROR,
+          payload: {
+            error: {
+              code: UNEXPECTED_ERROR,
+              color: 'warning',
+              message: error.message
+            }
+          }
+        })
+      } finally {
+        setCreating(false)
+      }
+    }
 
   useEffect(() => {
     updateAppStore({
       type: TITLE_UPDATE,
       payload: {
-        pageHeading,
-      },
+        pageHeading
+      }
     })
   }, [updateAppStore])
 
   return (
     <div className={'institute'}>
       <div className={'institute-header'}>
-        <div className={'user'}></div>
+        <div className={'user'} />
       </div>
 
       <div className={'institute-form'}>
-        <Form>
+        <Form
+          onSubmit={event => {
+            createNewInstitute(event)
+          }}
+        >
           <div className={'row'}>
             <Form.Group className={'mb-3 col-6'} controlId="instituteName">
               <Form.Label>Institute Name</Form.Label>
@@ -37,6 +96,7 @@ const Institute = () => {
                 type="text"
                 placeholder="Institute Name"
                 value={instituteName}
+                required={true}
                 onChange={({ target: { value } }) => setInstituteName(value)}
               />
             </Form.Group>
@@ -47,6 +107,7 @@ const Institute = () => {
                 type="text"
                 placeholder="Institute User Name"
                 value={userName}
+                required={true}
                 onChange={({ target: { value } }) => setUserName(value)}
               />
             </Form.Group>
@@ -63,15 +124,12 @@ const Institute = () => {
               />
             </Form.Group>
           </div>
+          <div className={'d-flex justify-content-end'}>
+            <Button variant={'app'} type={'submit'} disabled={creating}>
+              Create Institute
+            </Button>
+          </div>
         </Form>
-
-        <Link
-          style={{ float: 'right' }}
-          className={'btn btn-app text-white'}
-          to={`create-institute/institute-detail`}
-        >
-          Create Institute
-        </Link>
       </div>
     </div>
   )
