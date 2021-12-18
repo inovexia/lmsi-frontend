@@ -8,7 +8,10 @@ const VerifyEmailRoute = ({ match }) => {
     <Switch>
       <Route
         path={`${match.url}/`}
-        render={props => <VerifyEmail {...props} />}
+        render={props => {
+          props.match.params = { ...props.match.params, ...match.params }
+          return <VerifyEmail {...props} />
+        }}
       />
       <Redirect to={'/error'} message={'page not exist'} />
     </Switch>

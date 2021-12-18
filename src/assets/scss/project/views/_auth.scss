@@ -11,7 +11,11 @@
     }
 
     .auth-box {
+      align-items: center;
+      display: flex;
       flex-grow: 1;
+      flex-direction: column;
+      justify-content: center;
       max-width: 400px;
       width: 100%;
 

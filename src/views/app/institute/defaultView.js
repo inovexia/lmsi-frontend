@@ -2,9 +2,14 @@ import React, { useState, useContext, useEffect } from 'react'
 import { Form } from 'react-bootstrap'
 
 import { AppContext } from 'src/AppContext'
+import { useDebounce } from 'src/hooks'
 import { Button } from 'src/components/Buttons'
 import { apiRequest } from 'src/helpers/Utils'
-import { TITLE_UPDATE, UNEXPECTED_ERROR } from 'src/constants/actions'
+import {
+  TITLE_UPDATE,
+  INSTITUTE_CREATED,
+  UNEXPECTED_ERROR
+} from 'src/constants/actions'
 
 const Institute = () => {
   const pageHeading = 'Create Institute',
@@ -14,16 +19,20 @@ const Institute = () => {
     } = useContext(AppContext),
     [instituteName, setInstituteName] = useState(''),
     [userName, setUserName] = useState(''),
+    [userNameInValid, setUserNameInValid] = useState(true),
     [description, setDescription] = useState(''),
     [creating, setCreating] = useState(false),
     createNewInstitute = async event => {
       try {
         event.preventDefault()
+        if (userNameInValid) {
+          throw new Error('Institute user name is invalid or already taken.')
+        }
         setCreating(true)
         const reqData = {
-            institute_name: instituteName,
-            institute_handle_name: userName,
-            institute_description: description
+            name: instituteName,
+            handle_name: userName,
+            description: description
           },
           createInstituteReq = await apiRequest(
             'POST',
@@ -35,18 +44,27 @@ const Institute = () => {
           const data = await createInstituteReq.json()
           console.log(data)
           if (data.API_STATUS) {
-            // updateAppStore({
-            //   type: SLOT_CREATED,
-            //   payload: {
-            //     notification: {
-            //       code: SLOT_CREATED,
-            //       color: 'success',
-            //       message: data.message,
-            //     },
-            //   },
-            // })
+            updateAppStore({
+              type: INSTITUTE_CREATED,
+              payload: {
+                notification: {
+                  code: INSTITUTE_CREATED,
+                  color: 'success',
+                  message: data.message
+                }
+              }
+            })
           } else {
-            throw new Error('Bad Request')
+            updateAppStore({
+              type: UNEXPECTED_ERROR,
+              payload: {
+                error: {
+                  code: UNEXPECTED_ERROR,
+                  color: 'danger',
+                  message: data.message
+                }
+              }
+            })
           }
         } else {
           throw new Error('Unexpected Error')
@@ -66,6 +84,45 @@ const Institute = () => {
         setCreating(false)
       }
     }
+
+  useDebounce(
+    async () => {
+      try {
+        if (userName === '') {
+          setUserNameInValid(true)
+          return
+        }
+        const reqData = {
+            handle_name: userName
+          },
+          createInstituteReq = await apiRequest(
+            'POST',
+            `${apiURL}/instructor/institute/check/institute/handle/name`,
+            user.accessToken,
+            reqData
+          )
+        if (createInstituteReq.ok) {
+          const data = await createInstituteReq.json()
+          setUserNameInValid(!data.API_STATUS)
+        } else {
+          throw new Error('Unexpected Error')
+        }
+      } catch (error) {
+        updateAppStore({
+          type: UNEXPECTED_ERROR,
+          payload: {
+            error: {
+              code: UNEXPECTED_ERROR,
+              color: 'warning',
+              message: error.message
+            }
+          }
+        })
+      }
+    },
+    1000,
+    [userName]
+  )
 
   useEffect(() => {
     updateAppStore({
@@ -125,7 +182,11 @@ const Institute = () => {
             </Form.Group>
           </div>
           <div className={'d-flex justify-content-end'}>
-            <Button variant={'app'} type={'submit'} disabled={creating}>
+            <Button
+              variant={'app'}
+              type={'submit'}
+              disabled={creating || userNameInValid}
+            >
               Create Institute
             </Button>
           </div>

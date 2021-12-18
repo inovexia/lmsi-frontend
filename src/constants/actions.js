@@ -1,6 +1,7 @@
 /* SETTINGS */
 export const CHANGE_LOCALE = 'CHANGE_LOCALE'
 export const LOAD_USER = 'LOAD_USER'
+export const RELOAD_USER = 'RELOAD_USER'
 
 /* AUTH */
 export const LOGIN_USER = 'LOGIN_USER'

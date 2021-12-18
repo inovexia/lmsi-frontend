@@ -7,6 +7,8 @@ const AppReducer = (appStore, AppAction) => {
       return { ...appStore, pageHeading: AppAction.payload.pageHeading }
     case AllActions.LOAD_USER:
       return { ...appStore, user: AppAction.payload.user }
+    case AllActions.RELOAD_USER:
+      return { ...appStore, user: AppAction.payload.user }
     case AllActions.LOGIN_USER:
       appStore.notifications.push(AppAction.payload.notification)
       appStore.user = decrypt(AppAction.payload.user)
@@ -16,7 +18,7 @@ const AppReducer = (appStore, AppAction) => {
     case AllActions.LOGIN_FAILED:
       appStore.errors.push(AppAction.payload.error)
       return {
-        ...appStore,
+        ...appStore
       }
     case AllActions.LOGOUT_USER:
       appStore.notifications.push(AppAction.payload.notification)
@@ -24,17 +26,17 @@ const AppReducer = (appStore, AppAction) => {
         AppAction.payload.history.push(AppAction.payload.pathname)
       return {
         ...appStore,
-        user: null,
+        user: null
       }
     case AllActions.DISMISS_ERROR:
       appStore.errors.splice(AppAction.payload.index, 1)
       return {
-        ...appStore,
+        ...appStore
       }
     case AllActions.DISMISS_NOTIFICATION:
       appStore.notifications.splice(AppAction.payload.index, 1)
       return {
-        ...appStore,
+        ...appStore
       }
     case AllActions.REGISTER_USER_SUCCESS:
       appStore.notifications.push(AppAction.payload.notification)
