@@ -8,13 +8,13 @@ import { decrypt, encrypt } from 'src/helpers/Utils'
 import {
   PROFILE_NAME_UPDATED,
   PROFILE_UPDATE_FAILED,
-  UNEXPECTED_ERROR,
+  UNEXPECTED_ERROR
 } from 'src/constants/actions'
 
 const About = () => {
   const {
       appStore: { user, userStorageKey, apiURL },
-      updateAppStore,
+      updateAppStore
     } = useContext(AppContext),
     editorRef = useRef(null),
     [appUser, setAppUser] = useLocalStorage(userStorageKey, encrypt(user)),
@@ -34,7 +34,7 @@ const About = () => {
           var reader = new FileReader()
           reader.onload = function (e) {
             callback(e.target.result, {
-              alt: file.name,
+              alt: file.name
             })
           }
           reader.readAsDataURL(file)
@@ -50,21 +50,24 @@ const About = () => {
         setFirstName(value)
       }
     },
-    handleSubmit = async event => {
-      event.preventDefault()
+    saveFullName = async value => {
+      if (`${firstName} ${lastName}` === value) {
+        return
+      }
       try {
-        const updateData = {
-            first_name: firstName,
-            last_name: lastName,
+        const FullName = value.split(' '),
+          updateData = {
+            last_name: FullName.pop(),
+            first_name: FullName.join(' ')
           },
           nameRequest = await fetch(`${apiURL}/member/profile-name/update`, {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json',
               language: 'en',
-              Authorization: `Bearer ${user.accessToken}`,
+              Authorization: `Bearer ${user.accessToken}`
             },
-            body: JSON.stringify(updateData),
+            body: JSON.stringify(updateData)
           })
         // Request Access Token From API
         if (nameRequest.ok) {
@@ -73,8 +76,9 @@ const About = () => {
             const appUserData = decrypt(appUser),
               updatedUser = encrypt({
                 ...appUserData,
-                ...updateData,
+                ...updateData
               })
+            setFullName(value)
             setAppUser(updatedUser)
             updateAppStore({
               type: PROFILE_NAME_UPDATED,
@@ -82,10 +86,10 @@ const About = () => {
                 notification: {
                   code: PROFILE_NAME_UPDATED,
                   color: 'success',
-                  message: data.message,
+                  message: data.message
                 },
-                user: updatedUser,
-              },
+                user: updatedUser
+              }
             })
           } else {
             updateAppStore({
@@ -94,9 +98,9 @@ const About = () => {
                 error: {
                   code: PROFILE_UPDATE_FAILED,
                   color: 'danger',
-                  message: data.message,
-                },
-              },
+                  message: data.message
+                }
+              }
             })
           }
         } else {
@@ -109,16 +113,16 @@ const About = () => {
             error: {
               code: UNEXPECTED_ERROR,
               color: 'warning',
-              message: err.message,
-            },
-          },
+              message: err.message
+            }
+          }
         })
       }
     }
 
   false && console.log(user)
   return (
-    <Form onSubmit={event => handleSubmit(event)} className={'mb-3'}>
+    <Form className={'mb-3'}>
       <fieldset className={'border p-2'}>
         <legend className={'w-auto float-none mb-0 px-3'}>
           Personal Information
@@ -129,7 +133,9 @@ const About = () => {
             type={'text'}
             placeholder={'Enter Full Name'}
             defaultValue={`${firstName} ${lastName}`}
-            onChange={({ target: { value } }) => setFullName(value)}
+            onBlur={({ target: { value } }) => {
+              saveFullName(value)
+            }}
           />
         </Form.Group>
         <Form.Group className={'mb-3'}>
@@ -156,7 +162,7 @@ const About = () => {
               plugins: [
                 'advlist autolink lists link image charmap print preview anchor',
                 'searchreplace visualblocks code fullscreen',
-                'insertdatetime media table paste code help fullscreen',
+                'insertdatetime media table paste code help fullscreen'
               ],
               fullscreen_native: true,
               toolbar:
@@ -165,7 +171,7 @@ const About = () => {
                 'alignright alignjustify | bullist numlist outdent indent | image fullscreen |' +
                 'removeformat | help',
               content_style:
-                'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }',
+                'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }'
             }}
           />
         </Form.Group>

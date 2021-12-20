@@ -74,7 +74,7 @@ const Dashboard = ({ match }) => {
 
       <div className={'add-info row'}>
         {!user.is_email_verified && (
-          <div className={'info-card col-6'}>
+          <div className={'info-card col'}>
             <div className={'info-card-content'}>
               <h2>{'Verify Email Address'}</h2>
               <p>
@@ -94,7 +94,7 @@ const Dashboard = ({ match }) => {
           </div>
         )}
 
-        <div className={'info-card col-6'}>
+        <div className={'info-card col'}>
           <div className={'info-card-content'}>
             <h2>{'About Yourself'}</h2>
             <p>

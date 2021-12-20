@@ -17,15 +17,48 @@
     height: 100vh;
     max-height: 100vh;
 
+    .nav-toggle {
+      align-items: center;
+      background-color: transparent;
+      border: 2px solid #049478;
+      box-shadow: none;
+      outline: 0;
+      display: flex;
+      flex-direction: column;
+      height: 40px;
+      padding: 8px;
+      width: 50px;
+      justify-content: space-between;
+
+      &::before,
+      &::after,
+      .line {
+        content: '';
+        display: block;
+        background-color: #049478;
+        width: 100%;
+        height: 2px;
+      }
+    }
+
     .sidebar {
       &.left {
         display: flex;
         flex-direction: column;
         // background-image: $appGradient;
-        width: 100%;
+        width: 0;
         max-width: 250px;
         height: 100%;
         box-shadow: 0px -5px 4px rgba(0, 0, 0, 0.25);
+        transition: width 0.1s ease-in-out;
+        position: absolute;
+        background-color: #ffffff;
+        z-index: 2;
+        overflow: auto;
+
+        &.show {
+          width: 100%;
+        }
 
         .logo {
           font-size: 25px;
@@ -113,6 +146,24 @@
       }
     }
 
+    .overlay {
+      &.show {
+        background-color: rgba(0, 0, 0, 0.25);
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        z-index: 1;
+      }
+    }
+
+    header {
+      .navbar {
+        height: 56px;
+      }
+    }
+
     main {
       display: flex;
       flex-direction: column;
@@ -168,6 +219,14 @@
 @media (min-width: map-get($grid-breakpoints, 'md')) {
 }
 @media (min-width: map-get($grid-breakpoints, 'lg')) {
+  .app {
+    .sidebar {
+      &.left {
+        position: initial;
+        width: 100%;
+      }
+    }
+  }
 }
 @media (min-width: map-get($grid-breakpoints, 'xl')) {
 }

@@ -1,11 +1,12 @@
 import React, { useContext } from 'react'
 import { Navbar, Form, FormControl } from 'react-bootstrap'
 
+import { Button } from 'src/components/Buttons'
 import { AppContext } from 'src/AppContext'
 
 const Header = () => {
   const {
-    appStore: { pageHeading },
+    appStore: { pageHeading }
   } = useContext(AppContext)
 
   return (
@@ -15,7 +16,16 @@ const Header = () => {
       className={'shadow-none py-0'}
     >
       <div className={'container-fluid'}>
-        <h1>{pageHeading}</h1>
+        <div className={'d-flex flex-grow-1 align-items-center'}>
+          <Button
+            variant={'light'}
+            ariaLabel={'Toggle Menu'}
+            className={`d-lg-none nav-toggle me-2`}
+          >
+            <i aria-label={'Line'} className={'line'} />
+          </Button>
+          <h1 className={'my-auto'}>{pageHeading}</h1>
+        </div>
         <Form className={'d-flex'}>
           <FormControl
             style={{ borderRadius: '15px' }}

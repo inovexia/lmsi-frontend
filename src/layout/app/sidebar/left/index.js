@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { NavDropdown } from 'react-bootstrap'
 
@@ -6,14 +6,14 @@ import { AppContext } from 'src/AppContext'
 import { useDebounce, useIsMounted, useLocalStorage } from 'src/hooks'
 import { Icon } from 'src/components/Icon'
 import { getNavMenu } from 'src/constants/defaultValues'
-import { isBrowser } from 'src/helpers/Utils'
-import { appRoot, userStorageKey } from 'src/constants/defaultValues'
-import { LOGOUT_USER } from 'src/constants/actions'
+import { apiRequest, isBrowser } from 'src/helpers/Utils'
+import { UserRole, appRoot, userStorageKey } from 'src/constants/defaultValues'
+import { LOGOUT_USER, UNEXPECTED_ERROR } from 'src/constants/actions'
 import Logo from 'src/assets/svg/logo'
 
 const SidebarLeft = () => {
   const {
-      appStore: { user },
+      appStore: { apiURL, user },
       updateAppStore
     } = useContext(AppContext),
     navMenu = getNavMenu,
@@ -21,13 +21,45 @@ const SidebarLeft = () => {
     history = useHistory(),
     userPath = user.user_name ? user.user_name : user.serial_id,
     [redirectTo, setRedirect] = useState(''),
+    [instituteName, setInstituteName] = useState(''),
     [appUser, setAppUser] = useLocalStorage(userStorageKey, null),
     doLogOut = () => {
       if (appUser && redirectTo === '') {
         isMounted.current && setAppUser(null)
         isMounted.current && setRedirect(window.btoa(window.location.pathname))
       }
-    }
+    },
+    fetchInstitute = useCallback(async () => {
+      try {
+        const slotsRequest = await apiRequest(
+          'GET',
+          `${apiURL}/instructor/institute/view`,
+          user.accessToken
+        )
+        if (slotsRequest.ok) {
+          const data = await slotsRequest.json()
+          false && console.log(data)
+          if (data.API_STATUS) {
+            setInstituteName(data?.response?.pop().institute_name)
+          } else {
+            throw new Error('Bad Request')
+          }
+        } else {
+          throw new Error('Unexpected Error')
+        }
+      } catch (error) {
+        updateAppStore({
+          type: UNEXPECTED_ERROR,
+          payload: {
+            error: {
+              code: UNEXPECTED_ERROR,
+              color: 'warning',
+              message: error.message
+            }
+          }
+        })
+      }
+    }, [apiURL, updateAppStore, user])
 
   useDebounce(
     () => {
@@ -49,77 +81,102 @@ const SidebarLeft = () => {
   )
 
   useEffect(() => {
+    if (UserRole.instructor === user.role_id) {
+      fetchInstitute()
+    }
     if (isBrowser) {
-      document.querySelectorAll('.list .nav-link').forEach(navLink => {
-        if (window.location.pathname === navLink.getAttribute('href')) {
-          navLink.classList.add('active')
+      document
+        .querySelector('header .navbar .nav-toggle')
+        .addEventListener('click', event => {
+          document.querySelector('.app .sidebar.left').classList.add('show')
+          document.querySelector('.app .overlay').classList.add('show')
+        })
+
+      document
+        .querySelector('.app .overlay')
+        .addEventListener('click', event => {
+          document.querySelector('.app .sidebar.left').classList.remove('show')
+          document.querySelector('.app .overlay').classList.remove('show')
+        })
+
+      document.querySelectorAll('.sidebar.left a').forEach(link => {
+        if (window.location.pathname === link.getAttribute('href')) {
+          link.classList.add('active')
         }
 
-        navLink.addEventListener('click', event => {
+        link.addEventListener('click', event => {
           const activeNavLink = document.querySelector('.list .nav-link.active')
+          document.querySelector('.app .sidebar.left')?.classList.remove('show')
+          document.querySelector('.app .overlay').classList.remove('show')
           activeNavLink?.classList.remove('active')
-          event.target.closest('.nav-link').classList.add('active')
+          event?.target?.closest('.nav-link')?.classList.add('active')
         })
       })
     }
-  }, [])
+  }, [fetchInstitute, user.role_id])
 
   return (
-    <aside className={'sidebar left'}>
-      <Link to={appRoot} className={'logo'}>
-        <Logo
-          iconColor={'#FFAA2C'}
-          textColor={'#000000'}
-          width={104}
-          height={74}
-        />
-      </Link>
-      <div className={'list'}>
-        {navMenu.map(({ link, label, icon, subMenu }, i) =>
-          subMenu ? (
-            <NavDropdown
-              title={label}
-              key={i}
-              renderMenuOnMount={true}
-              menuVariant={'dark'}
-            >
-              {subMenu.map(({ label, link }, j) => (
-                <NavDropdown.Item as={'div'} key={j} className={'p-0'}>
-                  <Link className={'dropdown-item'} to={link}>
-                    {label}
-                  </Link>
-                </NavDropdown.Item>
-              ))}
-            </NavDropdown>
-          ) : (
-            <Link className={'nav-link'} key={i} to={link}>
-              {icon ? (
-                <>
-                  <Icon icon={icon} className={'my-auto'} />
-                  <span className={'my-auto'}>{label}</span>
-                </>
-              ) : (
-                label
-              )}
-            </Link>
-          )
-        )}
-      </div>
-      <div className={'user-profile'}>
-        <div className={'img'}></div>
-        <h5>{`${user.first_name} ${user.last_name}`}</h5>
-        <p>FrontEnd Developer</p>
-        <p>UI/UX Designer</p>
-        <button className={'logout-button'} onClick={() => doLogOut()}>
-          Logout
-        </button>
-        <div className={'d-flex justify-content-center send-invite'}>
-          <Link className={'btn btn-app'} to={`${appRoot}/${userPath}`}>
-            View Profile
-          </Link>
+    <>
+      <aside className={`sidebar left`}>
+        <Link to={appRoot} className={'logo'}>
+          <Logo
+            iconColor={'#FFAA2C'}
+            textColor={'#000000'}
+            width={104}
+            height={74}
+          />
+        </Link>
+        <div className={'list'}>
+          {navMenu.map(({ link, label, icon, subMenu }, i) =>
+            subMenu ? (
+              <NavDropdown
+                title={label}
+                key={i}
+                renderMenuOnMount={true}
+                menuVariant={'dark'}
+              >
+                {subMenu.map(({ label, link }, j) => (
+                  <NavDropdown.Item as={'div'} key={j} className={'p-0'}>
+                    <Link className={'dropdown-item'} to={link}>
+                      {label}
+                    </Link>
+                  </NavDropdown.Item>
+                ))}
+              </NavDropdown>
+            ) : (
+              <Link className={'nav-link'} key={i} to={link}>
+                {icon ? (
+                  <>
+                    <Icon icon={icon} className={'my-auto'} />
+                    <span className={'my-auto'}>{label}</span>
+                  </>
+                ) : (
+                  label
+                )}
+              </Link>
+            )
+          )}
         </div>
-      </div>
-    </aside>
+        <div className={'user-profile'}>
+          <div className={'img'}></div>
+          <h5>{`${user.first_name} ${user.last_name}`}</h5>
+          <p>
+            {(UserRole.instructor === user.role_id && 'Instructor') ||
+              (UserRole.learner === user.role_id && 'Learner')}
+          </p>
+          {UserRole.instructor === user.role_id && <p>{instituteName}</p>}
+          <button className={'logout-button'} onClick={() => doLogOut()}>
+            Logout
+          </button>
+          <div className={'d-flex justify-content-center send-invite'}>
+            <Link className={'btn btn-app'} to={`${appRoot}/${userPath}`}>
+              View Profile
+            </Link>
+          </div>
+        </div>
+      </aside>
+      <div className={'overlay'} />
+    </>
   )
 }
 
