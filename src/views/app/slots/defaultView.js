@@ -328,7 +328,7 @@ const Slot = ({ match }) => {
         )
         if (slotsRequest.ok) {
           const data = await slotsRequest.json()
-          console.log(data)
+          false && console.log(data)
           if (data.API_STATUS) {
             if (data.HTTP_STATUS === 204) {
               throw new Error(data.message)
@@ -402,17 +402,17 @@ const Slot = ({ match }) => {
       }
     })
     if (typeof window !== 'undefined') {
-      const currentTimeIndicator = document.querySelector(
-          '.slot-card .rbc-current-time-indicator'
-        ),
-        timeContent = document.querySelector('.slot-card .rbc-time-content')
-      if (currentTimeIndicator) {
-        setTimeout(() => {
+      const timeContent = document.querySelector('.slot-card .rbc-time-content')
+      setTimeout(() => {
+        const currentTimeIndicator = timeContent.querySelector(
+          '.rbc-current-time-indicator'
+        )
+        if (currentTimeIndicator) {
           timeContent.style.scrollBehavior = 'smooth'
-          timeContent.scrollTop = currentTimeIndicator.offsetTop - 20
+          timeContent.scrollTop = currentTimeIndicator?.offsetTop - 20
           timeContent.removeAttribute('style')
-        }, 1500)
-      }
+        }
+      }, 1500)
     }
   }, [fetchSlots, updateAppStore])
 
