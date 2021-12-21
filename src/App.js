@@ -68,14 +68,15 @@ const App = () => {
   )
 
   useEffect(() => {
-    const expireTime =
-      moment
+    if (decodedToken) {
+      const expireTime = moment
         .unix(decodedToken?.exp)
         .utc()
-        .diff(moment(new Date()).utc(), 'seconds') - 0
-    setTimeout(() => {
-      loggedInUser && getRefreshToken()
-    }, expireTime * 1000)
+        .diff(moment(new Date()).utc(), 'seconds')
+      setTimeout(() => {
+        loggedInUser && getRefreshToken(expireTime)
+      }, expireTime * 1000)
+    }
   }, [decodedToken, getRefreshToken, loggedInUser])
 
   return (
