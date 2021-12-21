@@ -356,18 +356,12 @@ const Slot = ({ match }) => {
                 color: 'white',
                 courseId: slot.slot_type === '' ? null : 656,
                 description: slot.slot_description,
-                end: moment
-                  .unix(slot.end)
-                  .utc()
-                  .toDate(),
+                end: moment.unix(slot.end).utc().toDate(),
                 id: slot.slot_id,
                 instituteId: slot.institute_id,
                 learningMode: slot.learning_mode,
                 slotType: slot.slot_type,
-                start: moment
-                  .unix(slot.start)
-                  .utc()
-                  .toDate(),
+                start: moment.unix(slot.start).utc().toDate(),
                 title: slot.slot_title,
                 status: slot.slot_status,
                 limit: slot.slot_limit,
@@ -407,6 +401,19 @@ const Slot = ({ match }) => {
         pageHeading
       }
     })
+    if (typeof window !== 'undefined') {
+      const currentTimeIndicator = document.querySelector(
+          '.slot-card .rbc-current-time-indicator'
+        ),
+        timeContent = document.querySelector('.slot-card .rbc-time-content')
+      if (currentTimeIndicator) {
+        setTimeout(() => {
+          timeContent.style.scrollBehavior = 'smooth'
+          timeContent.scrollTop = currentTimeIndicator.offsetTop - 20
+          timeContent.removeAttribute('style')
+        }, 1500)
+      }
+    }
   }, [fetchSlots, updateAppStore])
 
   false && console.log(slots)

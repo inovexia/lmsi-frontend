@@ -64,7 +64,7 @@
 
             a {
               span {
-                font-size: 20px;
+                font-size: 2.1vmin;
                 display: inline-block;
                 white-space: break-spaces;
               }
@@ -73,7 +73,7 @@
             &:nth-child(1) {
               a {
                 span {
-                  max-width: 70px;
+                  max-width: 7vmin;
                 }
               }
             }
@@ -81,7 +81,7 @@
             &:nth-child(2) {
               a {
                 span {
-                  max-width: 75px;
+                  max-width: 8vmin;
                 }
               }
             }
@@ -89,7 +89,7 @@
             &:nth-child(3) {
               a {
                 span {
-                  max-width: 80px;
+                  max-width: 8vmin;
                 }
               }
             }
@@ -97,7 +97,7 @@
             &:nth-child(4) {
               a {
                 span {
-                  max-width: 110px;
+                  max-width: 11.5vmin;
                 }
               }
             }
@@ -105,7 +105,7 @@
             &:nth-child(5) {
               a {
                 span {
-                  max-width: 95px;
+                  max-width: 9.5vmin;
                 }
               }
             }
@@ -113,7 +113,7 @@
             &:nth-child(6) {
               a {
                 span {
-                  max-width: 80px;
+                  max-width: 8vmin;
                 }
               }
             }
@@ -121,7 +121,7 @@
             &:nth-child(7) {
               a {
                 span {
-                  max-width: 90px;
+                  max-width: 9vmin;
                 }
               }
             }
@@ -173,8 +173,11 @@
 
     .rbc-day-slot {
       .rbc-event {
-        &::before {
-          content: '';
+        align-items: center;
+
+        .rbc-event-label {
+          text-align: center;
+          white-space: normal;
         }
 
         .rbc-event-content {

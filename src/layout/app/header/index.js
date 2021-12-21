@@ -16,7 +16,7 @@ const Header = () => {
       className={'shadow-none py-0'}
     >
       <div className={'container-fluid'}>
-        <div className={'d-flex flex-grow-1 align-items-center'}>
+        <div className={'d-flex flex-sm-grow-1 align-items-center'}>
           <Button
             variant={'light'}
             ariaLabel={'Toggle Menu'}
@@ -24,14 +24,13 @@ const Header = () => {
           >
             <i aria-label={'Line'} className={'line'} />
           </Button>
-          <h1 className={'my-auto'}>{pageHeading}</h1>
+          <h1 className={'my-auto d-none d-sm-block'}>{pageHeading}</h1>
         </div>
-        <Form className={'d-flex'}>
+        <Form className={'d-flex flex-grow-1 flex-sm-grow-0'}>
           <FormControl
-            style={{ borderRadius: '15px' }}
+            style={{ borderRadius: '0.5rem', height: '40px' }}
             type={'search'}
             placeholder={'Search'}
-            className={'me-2'}
             aria-label={'Search'}
           />
         </Form>
