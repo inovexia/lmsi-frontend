@@ -20,6 +20,8 @@ export const api = {
   path: '/api'
 }
 
+export const appColor = '#049478'
+
 export const apiURL = `${api.URL}${api.path}`
 
 export const appRoot = '/app'

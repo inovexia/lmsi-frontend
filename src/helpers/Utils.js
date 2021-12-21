@@ -334,8 +334,8 @@ export const apiRequest = (method, url, token, body) => {
     headers: {
       'Content-Type': 'application/json',
       language: 'en',
-      Authorization: `Bearer ${token}`,
+      Authorization: token? `Bearer ${token}`: undefined
     },
-    body: body ? JSON.stringify(body) : undefined,
+    body: body ? JSON.stringify(body) : undefined
   })
 }

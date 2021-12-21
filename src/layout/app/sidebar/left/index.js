@@ -1,11 +1,12 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { NavDropdown } from 'react-bootstrap'
+import { Avatar } from 'react-profile-avatar'
 
 import { AppContext } from 'src/AppContext'
 import { useDebounce, useIsMounted, useLocalStorage } from 'src/hooks'
 import { Icon } from 'src/components/Icon'
-import { getNavMenu } from 'src/constants/defaultValues'
+import { getNavMenu, appColor } from 'src/constants/defaultValues'
 import { apiRequest, isBrowser } from 'src/helpers/Utils'
 import { UserRole, appRoot, userStorageKey } from 'src/constants/defaultValues'
 import { LOGOUT_USER, UNEXPECTED_ERROR } from 'src/constants/actions'
@@ -40,7 +41,7 @@ const SidebarLeft = () => {
           const data = await slotsRequest.json()
           false && console.log(data)
           if (data.API_STATUS) {
-            setInstituteName(data?.response?.pop().institute_name)
+            setInstituteName(data?.response?.reverse()?.pop().institute_name)
           } else {
             throw new Error('Bad Request')
           }
@@ -158,8 +159,19 @@ const SidebarLeft = () => {
           )}
         </div>
         <div className={'user-profile'}>
-          <div className={'img'}></div>
-          <h5>{`${user.first_name} ${user.last_name}`}</h5>
+          <Link to={`${appRoot}/${userPath}`}>
+            <Avatar
+              name={`${user.first_name} ${user.last_name}`}
+              size={42}
+              colour={appColor}
+              imageSrc={''}
+            />
+          </Link>
+          <h5>
+            <Link
+              to={`${appRoot}/${userPath}`}
+            >{`${user.first_name} ${user.last_name}`}</Link>
+          </h5>
           <p>
             {(UserRole.instructor === user.role_id && 'Instructor') ||
               (UserRole.learner === user.role_id && 'Learner')}
@@ -168,11 +180,6 @@ const SidebarLeft = () => {
           <button className={'logout-button'} onClick={() => doLogOut()}>
             Logout
           </button>
-          <div className={'d-flex justify-content-center send-invite'}>
-            <Link className={'btn btn-app'} to={`${appRoot}/${userPath}`}>
-              View Profile
-            </Link>
-          </div>
         </div>
       </aside>
       <div className={'overlay'} />

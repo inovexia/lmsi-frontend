@@ -6,7 +6,7 @@ import {
   apiURL,
   appRoot,
   isAuthGuardActive,
-  userStorageKey,
+  userStorageKey
 } from 'src/constants/defaultValues'
 import { decrypt } from 'src/helpers/Utils'
 import { useLocalStorage } from 'src/hooks'
@@ -26,7 +26,7 @@ export const initialStoreState = {
   pageHeading: `LMSi`,
   user: null,
   errors: [],
-  notifications: [],
+  notifications: []
 }
 
 export const AppStore = ({ children }) => {
@@ -42,7 +42,7 @@ export const AppStore = ({ children }) => {
           if (!isRemoved.current) {
             updateAppStore({
               type: LOAD_USER,
-              payload: { user: decrypt(appUser) },
+              payload: { user: decrypt(appUser) }
             })
           }
         } catch (e) {
@@ -61,7 +61,7 @@ export const AppStore = ({ children }) => {
     <Provider
       value={{
         appStore,
-        updateAppStore,
+        updateAppStore
       }}
     >
       {children}
