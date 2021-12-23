@@ -1,7 +1,5 @@
 @media (min-width: map-get($grid-breakpoints, 'xs')) {
   .students {
-    background-color: #fafbfc;
-    padding: 20px;
     .list-heading {
       h3 {
         font-size: 14px;
@@ -20,50 +18,11 @@
     }
 
     .invite-detail {
-      margin: 0 auto;
-      width: 700px;
-      background-color: #fafbfc;
+      margin: -70px auto 1rem;
+      max-width: 700px;
       border-radius: 10px;
-      margin-top: -70px;
-      margin-bottom: 50px;
       box-shadow: 0px 4px 54px rgba(0, 0, 0, 0.06);
 
-      .invite-input {
-        input {
-          padding: 15px 0 15px 20px;
-          width: 300px;
-          margin: 30px 30px;
-          border: 1px solid #d3d3d3;
-          border-radius: 5px;
-        }
-
-        span {
-          margin-top: 50px;
-        }
-      }
-
-      .send-invite {
-        border-bottom: 1px solid #d3d3d3;
-        padding-bottom: 20px;
-      }
-
-      .invite-link {
-        h3 {
-          font-weight: 500;
-          font-size: 20px;
-          letter-spacing: 0.0041em;
-          margin: 30px 0 20px 30px;
-          color: #000000;
-        }
-
-        input {
-          padding: 10px 0;
-          width: 400px;
-          margin-left: 30px;
-          border: 1px solid #d3d3d3;
-          border-radius: 5px;
-        }
-      }
       .invite-list {
         margin: 50px 0 0 22px;
         h3 {

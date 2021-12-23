@@ -2,18 +2,23 @@ import * as AllActions from 'src/constants/actions'
 import { decrypt } from 'src/helpers/Utils'
 
 const AppReducer = (appStore, AppAction) => {
+  const rootElement = document.querySelector('#root')
+
   switch (AppAction.type) {
     case AllActions.TITLE_UPDATE:
       return { ...appStore, pageHeading: AppAction.payload.pageHeading }
     case AllActions.LOAD_USER:
+      rootElement.classList.add('logged-in')
       return { ...appStore, user: AppAction.payload.user }
     case AllActions.RELOAD_USER:
+      rootElement.classList.add('logged-in')
       return { ...appStore, user: AppAction.payload.user }
     case AllActions.LOGIN_USER:
       appStore.notifications.push(AppAction.payload.notification)
       appStore.user = decrypt(AppAction.payload.user)
       AppAction.payload.history &&
         AppAction.payload.history.push(AppAction.payload.redirectTo)
+      rootElement.classList.add('logged-in')
       return { ...appStore }
     case AllActions.LOGIN_FAILED:
       appStore.errors.push(AppAction.payload.error)
@@ -24,6 +29,7 @@ const AppReducer = (appStore, AppAction) => {
       appStore.notifications.push(AppAction.payload.notification)
       AppAction.payload.history &&
         AppAction.payload.history.push(AppAction.payload.pathname)
+      rootElement.removeAttribute('class')
       return {
         ...appStore,
         user: null

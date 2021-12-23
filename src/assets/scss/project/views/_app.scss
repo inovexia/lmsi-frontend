@@ -6,6 +6,7 @@
 
   *::-webkit-scrollbar {
     width: 8px;
+    height: 8px;
   }
 
   *::-webkit-scrollbar-thumb {
@@ -58,15 +59,17 @@
     }
   }
 
-  body,
   #root {
-    overflow: hidden;
+    &.logged-in {
+      overflow: hidden;
+    }
   }
 
   .app {
     display: flex;
     height: 100vh;
     max-height: 100vh;
+    flex-direction: column;
 
     .nav-toggle {
       align-items: center;
@@ -286,6 +289,8 @@
 }
 @media (min-width: map-get($grid-breakpoints, 'lg')) {
   .app {
+    flex-direction: row;
+
     .sidebar {
       &.left {
         position: initial;

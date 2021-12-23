@@ -82,8 +82,10 @@ const SidebarLeft = () => {
   )
 
   useEffect(() => {
-    if (UserRole.instructor === user.role_id) {
-      fetchInstitute()
+    if (isMounted.current) {
+      if (UserRole.instructor === user.role_id) {
+        fetchInstitute()
+      }
     }
     if (isBrowser) {
       document
@@ -114,7 +116,7 @@ const SidebarLeft = () => {
         })
       })
     }
-  }, [fetchInstitute, user.role_id])
+  }, [fetchInstitute, isMounted, user])
 
   return (
     <>
