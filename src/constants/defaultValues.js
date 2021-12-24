@@ -5,6 +5,11 @@ export const UserRole = {
   learner: 4
 }
 
+export const googleClientId =
+  '218481800741-sl995h10sm1n87dttvn36boph5nj3ta7.apps.googleusercontent.com'
+
+export const fbClientId = '449516220171357'
+
 export const defaultLang = 'en'
 export const defaultDirection = 'ltr'
 export const languageOptions = [

@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { LoginSocialGoogle, LoginSocialFacebook } from 'reactjs-social-login'
 import { NavLink } from 'react-router-dom'
 
 import { AppContext } from 'src/AppContext'
@@ -6,25 +7,29 @@ import { useDebounce, useLocalStorage } from 'src/hooks'
 import { Button } from 'src/components/Buttons'
 import { encrypt, isBrowser } from 'src/helpers/Utils'
 import { Icon, GoogleIcon } from 'src/components/Icon'
-import { userStorageKey } from 'src/constants/defaultValues'
+import {
+  userStorageKey,
+  googleClientId,
+  fbClientId
+} from 'src/constants/defaultValues'
 import {
   LOGIN_USER,
   LOGIN_SUCCESS,
   LOGIN_FAILED,
   LOGIN_ERROR,
-  LOGOUT_USER,
+  LOGOUT_USER
 } from 'src/constants/actions'
 
 const SignIn = ({
   history,
   location: { state: redirectionState },
   match: {
-    params: { redirectTo },
-  },
+    params: { redirectTo }
+  }
 }) => {
   const {
       appStore: { apiURL, appRoot, user: loggedInUser },
-      updateAppStore,
+      updateAppStore
     } = useContext(AppContext),
     [appUser, setAppUser] = useLocalStorage(userStorageKey, null),
     [alowLogin, setAlowLogin] = useState(false),
@@ -42,9 +47,9 @@ const SignIn = ({
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              language: 'en',
+              language: 'en'
             },
-            body: JSON.stringify({ email }),
+            body: JSON.stringify({ email })
           }
         )
         try {
@@ -69,12 +74,12 @@ const SignIn = ({
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            language: 'en',
+            language: 'en'
           },
           body: JSON.stringify({
             email,
-            password,
-          }),
+            password
+          })
         })
         try {
           if (loginRequest.ok) {
@@ -90,9 +95,9 @@ const SignIn = ({
                   error: {
                     code: LOGIN_FAILED,
                     color: 'danger',
-                    message: data.message,
-                  },
-                },
+                    message: data.message
+                  }
+                }
               })
             }
           } else {
@@ -105,15 +110,22 @@ const SignIn = ({
               error: {
                 code: LOGIN_ERROR,
                 color: 'warning',
-                message: err.message,
-              },
-            },
+                message: err.message
+              }
+            }
           })
         } finally {
           setBtnDisable(false)
         }
       }
     }
+  // handleLogin = res => {
+  //   console.log(res)
+  //   console.log('Login Success:', res.profileObj)
+  // },
+  // handleFailure = res => {
+  //   console.log('Login Failed:', res)
+  // }
 
   useDebounce(
     () => {
@@ -124,11 +136,11 @@ const SignIn = ({
           notification: {
             code: LOGIN_SUCCESS,
             color: 'success',
-            message: 'Login Successful...',
+            message: 'Login Successful...'
           },
           redirectTo: redirectTo ? window.atob(redirectTo) : appRoot,
-          user: appUser,
-        },
+          user: appUser
+        }
       })
     },
     100,
@@ -143,8 +155,8 @@ const SignIn = ({
       updateAppStore({
         type: LOGOUT_USER,
         payload: {
-          notification: redirectionState.notification,
-        },
+          notification: redirectionState.notification
+        }
       })
       delete redirectionState.notification
       history.replace(history.location.pathname, redirectionState)
@@ -200,36 +212,45 @@ const SignIn = ({
         </form>
         <p className={'d-block text-center fs-sm fw-bold my-3'}>OR</p>
         <div className={'social-login'} title={'Coming Soon'}>
-          <Button
-            className={'d-flex w-100 border'}
-            variant={'light'}
-            disabled={true}
+          <LoginSocialGoogle
+            client_id={googleClientId}
+            // onLogoutFailure={onLogoutFailure}
+            // onLoginStart={onLoginStart}
+            // onLogoutSuccess={onLogoutSuccess}
+            onResolve={({ provider, data }) => {
+              console.log(provider)
+              console.log(data)
+            }}
+            onReject={err => {
+              console.log(err)
+            }}
           >
-            <GoogleIcon className={'my-auto'} />
-            <span className={'flex-grow-1 text-center'}>
-              Continue With Google
-            </span>
-          </Button>
-          <Button
-            className={'d-flex w-100 border'}
-            variant={'light'}
-            disabled={true}
+            <Button className={'d-flex w-100 border'} variant={'light'}>
+              <GoogleIcon className={'my-auto'} />
+              <span className={'flex-grow-1 text-center'}>
+                Continue With Google
+              </span>
+            </Button>
+          </LoginSocialGoogle>
+          <LoginSocialFacebook
+            appId={fbClientId}
+            // onLoginStart={onLoginStart}
+            // onLogoutSuccess={onLogoutSuccess}
+            onResolve={({ provider, data }) => {
+              console.log(provider)
+              console.log(data)
+            }}
+            onReject={err => {
+              console.log(err)
+            }}
           >
-            <Icon icon={'facebook'} className={'my-auto'} />
-            <span className={'flex-grow-1 text-center'}>
-              Continue With Facebook
-            </span>
-          </Button>
-          <Button
-            className={'d-flex w-100 border'}
-            variant={'light'}
-            disabled={true}
-          >
-            <Icon icon={'instagram'} className={'my-auto'} />
-            <span className={'flex-grow-1 text-center'}>
-              Continue With Instagram
-            </span>
-          </Button>
+            <Button className={'d-flex w-100 border'} variant={'light'}>
+              <Icon icon={'facebook'} className={'my-auto'} />
+              <span className={'flex-grow-1 text-center'}>
+                Continue With Facebook
+              </span>
+            </Button>
+          </LoginSocialFacebook>
           <Button
             className={'d-flex w-100 border'}
             variant={'light'}
@@ -238,6 +259,16 @@ const SignIn = ({
             <Icon icon={'linkedin'} className={'my-auto'} />
             <span className={'flex-grow-1 text-center'}>
               Continue With LinkedIn
+            </span>
+          </Button>
+          <Button
+            className={'d-flex w-100 border'}
+            variant={'light'}
+            disabled={true}
+          >
+            <Icon icon={'twitter'} className={'my-auto'} />
+            <span className={'flex-grow-1 text-center'}>
+              Continue With Twitter
             </span>
           </Button>
         </div>
