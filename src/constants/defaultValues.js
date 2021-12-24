@@ -8,7 +8,7 @@ export const UserRole = {
 export const googleClientId =
   '218481800741-ip10j4u1m9hvn72get386gniutpqjd8o.apps.googleusercontent.com'
 
-export const fbClientId = '449516220171357'
+export const fbClientId = '207201774949002'
 
 export const defaultLang = 'en'
 export const defaultDirection = 'ltr'
