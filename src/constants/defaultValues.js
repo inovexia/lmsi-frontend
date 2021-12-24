@@ -6,7 +6,7 @@ export const UserRole = {
 }
 
 export const googleClientId =
-  '218481800741-sl995h10sm1n87dttvn36boph5nj3ta7.apps.googleusercontent.com'
+  '218481800741-ip10j4u1m9hvn72get386gniutpqjd8o.apps.googleusercontent.com'
 
 export const fbClientId = '449516220171357'
 
