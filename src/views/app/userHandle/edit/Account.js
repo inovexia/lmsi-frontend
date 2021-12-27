@@ -8,16 +8,16 @@ import { decrypt, encrypt } from 'src/helpers/Utils'
 import {
   PROFILE_NAME_UPDATED,
   PROFILE_UPDATE_FAILED,
-  UNEXPECTED_ERROR,
+  UNEXPECTED_ERROR
 } from 'src/constants/actions'
 
 const Account = () => {
   const {
       appStore: { user, userStorageKey, apiURL, appRoot },
-      updateAppStore,
+      updateAppStore
     } = useContext(AppContext),
     history = useHistory(),
-    [appUser, setAppUser] = useLocalStorage(userStorageKey, encrypt(user)),
+    [appUser, setAppUser] = useLocalStorage(userStorageKey, null),
     [userName, setUserName] = useState(user.user_name),
     [userEmail, setUserEmail] = useState(user.email),
     sendUnexpectedError = message => {
@@ -27,9 +27,9 @@ const Account = () => {
           error: {
             code: UNEXPECTED_ERROR,
             color: 'warning',
-            message: message,
-          },
-        },
+            message: message
+          }
+        }
       })
     },
     sendUpdateFailed = message => {
@@ -39,16 +39,16 @@ const Account = () => {
           error: {
             code: PROFILE_UPDATE_FAILED,
             color: 'danger',
-            message: message,
-          },
-        },
+            message: message
+          }
+        }
       })
     },
     sendProfileUpdated = (updateData, message) => {
       const appUserData = decrypt(appUser),
         updatedUser = encrypt({
           ...appUserData,
-          ...updateData,
+          ...updateData
         })
       setAppUser(updatedUser)
       updateAppStore({
@@ -57,27 +57,27 @@ const Account = () => {
           notification: {
             code: PROFILE_NAME_UPDATED,
             color: 'success',
-            message: message,
+            message: message
           },
           user: updatedUser,
           history,
-          redirectTo: `${appRoot}/${userName}`,
-        },
+          redirectTo: `${appRoot}/${userName}`
+        }
       })
     },
     updateUserName = async () => {
       try {
         const updateData = {
-            user_name: userName,
+            user_name: userName
           },
           usernameReq = await fetch(`${apiURL}/member/create/user_name`, {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json',
               language: 'en',
-              Authorization: `Bearer ${user.accessToken}`,
+              Authorization: `Bearer ${user.accessToken}`
             },
-            body: JSON.stringify(updateData),
+            body: JSON.stringify(updateData)
           })
         if (usernameReq.ok) {
           const data = await usernameReq.json()
@@ -96,16 +96,16 @@ const Account = () => {
     updateUserEmail = async () => {
       try {
         const updateData = {
-            email: userEmail,
+            email: userEmail
           },
           usernameReq = await fetch(`${apiURL}/member/update/profile-email`, {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json',
               language: 'en',
-              Authorization: `Bearer ${user.accessToken}`,
+              Authorization: `Bearer ${user.accessToken}`
             },
-            body: JSON.stringify(updateData),
+            body: JSON.stringify(updateData)
           })
         if (usernameReq.ok) {
           const data = await usernameReq.json()

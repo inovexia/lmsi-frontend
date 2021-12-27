@@ -52,6 +52,108 @@
       }
     }
   }
+
+  .complete-profile {
+    .wizard {
+      .nav {
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        padding: initial;
+        background: initial;
+        position: relative;
+        border: initial;
+        margin-bottom: 1.5rem;
+
+        &:before {
+          content: '';
+          position: absolute;
+          bottom: 1px;
+          width: 100%;
+          height: 1px;
+          z-index: 0;
+          background: #f3f3f3;
+        }
+
+        .nav-item {
+          padding: 0.5rem 1rem;
+          position: relative;
+
+          .nav-link {
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            pointer-events: none;
+
+            &:before {
+              content: '';
+              position: absolute;
+              margin-top: 10px;
+              display: block;
+              border-radius: 50%;
+              color: initial;
+              border: none;
+              text-decoration: none;
+              left: 50%;
+              transform: translateX(-50%);
+            }
+
+            &:before {
+              background: #f3f3f3;
+              width: 18px;
+              height: 18px;
+              z-index: 1;
+              bottom: -6px;
+            }
+          }
+
+          &.step-doing {
+            .nav-link {
+              &:after {
+                background: $appMain;
+                border: none;
+                border-radius: 50%;
+                bottom: -2px;
+                content: '';
+                color: initial;
+                display: block;
+                height: 10px;
+                left: 50%;
+                margin-top: 10px;
+                position: absolute;
+                text-decoration: none;
+                transform: translateX(-50%);
+                width: 10px;
+                z-index: 2;
+              }
+            }
+          }
+
+          &.step-done {
+            .nav-link {
+              &:after {
+                background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='%23049478' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3E%3C/svg%3E");
+                border: none;
+                border-radius: 50%;
+                bottom: -2px;
+                content: '';
+                color: initial;
+                display: block;
+                height: 10px;
+                left: 50%;
+                margin-top: 10px;
+                position: absolute;
+                text-decoration: none;
+                transform: translateX(-50%);
+                width: 10px;
+                z-index: 2;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
 @media (min-width: map-get($grid-breakpoints, 'sm')) {
 }
