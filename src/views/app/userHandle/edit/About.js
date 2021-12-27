@@ -17,7 +17,7 @@ const About = () => {
       updateAppStore
     } = useContext(AppContext),
     editorRef = useRef(null),
-    [appUser, setAppUser] = useLocalStorage(userStorageKey, encrypt(user)),
+    [appUser, setAppUser] = useLocalStorage(userStorageKey, null),
     [firstName, setFirstName] = useState(user.first_name),
     [lastName, setLastName] = useState(user.last_name),
     [Occupation, setOccupation] = useState(''),
