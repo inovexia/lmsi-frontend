@@ -120,7 +120,7 @@ const Invite = () => {
   return (
     <div className={'invite'}>
       <div className={'img'}></div>
-      <div className={'card invite-detail'}>
+      <div className={'card invite-detail mx-auto mt-n6 mb-5'}>
         <div className={'card-body p-4 m-1'}>
           <Form onSubmit={event => sendInvite(event)} autoComplete={'false'}>
             <div className={'row gx-0 mb-4'}>
