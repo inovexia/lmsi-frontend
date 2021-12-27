@@ -1,5 +1,5 @@
 import React from 'react'
-import { WithWizard } from 'react-albus'
+import { WithWizard } from 'react-albus2'
 
 import { Button } from 'src/components/Buttons'
 
