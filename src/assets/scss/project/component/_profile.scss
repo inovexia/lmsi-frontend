@@ -61,23 +61,31 @@
     .tab-layout {
       margin: 30px 50px;
 
-      button {
-        border: none;
-        background-color: transparent;
+      a {
         color: #203b54;
         font-size: 20px;
+        line-height: 140%;
+        text-decoration: none;
+
+        &.active {
+          text-decoration: underline;
+          font-weight: bold;
+        }
       }
     }
 
     .profile-details {
       margin: 20px 50px 0 50px;
+
       .personal-information {
         height: 298px;
         background: #ffffff;
         box-shadow: 0px 4px 54px rgba(165, 170, 181, 0.1);
         border-radius: 10px;
+
         .header {
           border-bottom: 1px solid #e1e1e1;
+
           h3 {
             font-weight: bold;
             font-size: 20px;
@@ -86,13 +94,16 @@
             margin: 20px 0 0 20px;
             padding-bottom: 20px;
           }
+
           .icon {
             margin: 20px 20px 0 0;
           }
         }
+
         .about-me {
           margin: 20px 0 8px 20px;
         }
+
         .heading {
           font-family: Roboto;
           font-style: normal;

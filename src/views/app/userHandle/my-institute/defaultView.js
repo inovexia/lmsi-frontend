@@ -5,7 +5,7 @@ import { Icon } from 'src/components/Icon'
 import { AppContext } from 'src/AppContext'
 import { TITLE_UPDATE } from 'src/constants/actions'
 
-const Profile = ({ match }) => {
+const MyInstitute = ({ match }) => {
   const pageHeading = 'My Profile',
     { updateAppStore } = useContext(AppContext)
 
@@ -19,6 +19,7 @@ const Profile = ({ match }) => {
   }, [updateAppStore])
 
   false && console.log(match)
+
   return (
     <div className={'display-profile'}>
       <div className={'profile-header mx-n3'}></div>
@@ -59,19 +60,22 @@ const Profile = ({ match }) => {
         </div>
       </div>
       <div className={'tab-layout d-flex'}>
-        <Link to={`${match.url}`} className={'me-3 active'}>
+        <Link to={`/app/${match.params.userHandle}`} className={'me-3'}>
           Home
         </Link>
-        <Link to={`${match.url}/my-institute`} className={'me-3'}>
+        <Link
+          to={`/app/${match.params.userHandle}/my-institute`}
+          className={'me-3 active'}
+        >
           My Institutes
         </Link>
-        <Link to={`${match.url}/about`}>About</Link>
+        <Link to={`/app/${match.params.userHandle}/about`}>About</Link>
       </div>
       <div className={'profile-details row'}>
         <div className={'col-5 p-0 pe-3'}>
           <div className={'personal-information'}>
             <div className={'d-flex justify-content-between header'}>
-              <h3>Personal Information</h3>
+              <h3>My Institute</h3>
               <Icon icon={'pencil'} className={'icon'} />
             </div>
             <div>
@@ -162,4 +166,4 @@ const Profile = ({ match }) => {
   )
 }
 
-export default Profile
+export default MyInstitute
