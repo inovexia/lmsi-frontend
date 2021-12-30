@@ -258,7 +258,7 @@ const SignIn = ({
           <LoginSocialTwitter
             client_id={'acyDNDZvINFYEYaOqe4QZQSpS'}
             client_secret={'Qb6QqZqbnLNPpz9acop2OIde9LUUQBKeTSbzihaZPayxwZ0xvi'}
-            redirect_uri={'https://lmsi-frontend.netlify.app/auth/sign-in'}
+            redirect_uri={'https://lmsi-frontend.netlify.app'}
             // onLoginStart={onLoginStart}
             // onLogoutSuccess={onLogoutSuccess}
             onResolve={({ provider, data }) => {
