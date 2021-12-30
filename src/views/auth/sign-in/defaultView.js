@@ -1,5 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { LoginSocialGoogle, LoginSocialFacebook } from 'reactjs-social-login'
+import {
+  LoginSocialGoogle,
+  LoginSocialFacebook,
+  LoginSocialTwitter
+} from 'reactjs-social-login'
 import { NavLink } from 'react-router-dom'
 
 import { AppContext } from 'src/AppContext'
@@ -251,6 +255,27 @@ const SignIn = ({
               </span>
             </Button>
           </LoginSocialFacebook>
+          <LoginSocialTwitter
+            client_id={'acyDNDZvINFYEYaOqe4QZQSpS'}
+            client_secret={'Qb6QqZqbnLNPpz9acop2OIde9LUUQBKeTSbzihaZPayxwZ0xvi'}
+            redirect_uri={'https://lmsi-frontend.netlify.app/'}
+            // onLoginStart={onLoginStart}
+            // onLogoutSuccess={onLogoutSuccess}
+            onResolve={({ provider, data }) => {
+              console.log(provider)
+              console.log(data)
+            }}
+            onReject={err => {
+              console.log(err)
+            }}
+          >
+            <Button className={'d-flex w-100 border'} variant={'light'}>
+              <Icon icon={'twitter'} className={'my-auto'} />
+              <span className={'flex-grow-1 text-center'}>
+                Continue With Twitter
+              </span>
+            </Button>
+          </LoginSocialTwitter>
           <Button
             className={'d-flex w-100 border'}
             variant={'light'}
@@ -259,16 +284,6 @@ const SignIn = ({
             <Icon icon={'linkedin'} className={'my-auto'} />
             <span className={'flex-grow-1 text-center'}>
               Continue With LinkedIn
-            </span>
-          </Button>
-          <Button
-            className={'d-flex w-100 border'}
-            variant={'light'}
-            disabled={true}
-          >
-            <Icon icon={'twitter'} className={'my-auto'} />
-            <span className={'flex-grow-1 text-center'}>
-              Continue With Twitter
             </span>
           </Button>
         </div>
