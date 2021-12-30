@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { LoginSocialGoogle } from 'reactjs-social-login'
 
 import { NavLink } from 'react-router-dom'
 import { ucFirst, getRoleId } from 'src/helpers/Utils'
 import { Button, OutlineButton } from 'src/components/Buttons'
-import { Icon, GoogleIcon } from 'src/components/Icon'
+import { GoogleIcon } from 'src/components/Icon'
 import { generatePassword } from 'src/helpers/Utils'
+import { googleClientId } from 'src/constants/defaultValues'
 
 import { AppContext } from 'src/AppContext'
 import { useCopyToClipboard, useDebounce } from 'src/hooks'
@@ -13,18 +15,18 @@ import {
   REGISTER_USER_ERROR,
   UNEXPECTED_ERROR,
   REGISTER_USER_EXIST,
-  PASSWORD_COPY_TO_CLIPBOARD,
+  PASSWORD_COPY_TO_CLIPBOARD
 } from 'src/constants/actions'
 
 const SignUp = ({
   history,
   match: {
-    params: { InstituteId, Method, MethodValue, RoleKey = 'learner' },
-  },
+    params: { InstituteId, Method, MethodValue, RoleKey = 'learner' }
+  }
 }) => {
   const {
     appStore: { apiURL },
-    updateAppStore,
+    updateAppStore
   } = useContext(AppContext)
   const [userExists, setUserExists] = useState(false),
     [email, setEmail] = useState(''),
@@ -61,9 +63,9 @@ const SignUp = ({
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          language: 'en',
+          language: 'en'
         },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email })
       })
       try {
         if (checkRequest.ok) {
@@ -76,9 +78,9 @@ const SignUp = ({
                 error: {
                   code: REGISTER_USER_EXIST,
                   color: 'danger',
-                  message: 'Email already taken.',
-                },
-              },
+                  message: 'Email already taken.'
+                }
+              }
             })
           } else {
             try {
@@ -87,7 +89,7 @@ const SignUp = ({
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
-                  language: 'en',
+                  language: 'en'
                 },
                 body: JSON.stringify({
                   first_name: firstName,
@@ -95,8 +97,8 @@ const SignUp = ({
                   password,
                   email,
                   institutionId,
-                  role_id: getRoleId(RoleKey),
-                }),
+                  role_id: getRoleId(RoleKey)
+                })
               })
               if (registerRequest.ok) {
                 const data = await registerRequest.json()
@@ -107,10 +109,10 @@ const SignUp = ({
                       notification: {
                         code: REGISTER_USER_SUCCESS,
                         color: 'success',
-                        message: data.message,
+                        message: data.message
                       },
-                      history,
-                    },
+                      history
+                    }
                   })
                 } else {
                   updateAppStore({
@@ -119,9 +121,9 @@ const SignUp = ({
                       error: {
                         code: REGISTER_USER_ERROR,
                         color: 'danger',
-                        message: data.message,
-                      },
-                    },
+                        message: data.message
+                      }
+                    }
                   })
                 }
               } else {
@@ -134,9 +136,9 @@ const SignUp = ({
                   error: {
                     code: UNEXPECTED_ERROR,
                     color: 'warning',
-                    message: err.message,
-                  },
-                },
+                    message: err.message
+                  }
+                }
               })
             }
           }
@@ -150,9 +152,9 @@ const SignUp = ({
             error: {
               code: UNEXPECTED_ERROR,
               color: 'warning',
-              message: err.message,
-            },
-          },
+              message: err.message
+            }
+          }
         })
       }
     }
@@ -180,9 +182,9 @@ const SignUp = ({
           notification: {
             code: PASSWORD_COPY_TO_CLIPBOARD,
             color: 'info',
-            message: 'Your Password copied to your clipboard.',
-          },
-        },
+            message: 'Your Password copied to your clipboard.'
+          }
+        }
       })
     }
   }, [
@@ -192,7 +194,7 @@ const SignUp = ({
     password,
     oldGenPassword,
     copySuccess,
-    updateAppStore,
+    updateAppStore
   ])
 
   return (
@@ -271,46 +273,26 @@ const SignUp = ({
           <small>OR</small>
         </h6>
         <div className={'social-login'} title={'Coming Soon'}>
-          <Button
-            className={'d-flex w-100 border'}
-            variant={'light'}
-            disabled={true}
+          <LoginSocialGoogle
+            client_id={googleClientId}
+            // onLogoutFailure={onLogoutFailure}
+            // onLoginStart={onLoginStart}
+            // onLogoutSuccess={onLogoutSuccess}
+            onResolve={({ provider, data }) => {
+              console.log(provider)
+              console.log(data)
+            }}
+            onReject={err => {
+              console.log(err)
+            }}
           >
-            <GoogleIcon className={'my-auto'} />
-            <span className={'flex-grow-1 text-center'}>
-              Continue With Google
-            </span>
-          </Button>
-          <Button
-            className={'d-flex w-100 border'}
-            variant={'light'}
-            disabled={true}
-          >
-            <Icon icon={'facebook'} className={'my-auto'} />
-            <span className={'flex-grow-1 text-center'}>
-              Continue With Facebook
-            </span>
-          </Button>
-          <Button
-            className={'d-flex w-100 border'}
-            variant={'light'}
-            disabled={true}
-          >
-            <Icon icon={'linkedin'} className={'my-auto'} />
-            <span className={'flex-grow-1 text-center'}>
-              Continue With LinkedIn
-            </span>
-          </Button>
-          <Button
-            className={'d-flex w-100 border'}
-            variant={'light'}
-            disabled={true}
-          >
-            <Icon icon={'twitter'} className={'my-auto'} />
-            <span className={'flex-grow-1 text-center'}>
-              Continue With Twitter
-            </span>
-          </Button>
+            <Button className={'d-flex w-100 border'} variant={'light'}>
+              <GoogleIcon className={'my-auto'} />
+              <span className={'flex-grow-1 text-center'}>
+                Continue With Google
+              </span>
+            </Button>
+          </LoginSocialGoogle>
         </div>
         <div className={'Info-card-footer'}>
           <ul>

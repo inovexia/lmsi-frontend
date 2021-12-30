@@ -23,7 +23,6 @@
     "react-query": "^3.26.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
-    "react-twitter-login": "^1.4.0",
     "reactjs-social-login": "^1.5.2",
     "web-vitals": "^1.1.2"
   },

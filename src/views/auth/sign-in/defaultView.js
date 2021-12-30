@@ -1,18 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { LoginSocialGoogle, LoginSocialFacebook } from 'reactjs-social-login'
-import TwitterLogin from 'react-twitter-login'
+import { LoginSocialGoogle } from 'reactjs-social-login'
 import { NavLink } from 'react-router-dom'
 
 import { AppContext } from 'src/AppContext'
 import { useDebounce, useLocalStorage } from 'src/hooks'
 import { Button } from 'src/components/Buttons'
 import { encrypt, isBrowser } from 'src/helpers/Utils'
-import { Icon, GoogleIcon } from 'src/components/Icon'
-import {
-  userStorageKey,
-  googleClientId,
-  fbClientId
-} from 'src/constants/defaultValues'
+import { GoogleIcon } from 'src/components/Icon'
+import { userStorageKey, googleClientId } from 'src/constants/defaultValues'
 import {
   LOGIN_USER,
   LOGIN_SUCCESS,
@@ -233,49 +228,6 @@ const SignIn = ({
               </span>
             </Button>
           </LoginSocialGoogle>
-          <LoginSocialFacebook
-            appId={fbClientId}
-            // onLoginStart={onLoginStart}
-            // onLogoutSuccess={onLogoutSuccess}
-            onResolve={({ provider, data }) => {
-              console.log(provider)
-              console.log(data)
-            }}
-            onReject={err => {
-              console.log(err)
-            }}
-          >
-            <Button className={'d-flex w-100 border'} variant={'light'}>
-              <Icon icon={'facebook'} className={'my-auto'} />
-              <span className={'flex-grow-1 text-center'}>
-                Continue With Facebook
-              </span>
-            </Button>
-          </LoginSocialFacebook>
-          <TwitterLogin
-            authCallback={(err, data) => console.log(err, data)}
-            consumerKey={'mAF2YUwMfXREfswfXlkyAAqQN'}
-            consumerSecret={
-              'rnrkgocw2bAjMLoWhoD9ZCW2YFh7hZO9FOYUxcWZsJ0dQua5Ct'
-            }
-          >
-            <Button className={'d-flex w-100 border'} variant={'light'}>
-              <Icon icon={'twitter'} className={'my-auto'} />
-              <span className={'flex-grow-1 text-center'}>
-                Continue With Twitter
-              </span>
-            </Button>
-          </TwitterLogin>
-          <Button
-            className={'d-flex w-100 border'}
-            variant={'light'}
-            disabled={true}
-          >
-            <Icon icon={'linkedin'} className={'my-auto'} />
-            <span className={'flex-grow-1 text-center'}>
-              Continue With LinkedIn
-            </span>
-          </Button>
         </div>
         <div className={'Info-card-footer'}>
           <ul>
