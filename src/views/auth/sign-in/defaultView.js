@@ -1,9 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
-import {
-  LoginSocialGoogle,
-  LoginSocialFacebook,
-  LoginSocialTwitter
-} from 'reactjs-social-login'
+import { LoginSocialGoogle, LoginSocialFacebook } from 'reactjs-social-login'
+import TwitterLogin from 'react-twitter-login'
 import { NavLink } from 'react-router-dom'
 
 import { AppContext } from 'src/AppContext'
@@ -255,19 +252,12 @@ const SignIn = ({
               </span>
             </Button>
           </LoginSocialFacebook>
-          <LoginSocialTwitter
-            client_id={'7uWRIiOvbKPnH3AFg0y2zw4Ba'}
-            client_secret={'70iaBnueOJopUEkS1SLjPKVXlkkEvsYfUID69mnhuFd04c5Fl1'}
-            redirect_uri={'https://lmsi-frontend.netlify.app/'}
-            // onLoginStart={onLoginStart}
-            // onLogoutSuccess={onLogoutSuccess}
-            onResolve={({ provider, data }) => {
-              console.log(provider)
-              console.log(data)
-            }}
-            onReject={err => {
-              console.log(err)
-            }}
+          <TwitterLogin
+            authCallback={(err, data) => console.log(err, data)}
+            consumerKey={'mAF2YUwMfXREfswfXlkyAAqQN'}
+            consumerSecret={
+              'rnrkgocw2bAjMLoWhoD9ZCW2YFh7hZO9FOYUxcWZsJ0dQua5Ct'
+            }
           >
             <Button className={'d-flex w-100 border'} variant={'light'}>
               <Icon icon={'twitter'} className={'my-auto'} />
@@ -275,7 +265,7 @@ const SignIn = ({
                 Continue With Twitter
               </span>
             </Button>
-          </LoginSocialTwitter>
+          </TwitterLogin>
           <Button
             className={'d-flex w-100 border'}
             variant={'light'}
