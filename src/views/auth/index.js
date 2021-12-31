@@ -7,6 +7,7 @@ const ViewSignUp = React.lazy(() => import('./sign-up'))
 const ForgotPassword = React.lazy(() => import('./forgot-password'))
 const SetPassword = React.lazy(() => import('./set-password'))
 const VerifyEmail = React.lazy(() => import('./verify-email'))
+const PageNotFound = React.lazy(() => import('./PageNotFound'))
 
 const ViewAuth = ({ match }) => {
   return (
@@ -33,7 +34,8 @@ const ViewAuth = ({ match }) => {
           path={`${match.url}/verify-email/:verificationId/:token`}
           render={props => <VerifyEmail {...props} />}
         />
-        <Redirect to={'/error'} />
+        <Route path={`${match.url}/*`} component={PageNotFound} />
+        {/* <Redirect to={'/error'} /> */}
       </Switch>
     </AuthLayout>
   )

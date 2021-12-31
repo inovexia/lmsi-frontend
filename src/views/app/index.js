@@ -9,12 +9,14 @@ const DashboardView = React.lazy(() => import('./dashboard'))
 const StudentView = React.lazy(() => import('./students'))
 const InstituteView = React.lazy(() => import('./institute'))
 const SlotView = React.lazy(() => import('./slots'))
+const PageNotFound = React.lazy(() => import('./PageNotFound'))
 
 const App = ({ match }) => {
   const {
-      appStore: { user },
+      appStore: { user }
     } = useContext(AppContext),
     redirectTo = user.user_name ? user.user_name : user.serial_id
+
   // console.log(user)
 
   return (
@@ -26,36 +28,42 @@ const App = ({ match }) => {
           to={`${match.url}/${redirectTo}`}
         />
         <Route
+          exact
           path={`${match.url}/dashboard`}
           render={props => {
             return <DashboardView {...props} />
           }}
         />
         <Route
+          exact
           path={`${match.url}/students`}
           render={props => {
             return <StudentView {...props} />
           }}
         />
         <Route
+          exact
           path={`${match.url}/create-institute`}
           render={props => {
             return <InstituteView {...props} />
           }}
         />
         <Route
+          exact
           path={`${match.url}/slots`}
           render={props => {
             return <SlotView {...props} />
           }}
         />
         <Route
-          path={`${match.url}/:userHandle`}
+          exact
+          path={`${match.url}/${redirectTo}`}
           render={props => {
             return <UserHandleView {...props} />
           }}
         />
-        <Redirect to={'/error'} />
+        <Route path={`*`} component={PageNotFound} />
+        {/* <Redirect to={'/error'} /> */}
       </Switch>
     </AppLayout>
   )
