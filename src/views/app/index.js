@@ -56,8 +56,7 @@ const App = ({ match }) => {
           }}
         />
         <Route
-          exact
-          path={`${match.url}/${redirectTo}`}
+          path={`${match.url}/:userHandle`}
           render={props => {
             return <UserHandleView {...props} />
           }}
