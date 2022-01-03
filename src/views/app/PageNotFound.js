@@ -1,6 +1,5 @@
 import React from 'react'
 
-import { NavLink } from 'react-router-dom'
 import errorImage from 'src/assets/images/wrong-action.svg'
 
 const PageNotFound = () => {
