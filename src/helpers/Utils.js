@@ -7,7 +7,7 @@ import {
   languageOptions,
   navMenus,
   navMenusOld,
-  encryptionSalt,
+  encryptionSalt
 } from 'src/constants/defaultValues'
 
 export const isBrowser = typeof window !== 'undefined'
@@ -60,7 +60,7 @@ export const formatDate = (date, patternStr) => {
       'September',
       'October',
       'November',
-      'December',
+      'December'
     ],
     dayOfWeekNames = [
       'Sunday',
@@ -69,7 +69,7 @@ export const formatDate = (date, patternStr) => {
       'Wednesday',
       'Thursday',
       'Friday',
-      'Saturday',
+      'Saturday'
     ],
     twoDigitPad = num => {
       return num < 10 ? '0' + num : num
@@ -162,7 +162,7 @@ export const getDirection = () => {
   }
   return {
     direction,
-    isRtl: direction === 'rtl',
+    isRtl: direction === 'rtl'
   }
 }
 
@@ -334,8 +334,12 @@ export const apiRequest = (method, url, token, body) => {
     headers: {
       'Content-Type': 'application/json',
       language: 'en',
-      Authorization: token? `Bearer ${token}`: undefined
+      Authorization: token ? `Bearer ${token}` : undefined
     },
     body: body ? JSON.stringify(body) : undefined
   })
+}
+
+export const urlQuery = ({ search }) => {
+  return new URLSearchParams(search).get('q')
 }

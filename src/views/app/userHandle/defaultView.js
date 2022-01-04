@@ -1,13 +1,36 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import { Icon } from 'src/components/Icon'
 import { AppContext } from 'src/AppContext'
 import { TITLE_UPDATE } from 'src/constants/actions'
+import { apiRequest } from 'src/helpers/Utils'
 
 const Profile = ({ match }) => {
+  const [info, setInfo] = useState({})
   const pageHeading = 'My Profile',
-    { updateAppStore } = useContext(AppContext)
+    {
+      appStore: { user, apiURL },
+      updateAppStore
+    } = useContext(AppContext),
+    ProfileInfo = useCallback(async () => {
+      const checkRequest = await apiRequest(
+        'GET',
+        `${apiURL}/instructor/personal/info/view`,
+        user.accessToken
+      )
+      try {
+        if (checkRequest.ok) {
+          const ProfileInfoData = await checkRequest.json()
+          // console.log(ProfileInfoData)
+          setInfo(ProfileInfoData.response[0])
+        } else {
+          throw new Error('Unexpected Error')
+        }
+      } catch (err) {
+        console.log(err)
+      }
+    }, [apiURL, user.accessToken])
 
   useEffect(() => {
     updateAppStore({
@@ -18,7 +41,12 @@ const Profile = ({ match }) => {
     })
   }, [updateAppStore])
 
-  false && console.log(match)
+  useEffect(() => {
+    ProfileInfo()
+  }, [ProfileInfo])
+
+  false && console.log(match, user)
+
   return (
     <div className={'display-profile'}>
       <div className={'profile-header mx-n3'}></div>
@@ -32,7 +60,9 @@ const Profile = ({ match }) => {
             </div>
             <div className={'profile-data my-auto'}>
               <div className={'d-flex'}>
-                <h5>Haris Ahmed</h5>
+                <h5
+                  style={{ textTransform: 'capitalize' }}
+                >{`${user.first_name} ${user.last_name}`}</h5>
                 <Icon icon={'pencil'} className={'icon'} />
               </div>
               <p>Web Designer</p>
@@ -43,8 +73,7 @@ const Profile = ({ match }) => {
         <div className={'profile-contacts col-12 col-md-6'}>
           <div className={'d-flex justify-content-between'}>
             <p>
-              <Icon icon={'envelope-closed'} className={'icon'} />{' '}
-              Haris.ahmed@example.com
+              <Icon icon={'envelope-closed'} className={'icon'} /> {user.email}
             </p>
             <p>
               <Icon icon={'phone'} className={'icon'} /> +447700960160
@@ -52,9 +81,15 @@ const Profile = ({ match }) => {
           </div>
 
           <div className={'d-flex justify-content-end social-icons'}>
-            <Icon icon={'linkedin'} className={'icon me-2'} />
-            <Icon icon={'facebook'} className={'icon me-2'} />
-            <Icon icon={'instagram'} className={'icon'} />
+            <a target="_blank" href={info.linkedin_link} rel="noreferrer">
+              <Icon icon={'linkedin'} className={'icon me-2'} />
+            </a>
+            <a target="_blank" href={info.facebook_link} rel="noreferrer">
+              <Icon icon={'facebook'} className={'icon me-2'} />
+            </a>
+            <a target="_blank" href={info.twitter_link} rel="noreferrer">
+              <Icon icon={'instagram'} className={'icon'} />
+            </a>
           </div>
         </div>
       </div>
@@ -77,14 +112,12 @@ const Profile = ({ match }) => {
             <div>
               <h3 className={'about-me heading'}>About me</h3>
               <p className={'aboutme-content content-heading'}>
-                Amet minim mollit non deserunt ullamco est sit aliqua dolor do
-                amet sint. Velit officia consequat duis enim velit mollit.
-                Exercitation veniam consequat sunt nostrud amet.{' '}
+                {info.about_me}
               </p>
             </div>
-            <div className={'container d-flex justify-content-between'}>
+            <div className={'container d-flex justify-content-between py-2'}>
               <h3 className={'dob heading '}>Date of Birth</h3>
-              <h3 className={'dob-date content-heading'}>01/01/1990</h3>
+              <h3 className={'dob-date content-heading'}>{info.datebirth}</h3>
             </div>
           </div>
           <div className={'address-information'}>

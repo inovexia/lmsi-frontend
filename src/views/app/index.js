@@ -6,6 +6,7 @@ import AppLayout from 'src/layout/app'
 
 const UserHandleView = React.lazy(() => import('./userHandle'))
 const DashboardView = React.lazy(() => import('./dashboard'))
+const SearchView = React.lazy(() => import('./search'))
 const StudentView = React.lazy(() => import('./students'))
 const InstituteView = React.lazy(() => import('./institute'))
 const SlotView = React.lazy(() => import('./slots'))
@@ -28,28 +29,30 @@ const App = ({ match }) => {
           to={`${match.url}/${redirectTo}`}
         />
         <Route
-          exact
           path={`${match.url}/dashboard`}
           render={props => {
             return <DashboardView {...props} />
           }}
         />
         <Route
-          exact
+          path={`${match.url}/search`}
+          render={props => {
+            return <SearchView {...props} />
+          }}
+        />
+        <Route
           path={`${match.url}/students`}
           render={props => {
             return <StudentView {...props} />
           }}
         />
         <Route
-          exact
           path={`${match.url}/create-institute`}
           render={props => {
             return <InstituteView {...props} />
           }}
         />
         <Route
-          exact
           path={`${match.url}/slots`}
           render={props => {
             return <SlotView {...props} />

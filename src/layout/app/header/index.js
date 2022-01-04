@@ -1,13 +1,39 @@
-import React, { useContext } from 'react'
-import { Navbar, Form, FormControl } from 'react-bootstrap'
+import React, { useContext, useEffect, useState } from 'react'
+import { Navbar, FormControl } from 'react-bootstrap'
+import { useHistory, useLocation } from 'react-router-dom'
 
 import { Button } from 'src/components/Buttons'
 import { AppContext } from 'src/AppContext'
+import { useDebounce } from 'src/hooks'
+import { isBrowser, urlQuery } from 'src/helpers/Utils'
 
 const Header = () => {
+  const [query, setQuery] = useState(null)
+  const history = useHistory()
+  const location = useLocation()
   const {
     appStore: { pageHeading }
   } = useContext(AppContext)
+
+  useDebounce(() => query && history.push(`/app/search?q=${query}`), 500, [
+    query
+  ])
+
+  const handleSearch = ({ target: { value } }) => {
+    setQuery(value)
+  }
+
+  useEffect(() => {
+    if (isBrowser) {
+      const q = urlQuery(location),
+        allLinks = document.querySelectorAll('.app a')
+
+      allLinks.forEach(link =>
+        link.addEventListener('click', () => setQuery(''))
+      )
+      q && setQuery(q)
+    }
+  }, [location])
 
   return (
     <Navbar
@@ -26,14 +52,16 @@ const Header = () => {
           </Button>
           <h1 className={'my-auto d-none d-sm-block'}>{pageHeading}</h1>
         </div>
-        <Form className={'d-flex flex-grow-1 flex-sm-grow-0'}>
+        <div className={'d-flex flex-grow-1 flex-sm-grow-0'}>
           <FormControl
             style={{ borderRadius: '0.5rem', height: '40px' }}
             type={'search'}
             placeholder={'Search'}
             aria-label={'Search'}
+            value={query}
+            onChange={handleSearch}
           />
-        </Form>
+        </div>
       </div>
     </Navbar>
   )
