@@ -7,8 +7,8 @@ import { TITLE_UPDATE } from 'src/constants/actions'
 import { apiRequest } from 'src/helpers/Utils'
 
 const Profile = ({ match }) => {
-  const [info, setInfo] = useState({})
-  const pageHeading = 'My Profile',
+  const [info, setInfo] = useState({}),
+    pageHeading = 'My Profile',
     {
       appStore: { user, apiURL },
       updateAppStore

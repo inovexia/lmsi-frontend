@@ -3,12 +3,33 @@
     .search-top {
       h4 {
         font-weight: 500;
-        font-size: 18px;
+        font-size: 25px;
         color: #000000;
       }
       span {
         font-size: 14px;
         color: #000000;
+      }
+    }
+    .swiper-scrollbar {
+      display: none;
+    }
+    .swiper-pagination {
+      display: none;
+    }
+
+    .search-card {
+      .card-top {
+        margin-bottom: 10px;
+      }
+      .card-details {
+        h4 {
+          font-weight: 500;
+          font-size: 18px;
+          letter-spacing: 0.0041em;
+          color: #000000;
+          margin-top: 5px;
+        }
       }
     }
   }

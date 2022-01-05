@@ -3,7 +3,7 @@ import { LoginSocialGoogle } from 'reactjs-social-login'
 import { NavLink } from 'react-router-dom'
 
 import { AppContext } from 'src/AppContext'
-import { useDebounce, useLocalStorage } from 'src/hooks'
+import { useDebounce, useIsMounted, useLocalStorage } from 'src/hooks'
 import { Button } from 'src/components/Buttons'
 import { encrypt, isBrowser } from 'src/helpers/Utils'
 import { GoogleIcon } from 'src/components/Icon'
@@ -32,6 +32,7 @@ const SignIn = ({
     [email, setEmail] = useState(''),
     [password, setPassword] = useState(''),
     [btnDisable, setBtnDisable] = useState(false),
+    isMounted = useIsMounted(),
     handleSubmit = async event => {
       event.preventDefault()
       setBtnDisable(true)
@@ -160,107 +161,109 @@ const SignIn = ({
   }, [loggedInUser, updateAppStore, redirectionState, history, appRoot])
 
   return (
-    <>
-      <div className={'Info-card'}>
-        <div className={'card-heading'}>
-          <h5>Log in to your account</h5>
-        </div>
-        <form onSubmit={event => handleSubmit(event)}>
-          <div className={'form-group'}>
-            <input
-              className={'form-data'}
-              type={'email'}
-              onChange={({ target: { value } }) => setEmail(value)}
-              placeholder={'Enter your email address'}
-              defaultValue={email}
-              disabled={btnDisable || alowLogin}
-              required
-            />
+    isMounted.current && (
+      <>
+        <div className={'Info-card'}>
+          <div className={'card-heading'}>
+            <h5>Log in to your account</h5>
           </div>
-          {alowLogin && (
+          <form onSubmit={event => handleSubmit(event)}>
             <div className={'form-group'}>
               <input
                 className={'form-data'}
-                type={'password'}
-                onChange={({ target: { value } }) => setPassword(value)}
-                defaultValue={password}
-                disabled={btnDisable}
-                placeholder={'Enter your password'}
+                type={'email'}
+                onChange={({ target: { value } }) => setEmail(value)}
+                placeholder={'Enter your email address'}
+                defaultValue={email}
+                disabled={btnDisable || alowLogin}
+                required
               />
             </div>
-          )}
-          <div className={'form-group'}>
-            <Button type={'submit'} variant={'app'} disabled={btnDisable}>
-              {btnDisable ? (
-                <div
-                  className={'spinner-border spinner-border-sm text-light'}
-                  role={'status'}
-                >
-                  <span className={'visually-hidden'}>Loading...</span>
-                </div>
-              ) : alowLogin ? (
-                'Log in'
-              ) : (
-                'Continue'
-              )}
-            </Button>
+            {alowLogin && (
+              <div className={'form-group'}>
+                <input
+                  className={'form-data'}
+                  type={'password'}
+                  onChange={({ target: { value } }) => setPassword(value)}
+                  defaultValue={password}
+                  disabled={btnDisable}
+                  placeholder={'Enter your password'}
+                />
+              </div>
+            )}
+            <div className={'form-group'}>
+              <Button type={'submit'} variant={'app'} disabled={btnDisable}>
+                {btnDisable ? (
+                  <div
+                    className={'spinner-border spinner-border-sm text-light'}
+                    role={'status'}
+                  >
+                    <span className={'visually-hidden'}>Loading...</span>
+                  </div>
+                ) : alowLogin ? (
+                  'Log in'
+                ) : (
+                  'Continue'
+                )}
+              </Button>
+            </div>
+          </form>
+          <p className={'d-block text-center fs-sm fw-bold my-3'}>OR</p>
+          <div className={'social-login'} title={'Coming Soon'}>
+            <LoginSocialGoogle
+              client_id={googleClientId}
+              // onLogoutFailure={onLogoutFailure}
+              // onLoginStart={onLoginStart}
+              // onLogoutSuccess={onLogoutSuccess}
+              onResolve={({ provider, data }) => {
+                console.log(provider)
+                console.log(data)
+              }}
+              onReject={err => {
+                console.log(err)
+              }}
+            >
+              <Button className={'d-flex w-100 border'} variant={'light'}>
+                <GoogleIcon className={'my-auto'} />
+                <span className={'flex-grow-1 text-center'}>
+                  Continue With Google
+                </span>
+              </Button>
+            </LoginSocialGoogle>
           </div>
-        </form>
-        <p className={'d-block text-center fs-sm fw-bold my-3'}>OR</p>
-        <div className={'social-login'} title={'Coming Soon'}>
-          <LoginSocialGoogle
-            client_id={googleClientId}
-            // onLogoutFailure={onLogoutFailure}
-            // onLoginStart={onLoginStart}
-            // onLogoutSuccess={onLogoutSuccess}
-            onResolve={({ provider, data }) => {
-              console.log(provider)
-              console.log(data)
-            }}
-            onReject={err => {
-              console.log(err)
-            }}
-          >
-            <Button className={'d-flex w-100 border'} variant={'light'}>
-              <GoogleIcon className={'my-auto'} />
-              <span className={'flex-grow-1 text-center'}>
-                Continue With Google
-              </span>
-            </Button>
-          </LoginSocialGoogle>
+          <div className={'Info-card-footer'}>
+            <ul>
+              <li>
+                <NavLink to={'/auth/forgot-password'}>
+                  <span>Can't log in?</span>
+                </NavLink>
+              </li>
+              <p style={{ margin: '0px 8px' }}>•</p>
+              <li>
+                <NavLink to={`/auth/sign-up`}>
+                  <span>Register for an account</span>
+                </NavLink>
+              </li>
+            </ul>
+          </div>
         </div>
-        <div className={'Info-card-footer'}>
+        <div className={'footer-top'}>
           <ul>
             <li>
-              <NavLink to={'/auth/forgot-password'}>
-                <span>Can't log in?</span>
+              <NavLink to={'/'}>
+                <span>Privacy Policy</span>
               </NavLink>
             </li>
             <p style={{ margin: '0px 8px' }}>•</p>
             <li>
-              <NavLink to={`/auth/sign-up`}>
-                <span>Register for an account</span>
+              <NavLink to={'/'}>
+                <span>User Notice</span>
               </NavLink>
             </li>
           </ul>
         </div>
-      </div>
-      <div className={'footer-top'}>
-        <ul>
-          <li>
-            <NavLink to={'/'}>
-              <span>Privacy Policy</span>
-            </NavLink>
-          </li>
-          <p style={{ margin: '0px 8px' }}>•</p>
-          <li>
-            <NavLink to={'/'}>
-              <span>User Notice</span>
-            </NavLink>
-          </li>
-        </ul>
-      </div>
-    </>
+      </>
+    )
   )
 }
 

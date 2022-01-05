@@ -298,6 +298,10 @@
         width: 100%;
       }
     }
+
+    main {
+      max-width: calc(100vw - 250px);
+    }
   }
 }
 @media (min-width: map-get($grid-breakpoints, 'xl')) {

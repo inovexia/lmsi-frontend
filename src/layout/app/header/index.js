@@ -8,20 +8,24 @@ import { useDebounce } from 'src/hooks'
 import { isBrowser, urlQuery } from 'src/helpers/Utils'
 
 const Header = () => {
-  const [query, setQuery] = useState(null)
-  const history = useHistory()
-  const location = useLocation()
-  const {
-    appStore: { pageHeading }
-  } = useContext(AppContext)
+  const [query, setQuery] = useState(null),
+    history = useHistory(),
+    location = useLocation(),
+    {
+      appStore: { pageHeading }
+    } = useContext(AppContext),
+    handleSearch = ({ target: { value } }) => {
+      setQuery(value.length > 0 ? value : null)
+    }
 
-  useDebounce(() => query && history.push(`/app/search?q=${query}`), 500, [
-    query
-  ])
-
-  const handleSearch = ({ target: { value } }) => {
-    setQuery(value)
-  }
+  useDebounce(
+    () =>
+      query !== null
+        ? history.push(`/app/search?q=${query}`)
+        : history.replace(`/app/search`),
+    500,
+    [query]
+  )
 
   useEffect(() => {
     if (isBrowser) {
@@ -29,7 +33,7 @@ const Header = () => {
         allLinks = document.querySelectorAll('.app a')
 
       allLinks.forEach(link =>
-        link.addEventListener('click', () => setQuery(''))
+        link.addEventListener('click', () => setQuery(null))
       )
       q && setQuery(q)
     }
@@ -58,7 +62,7 @@ const Header = () => {
             type={'search'}
             placeholder={'Search'}
             aria-label={'Search'}
-            value={query}
+            value={query ? query : ''}
             onChange={handleSearch}
           />
         </div>
