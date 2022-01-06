@@ -4,8 +4,7 @@ import { AppContext } from 'src/AppContext'
 import PageNotFound from 'src/views/auth/PageNotFound'
 
 const Profile = React.lazy(() => import('./defaultView'))
-const MyInstitute = React.lazy(() => import('./my-institute'))
-const AboutMe = React.lazy(() => import('./about'))
+const ProfileEdit = React.lazy(() => import('./profile-edit'))
 
 const ProfileView = ({ match }) => {
   const {
@@ -20,17 +19,10 @@ const ProfileView = ({ match }) => {
       {redirectTo === match.params.userHandle ? (
         <>
           <Route
-            path={`${match.url}/about`}
+            path={`${match.url}/edit`}
             render={props => {
               props.match.params = { ...props.match.params, ...match.params }
-              return <AboutMe {...props} />
-            }}
-          />
-          <Route
-            path={`${match.url}/my-institute`}
-            render={props => {
-              props.match.params = { ...props.match.params, ...match.params }
-              return <MyInstitute {...props} />
+              return <ProfileEdit {...props} />
             }}
           />
           <Route

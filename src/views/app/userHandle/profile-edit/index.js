@@ -1,9 +1,9 @@
 import React from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
 
-const AboutMe = React.lazy(() => import('./defaultView'))
+const ProfileEdit = React.lazy(() => import('./defaultView'))
 
-const AboutView = ({ match }) => {
+const ProfileEditView = ({ match }) => {
   false && console.log(match)
 
   return (
@@ -12,7 +12,7 @@ const AboutView = ({ match }) => {
         path={`${match.url}/`}
         render={props => {
           props.match.params = { ...props.match.params, ...match.params }
-          return <AboutMe {...props} />
+          return <ProfileEdit {...props} />
         }}
       />
       <Redirect to={'/error'} message={'page not exist'} />
@@ -20,4 +20,4 @@ const AboutView = ({ match }) => {
   )
 }
 
-export default AboutView
+export default ProfileEditView

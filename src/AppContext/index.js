@@ -21,6 +21,7 @@ export const initialStoreState = {
   appRoot,
   isAuthGuardActive,
   userProps,
+  currentInstitute: {},
   UserRole,
   userStorageKey,
   pageHeading: `LMSi`,

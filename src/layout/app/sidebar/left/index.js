@@ -9,7 +9,11 @@ import { Icon } from 'src/components/Icon'
 import { getNavMenu, appColor } from 'src/constants/defaultValues'
 import { apiRequest, isBrowser } from 'src/helpers/Utils'
 import { UserRole, appRoot, userStorageKey } from 'src/constants/defaultValues'
-import { LOGOUT_USER, UNEXPECTED_ERROR } from 'src/constants/actions'
+import {
+  LOGOUT_USER,
+  UNEXPECTED_ERROR,
+  INSTITUTE_LOADED
+} from 'src/constants/actions'
 import Logo from 'src/assets/svg/logo'
 
 const SidebarLeft = () => {
@@ -41,7 +45,14 @@ const SidebarLeft = () => {
           const data = await slotsRequest.json()
           false && console.log(data)
           if (data.API_STATUS) {
-            setInstituteName(data?.response?.reverse()?.pop().institute_name)
+            const currentInstitute = data?.response?.reverse()?.pop()
+            setInstituteName(currentInstitute.institute_name)
+            updateAppStore({
+              type: INSTITUTE_LOADED,
+              payload: {
+                currentInstitute
+              }
+            })
           } else {
             throw new Error('Bad Request')
           }

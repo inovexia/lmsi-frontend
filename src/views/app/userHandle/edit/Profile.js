@@ -4,7 +4,7 @@ import { Form } from 'react-bootstrap'
 
 const Profile = () => {
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
-    maxFiles: 1,
+    maxFiles: 1
   })
 
   const files = acceptedFiles.map(file => (

@@ -95,6 +95,11 @@ const AppReducer = (appStore, AppAction) => {
     case AllActions.ADDRESS_UPDATE_FAILED:
       appStore.errors.push(AppAction.payload.error)
       return { ...appStore }
+    case AllActions.INSTITUTE_LOADED:
+      return {
+        ...appStore,
+        currentInstitute: AppAction.payload.currentInstitute
+      }
     case AllActions.INSTITUTE_CREATED:
       appStore.notifications.push(AppAction.payload.notification)
       return { ...appStore }
