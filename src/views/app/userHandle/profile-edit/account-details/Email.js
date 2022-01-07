@@ -11,14 +11,13 @@ import {
   UNEXPECTED_ERROR
 } from 'src/constants/actions'
 
-const Account = () => {
+const Email = () => {
   const {
       appStore: { user, userStorageKey, apiURL, appRoot },
       updateAppStore
     } = useContext(AppContext),
     history = useHistory(),
     [appUser, setAppUser] = useLocalStorage(userStorageKey, null),
-    [userName, setUserName] = useState(user.user_name),
     [userEmail, setUserEmail] = useState(user.email),
     sendUnexpectedError = message => {
       updateAppStore({
@@ -61,37 +60,9 @@ const Account = () => {
           },
           user: updatedUser,
           history,
-          redirectTo: `${appRoot}/${userName}`
+          redirectTo: `${appRoot}/${user.user_name}`
         }
       })
-    },
-    updateUserName = async () => {
-      try {
-        const updateData = {
-            user_name: userName
-          },
-          usernameReq = await fetch(`${apiURL}/member/create/user_name`, {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-              language: 'en',
-              Authorization: `Bearer ${user.accessToken}`
-            },
-            body: JSON.stringify(updateData)
-          })
-        if (usernameReq.ok) {
-          const data = await usernameReq.json()
-          if (data.API_STATUS) {
-            sendProfileUpdated(updateData, data.message)
-          } else {
-            sendUpdateFailed(data.message)
-          }
-        } else {
-          throw new Error('Unexpected Error')
-        }
-      } catch (err) {
-        sendUnexpectedError(err.message)
-      }
     },
     updateUserEmail = async () => {
       try {
@@ -122,34 +93,9 @@ const Account = () => {
       }
     }
 
-  false && console.log(user, userName)
+  false && console.log(user)
   return (
     <Form className={'mb-3'}>
-      {user.user_name === null && (
-        <Form.Group className="mb-3" controlId="formBasicUserName">
-          <Form.Label>Username</Form.Label>
-          <InputGroup className="mb-3">
-            <Form.Control
-              type="text"
-              placeholder="Enter User Name"
-              value={userName ? userName : ''}
-              onChange={({ target: { value } }) => setUserName(value)}
-            />
-            <Button
-              variant="outline-danger"
-              onClick={() => setUserName(user.user_name)}
-            >
-              Cancel
-            </Button>
-            <Button variant="outline-app" onClick={updateUserName}>
-              Save
-            </Button>
-          </InputGroup>
-          <Form.Text className="text-muted">
-            You'll never be able to change your Username after this.
-          </Form.Text>
-        </Form.Group>
-      )}
       <Form.Group className="mb-3" controlId="formBasicUserName">
         <Form.Label>Email address</Form.Label>
         <InputGroup className="mb-3">
@@ -192,4 +138,4 @@ const Account = () => {
   )
 }
 
-export default Account
+export default Email

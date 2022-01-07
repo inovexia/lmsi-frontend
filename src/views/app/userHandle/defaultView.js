@@ -23,7 +23,7 @@ const Profile = ({ match }) => {
       try {
         if (checkRequest.ok) {
           const ProfileInfoData = await checkRequest.json()
-          console.log(ProfileInfoData)
+          // console.log(ProfileInfoData)
           setInfo(ProfileInfoData.response[0])
         } else {
           throw new Error('Unexpected Error')
@@ -100,8 +100,8 @@ const Profile = ({ match }) => {
           </div>
         </div>
       </div>
-      <div className={'profile-details m-3'}>
-        <div className={'personal-information'}>
+      <div className={'profile-details row justify-content-center'}>
+        <div className={'personal-information col-10'}>
           <div className={'d-flex justify-content-between header'}>
             <h3>Personal Information</h3>
           </div>

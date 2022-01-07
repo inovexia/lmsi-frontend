@@ -10,7 +10,7 @@ import {
   UNEXPECTED_ERROR
 } from 'src/constants/actions'
 
-const About = () => {
+const FullName = () => {
   const {
       appStore: { user, userStorageKey, apiURL },
       updateAppStore
@@ -115,4 +115,4 @@ const About = () => {
   )
 }
 
-export default About
+export default FullName
