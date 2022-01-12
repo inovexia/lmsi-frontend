@@ -63,6 +63,10 @@ export const navMenus = {
       label: `Slots`,
       link: `/app/instructor/slots`
     },
+    {
+      label: `Learner`,
+      link: `/app/instructor/learners`
+    },
     { label: `Messages`, link: `#` },
     {
       label: `Users`,
@@ -103,11 +107,12 @@ export const getNavMenu = [
   { label: `Dashboard`, link: `/app/dashboard`, icon: `layout-grid` },
   { label: `Courses`, link: `/app/courses`, icon: `book-open` },
   { label: `Slots`, link: `/app/slots`, icon: `calendar` },
-  { label: `Exam`, link: `/app/exams`, icon: `calendar` },
-  { label: `Results`, link: `/app/results`, icon: `calendar` },
-  { label: `Students`, link: `/app/students`, icon: `users` },
+  { label: `Learner`, link: `/app/learners`, icon: `calendar` },
+  // { label: `Exam`, link: `/app/exams`, icon: `calendar` },
+  // { label: `Results`, link: `/app/results`, icon: `calendar` },
+  // { label: `Students`, link: `/app/students`, icon: `users` },
   { label: `Message`, link: `/app/message`, icon: `calendar` },
-  { label: `Notice Board`, link: `/app/notice`, icon: `blackboard` },
+  // { label: `Notice Board`, link: `/app/notice`, icon: `blackboard` },
   { label: `Live Class`, link: `/app/live-class`, icon: `calendar` }
 ]
 
