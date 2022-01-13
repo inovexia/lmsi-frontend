@@ -12,6 +12,8 @@ const StudentView = React.lazy(() => import('./students'))
 const InstituteView = React.lazy(() => import('./institute'))
 const SlotView = React.lazy(() => import('./slots'))
 const LearnerView = React.lazy(() => import('./learners'))
+const CartView = React.lazy(() => import('./cart'))
+const CheckoutView = React.lazy(() => import('./checkout'))
 const PageNotFound = React.lazy(() => import('./PageNotFound'))
 
 const App = ({ match }) => {
@@ -58,6 +60,18 @@ const App = ({ match }) => {
           path={`${match.url}/students`}
           render={props => {
             return <StudentView {...props} />
+          }}
+        />
+        <Route
+          path={`${match.url}/cart`}
+          render={props => {
+            return <CartView {...props} />
+          }}
+        />
+        <Route
+          path={`${match.url}/checkout`}
+          render={props => {
+            return <CheckoutView {...props} />
           }}
         />
         <Route
