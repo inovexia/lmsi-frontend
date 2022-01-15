@@ -6,7 +6,7 @@ import { Form, InputGroup, Modal, Row, Col } from 'react-bootstrap'
 // import { Icon } from 'src/components/Icon'
 
 // import addEvent from 'src/assets/images/addEvent.png'
-
+import { confirm } from 'src/components/PopUps'
 import { Button /* OutlineButton */ } from 'src/components/Buttons'
 import { apiRequest } from 'src/helpers/Utils'
 import { AppContext } from 'src/AppContext'
@@ -224,10 +224,15 @@ const Slot = ({ match }) => {
       }
     },
     deleteSlot = async () => {
-      if (window.confirm('Are you sure you want to delete?') === false) {
-        return
-      }
       try {
+        const result = await confirm(`Are you sure you want to delete?`, {
+          title: 'Please Confirm',
+          okText: 'Yes',
+          cancelText: 'No'
+        })
+        if (result === false) {
+          return
+        }
         setSlotProcessing(true)
         const deleteSlotReq = await apiRequest(
           'DELETE',

@@ -16,6 +16,8 @@ const ViewApp = React.lazy(() => import('./views/app'))
 
 const ViewHome = React.lazy(() => import('./views/Home'))
 
+const InstitutePublic = React.lazy(() => import('./views/InstitutePublic'))
+
 const ViewError = React.lazy(() => import('./views/Error'))
 
 const ViewUnauthorized = React.lazy(() => import('./views/Unauthorized'))
@@ -90,6 +92,10 @@ const App = () => {
           UserRole.instructor,
           UserRole.learner
         ]}
+      />
+      <Route
+        path={'/institute/:institute_handle'}
+        render={props => <InstitutePublic {...props} />}
       />
       <Route path={'/auth'} render={props => <ViewAuth {...props} />} />
       <Route path={'/error'} exact render={props => <ViewError {...props} />} />
