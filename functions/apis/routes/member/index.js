@@ -1,6 +1,6 @@
 // Todo: CRUD operation on this route
 const { Router } = require('express'),
-  { roleRoute } = include('routes/member/role'),
+  { roleRoute } = require('./role'),
   {
     memberByUserName,
     memberById,
@@ -9,8 +9,8 @@ const { Router } = require('express'),
     deleteMember,
     getMemberByUserName,
     getMemberById,
-    getMembers,
-  } = include('controllers/member'),
+    getMembers
+  } = require('../../controllers/member'),
   memberRoute = Router()
 
 memberRoute.use('/role', roleRoute)

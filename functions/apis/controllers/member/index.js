@@ -1,6 +1,6 @@
-const { Member } = include('models'),
+const { Member } = require('../../models/members'),
   { extend } = require('lodash'),
-  { StatusCodes } = include('constants/status-codes')
+  { StatusCodes } = require('../../constants/status-codes')
 
 exports.memberById = (req, res, next, memberId) => {
   Member.findById(memberId)
@@ -11,7 +11,7 @@ exports.memberById = (req, res, next, memberId) => {
     })
     .catch(error =>
       res.status(StatusCodes.BAD_REQUEST).json({
-        error: error.message,
+        error: error.message
       })
     )
 }
@@ -25,7 +25,7 @@ exports.memberByUserName = (req, res, next, userName) => {
     })
     .catch(error =>
       res.status(StatusCodes.BAD_REQUEST).json({
-        error: error.message,
+        error: error.message
       })
     )
 }
@@ -74,7 +74,7 @@ exports.deleteMember = (req, res) => {
     ? member.remove((err, xMember) => {
         if (err) {
           return res.status(StatusCodes.BAD_REQUEST).json({
-            error: err,
+            error: err
           })
         }
         res.json({ message: 'Member deleted successfully', xMember })
@@ -99,12 +99,12 @@ exports.getMembers = (req, res) => {
     .populate('role')
     .then(members =>
       res.status(StatusCodes.OK).json({
-        members,
+        members
       })
     )
     .catch(error =>
       res.status(StatusCodes.BAD_REQUEST).json({
-        error: error.message,
+        error: error.message
       })
     )
 }

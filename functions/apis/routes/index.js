@@ -3,11 +3,11 @@ const { Router } = require('express') //,
 // { graphqlHTTP } = require('express-graphql'),
 // { buildSchema } = require('graphql')
 
-const apiDocs = include('docs/api.json'),
-  { StatusCodes } = include('constants/status-codes'),
+const apiDocs = require('../docs/api.json'),
+  { StatusCodes } = require('../constants/status-codes'),
   // { schema } = require('graphql'),
   // // graphqlResolvers = require('../graphql/resolvers'),
-  { memberRoute } = include('routes/member'),
+  { memberRoute } = require('./member'),
   apiRoute = Router()
 
 // apiRoute.use('/auth', authRoute)

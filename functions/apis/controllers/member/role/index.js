@@ -1,6 +1,6 @@
-const { Role } = include('models'),
+const { Role } = require('../../../models/members/roles'),
   { extend } = require('lodash'),
-  { StatusCodes } = include('constants/status-codes')
+  { StatusCodes } = require('../../../constants/status-codes')
 
 exports.roleByName = (req, res, next, name) => {
   Role.findOne(
@@ -9,7 +9,7 @@ exports.roleByName = (req, res, next, name) => {
     (err, role) => {
       if (err || !role) {
         return res.status(StatusCodes.BAD_REQUEST).json({
-          error: 'Role not found',
+          error: 'Role not found'
         })
       }
       req.role = role
@@ -25,7 +25,7 @@ exports.roleByLevel = (req, res, next, level) => {
     (err, role) => {
       if (err || !role) {
         return res.status(StatusCodes.BAD_REQUEST).json({
-          error: 'Role not found',
+          error: 'Role not found'
         })
       }
       req.role = role
@@ -38,7 +38,7 @@ exports.roleById = (req, res, next, roleId) => {
   Role.findById(roleId, { level: 1, name: 1, status: 1 }, (err, role) => {
     if (err || !role) {
       return res.status(StatusCodes.BAD_REQUEST).json({
-        error: 'Role not found',
+        error: 'Role not found'
       })
     }
     req.role = role
@@ -84,7 +84,7 @@ exports.deleteRole = (req, res) => {
   role.remove((err, xRole) => {
     if (err) {
       return res.status(StatusCodes.BAD_REQUEST).json({
-        error: err,
+        error: err
       })
     }
     res.json({ message: 'Role deleted successfully', xRole })
@@ -107,12 +107,12 @@ exports.getRoles = (req, res) => {
   Role.find()
     .then(roles =>
       res.status(StatusCodes.OK).json({
-        roles,
+        roles
       })
     )
     .catch(error =>
       res.status(StatusCodes.BAD_REQUEST).json({
-        error: error.message,
+        error: error.message
       })
     )
 }

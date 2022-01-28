@@ -11,8 +11,8 @@ const {
   getRoleByName,
   getRoleByLevel,
   getRoleById,
-  getRoles,
-} = include('controllers/member/role')
+  getRoles
+} = require('../../../controllers/member/role')
 const roleRoute = Router()
 
 // ? createRole at /c & /create
