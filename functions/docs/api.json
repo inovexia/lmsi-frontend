@@ -1,0 +1,49 @@
+[
+  {
+    "method": "GET",
+    "endpoint": "/api/member/role",
+    "description": "Show All Roles",
+    "auth": "Temp Open"
+  },
+  {
+    "method": "GET",
+    "endpoint": "/api/member/role/:roleId",
+    "description": "Show Role by roleId",
+    "auth": "Temp Open"
+  },
+  {
+    "method": "GET",
+    "endpoint": "/api/member/role/name/:name",
+    "alt-endpoint": "/member/role/n/:name",
+    "description": "Show Role by name",
+    "auth": "Temp Open"
+  },
+  {
+    "method": "GET",
+    "endpoint": "/api/member/role/level/:level",
+    "alt-endpoint": "/member/role/l/:level",
+    "description": "Show Role by level",
+    "auth": "Temp Open"
+  },
+  {
+    "method": "POST",
+    "endpoint": "/api/member/role/create",
+    "alt-endpoint": "/member/role/c",
+    "description": "Create New Role for the system",
+    "auth": "Temp Open"
+  },
+  {
+    "method": "PUT",
+    "endpoint": "/api/member/role/update/:roleId",
+    "alt-endpoint": "/member/role/u/:roleId",
+    "description": "Update Role on the roleId",
+    "auth": "Temp Open"
+  },
+  {
+    "method": "DELETE",
+    "endpoint": "/api/member/role/delete/:roleId",
+    "alt-endpoint": "/member/role/d/:roleId",
+    "description": "Delete Role on the roleId",
+    "auth": "Temp Open"
+  }
+]

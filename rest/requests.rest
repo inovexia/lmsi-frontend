@@ -1,0 +1,119 @@
+### 404 request
+GET http://localhost:8888/api/jklfjkldjlkdfjlkdf
+
+###
+GET http://localhost:8888/api/
+
+###
+GET http://localhost:8888/api/member/role
+
+###
+GET http://localhost:8888/api/member/role/61eb9a74cfa61e54b8d88f23
+
+###
+GET http://localhost:8888/api/member/role/l/1
+
+###
+GET http://localhost:8888/api/member/role/level/4
+
+###
+GET http://localhost:8888/api/member/role/n/Super%20Admin
+
+###
+GET http://localhost:8888/api/member/role/name/Instructor
+
+###
+POST http://localhost:8888/api/member/role/c
+Content-Type: application/json
+
+{
+	"level": 5,
+	"name": "tester"
+}
+
+###
+POST http://localhost:8888/api/member/role/create
+Content-Type: application/json
+
+{
+	"level": 5,
+	"name": "tester"
+}
+
+###
+PUT http://localhost:8888/api/member/role/u/61ed873f847610ec126f60f1
+Content-Type: application/json
+
+{
+	"level": 5,
+	"name": "new tester"
+}
+
+###
+PUT http://localhost:8888/api/member/role/update/61ed8303f173f52c8d74a28b
+Content-Type: application/json
+
+{
+	"level": 5,
+	"name": "new tester"
+}
+
+###
+DELETE http://localhost:8888/api/member/role/d/61ed873f847610ec126f60f1
+
+###
+DELETE http://localhost:8888/api/member/role/delete/61ed8303f173f52c8d74a28b
+
+###
+GET http://localhost:8888/api/member
+
+###
+GET http://localhost:8888/api/member/id/61eba20b53438fc9cf48b05e
+
+###
+GET http://localhost:8888/api/member/4nkit5hukla
+
+###
+POST http://localhost:8888/api/member/create
+Content-Type: application/json
+
+{
+  "hashed_password":"hashed_password",
+  "email": "email@email.com",
+  "userName": "email",
+  "firstName":"ema",
+  "lastName":"il",
+  "mobile": 123
+}
+
+###
+PUT http://localhost:8888/api/member/u/61eedf1f3df305f20f824285
+Content-Type: application/json
+
+{
+  "hashed_password":"hashed_password",
+  "email": "email@email.com",
+  "userName": "email",
+  "firstName":"ema",
+  "lastName":"il",
+  "mobile": 123456
+}
+
+###
+PUT http://localhost:8888/api/member/update/61eedf1f3df305f20f824285
+Content-Type: application/json
+
+{
+  "hashed_password":"hashed_password",
+  "email": "email@email.com",
+  "userName": "email",
+  "firstName":"ema",
+  "lastName":"il",
+  "mobile": 123456789
+}
+
+###
+DELETE http://localhost:8888/api/member/delete/61eedf1f3df305f20f824285
+
+###
+DELETE http://localhost:8888/api/member/d/61eedf1f3df305f20f824285
