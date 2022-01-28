@@ -1,3 +1,6 @@
+// ? For accessing .env file variables
+require('dotenv').config()
+
 const express = require('express'),
   // db = require('mongoose'),
   serverless = require('serverless-http'),
@@ -6,7 +9,9 @@ const express = require('express'),
   apiRoute = Router()
 
 // db.connect(
-//   'mongodb+srv://dev:dev@4321@ilms.93pjm.mongodb.net/iLMS?retryWrites=true&w=majority'
+//   process.env.NODE_ENV === 'development'
+//     ? process.env.LOCAL_MONGO_URI
+//     : process.env.REMOTE_MONGO_URI
 // )
 
 // db.connection.on('connected', () => console.log(`DB connected successfully`))
@@ -14,7 +19,10 @@ const express = require('express'),
 // db.connection.on('error', error => console.error(error.message))
 
 apiRoute.get('/', (req, res) =>
-  res.status(200).json({ message: 'Ping Successful API Server Running...' })
+  res.status(200).json({
+    message: 'Ping Successful API Server Running...',
+    mongoURL: process.env.REMOTE_MONGO_URI
+  })
 )
 
 apiRoute.get('/users', (req, res) =>
