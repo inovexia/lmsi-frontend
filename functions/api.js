@@ -1,17 +1,17 @@
 const express = require('express'),
-  db = require('mongoose'),
+  // db = require('mongoose'),
   serverless = require('serverless-http'),
   { Router } = express,
   app = express(),
   apiRoute = Router()
 
-db.connect(
-  'mongodb+srv://dev:dev@4321@ilms.93pjm.mongodb.net/iLMS?retryWrites=true&w=majority'
-)
+// db.connect(
+//   'mongodb+srv://dev:dev@4321@ilms.93pjm.mongodb.net/iLMS?retryWrites=true&w=majority'
+// )
 
-db.connection.on('connected', () => console.log(`DB connected successfully`))
+// db.connection.on('connected', () => console.log(`DB connected successfully`))
 
-db.connection.on('error', error => console.error(error.message))
+// db.connection.on('error', error => console.error(error.message))
 
 apiRoute.get('/', (req, res) =>
   res.status(200).json({ message: 'Ping Successful API Server Running...' })
